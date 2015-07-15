@@ -28,7 +28,7 @@ int main(int argc, char*argv[])
 		// TODO - You can alternate between different scenes for testing different things
 		// Static Scene contains no animation
 		// Animated Scene does
-#if defined(PLATFORM_OSX)		
+#if defined(PLATFORM_OSX)		//Bad OS!
 //		world.LoadScene("Scenes/AnimatedScene.scene");
 //		world.LoadScene("Scenes/StaticScene.scene");
 //		world.LoadScene("Scenes/CoordinateSystem.scene");
