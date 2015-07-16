@@ -192,64 +192,37 @@ ci_string Animation::GetName() const
 
 glm::mat4 Animation::GetAnimationWorldMatrix() const
 {
-    // @TODO 3 - Find the 2 keys to interpolate the transformation
-    //           Interpolate the position, scaling and rotation separately
-    //           Finally concatenate the interpolated transforms into a single
-    //           world transform and return it.
-    
-    mat4 worldMatrix(1.0f);
+	
+	float beforeT = 0.0f;
+	AnimationKey before;
+	AnimationKey after;
+	float afterT = mDuration;
 
-	//Following code retrieves the two keys
-	AnimationKey keyAfter, keyBefore;
-
-	//Used for interpolation
-	float keyTimeBefore;
-
-	//Increment is found by dividing the duration of an animation cycle by the amount of keys
-	float keyInc = mDuration / (mKey.size() - 1);
-
-	//Counter to keep track
-	int count = 0;
-
-	for(auto &v : mKeyTime) 
-	{
-		if((mCurrentTime > v) && (mCurrentTime < v + keyInc)) 
-		{
-			keyBefore = mKey.at(count); 
-			keyAfter = mKey.at(count + 1);
-			keyTimeBefore = v;
-			break;
+	for (int i = 0; i < mKeyTime.size(); i++){ //find before and after keyframes
+		if (mKeyTime[i] >= beforeT && mKeyTime[i] <= mCurrentTime){
+			beforeT = mKeyTime[i];
+			before = mKey[i];
 		}
-		
-		count++;
+		if (mKeyTime[i] <= afterT && mKeyTime[i] >= mCurrentTime){
+			afterT = mKeyTime[i];
+			after = mKey[i];
+		}
 	}
+	//% between keyframes
+	float dc = mCurrentTime - beforeT;
+	float dt = afterT - beforeT;
+	float pt = dc / dt;
 	
-	//Interpolation matrices
-	mat4 interpolateAfter, interpolateBefore;
-
-	interpolateAfter = translate(interpolateAfter, keyAfter.GetPosition());
-	interpolateBefore = translate(interpolateBefore, keyBefore.GetPosition());
-
-	float interpolateProgress = abs(1-(mCurrentTime-(keyTimeBefore*keyInc))/keyInc);
-
-	if(interpolateProgress > 1)
-	{
-		interpolateProgress = interpolateProgress-1;
-	}
-
-	interpolateAfter = scale(interpolateAfter, keyAfter.GetScaling());
-	interpolateBefore = scale(interpolateBefore, keyBefore.GetScaling());
-
-	//Use mix to interpolate
-	worldMatrix = mix(interpolateAfter, interpolateBefore, interpolateProgress);
+	vec3 posVec = mix(before.mPosition, after.mPosition, pt);
+	mat4 t = translate(mat4(1.0f), posVec);
 	
-	//For rotation, we need to use quats
-	quat angleBeforeQuat = angleAxis(keyBefore.GetRotationAngle(), keyBefore.GetRotationAxis());
-	quat angleAfterQuat = angleAxis(keyAfter.GetRotationAngle(), keyAfter.GetRotationAxis());
-	quat myAngleQuat = slerp(angleBeforeQuat, angleAfterQuat, interpolateProgress);
+	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
+	mat4 s = scale(mat4(1.0f), scaleVec);
 	
-	//Need to cast the quat as a matrix to multiply the matrices together
-	mat4 rotateMatrix = mat4_cast(myAngleQuat);
-        
-    return worldMatrix * rotateMatrix;
+	quat beforeQuat = angleAxis(before.mRotationAngleInDegrees, before.mRotationAxis);
+	quat afterQuat = angleAxis(after.mRotationAngleInDegrees, after.mRotationAxis);
+	quat rotationQuat = slerp(beforeQuat, afterQuat, pt);
+	mat4 r = mat4_cast(rotationQuat);
+
+	mat4 worldMatrix = t * r * s;
 }

@@ -122,27 +122,13 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 
 glm::mat4 Model::GetWorldMatrix() const
 {
-	// @TODO 2 - You must build the world matrix from the position, scaling and rotation informations
-    //           If the model has an animation, get the world transform from the animation.
-	mat4 worldMatrix(1.0f);
-    
+	mat4 worldMatrix;
 
-	//If loop checks to see if the models have an animation
-	//If they do, perform the animation by getting the AnimationWorldMatrix
-	//Else, don't animate
-	if(mAnimation == nullptr) {
-		vec3 scaleThing = GetScaling();
-		vec3 position = GetPosition();
-		vec3 rotAxis = GetRotationAxis();
-		float rotAngle = GetRotationAngle();
-		
-		//The order is actually Scale, Rotate, Translate, but the code is read in the reverse order
-		//So says the OpenGL tutorial
-		worldMatrix = translate(worldMatrix, position);
-		worldMatrix = rotate(worldMatrix, rotAngle, rotAxis);
-		worldMatrix = scale(worldMatrix, scaleThing);
-	} else {
-		worldMatrix = mAnimation->GetAnimationWorldMatrix();
+	if (mAnimation != nullptr){
+		worldMatrix = (*mAnimation).GetAnimationWorldMatrix();
+	}
+	else{
+		worldMatrix = translate(mat4(1.0f), mPosition) * rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis) * scale(mat4(1.0f), mScaling);
 	}
 
 	return worldMatrix;
