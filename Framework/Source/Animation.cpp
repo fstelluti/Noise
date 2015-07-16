@@ -225,4 +225,6 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	mat4 r = mat4_cast(rotationQuat);
 
 	mat4 worldMatrix = t * r * s;
+
+	return worldMatrix;
 }
