@@ -8,7 +8,6 @@
 //
 
 #pragma once
-
 struct GLFWwindow;
 
 class EventManager
@@ -29,7 +28,6 @@ public:
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();
-
 
 private:
 	// Time

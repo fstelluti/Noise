@@ -10,6 +10,10 @@
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"
+#include "Sound.h"
+
+#include <fmod.hpp>
+#include <fmod_errors.h>
 
 
 int main(int argc, char*argv[])
@@ -42,7 +46,7 @@ int main(int argc, char*argv[])
 	// Main Loop
 	do
 	{
-		// Update Event Manager - Frame time / input / events processing 
+		// Update Event Manager - Frame time / input / events processing / sound
 		EventManager::Update();
 
 		// Update World

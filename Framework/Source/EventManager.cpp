@@ -9,8 +9,11 @@
 
 #include "EventManager.h"
 #include "Renderer.h"
+#include "Sound.h"
 
 #include <GLFW/glfw3.h>
+#include "fmod.hpp"
+#include "fmod_errors.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -30,6 +33,9 @@ float  EventManager::sMouseDeltaY = 0.0f;
 
 // Window
 GLFWwindow* EventManager::spWindow = nullptr;
+
+// Sound
+Sound sound;
 
 
 void EventManager::Initialize()
@@ -84,6 +90,10 @@ void EventManager::Initialize()
 	// Initial time
 	sLastFrameTime = glfwGetTime();
 
+	//initialize sound
+	sound = Sound();
+	sound.initialize();
+	sound.playsong("Ariel.mp3");
 }
 
 void EventManager::Shutdown()
@@ -91,6 +101,8 @@ void EventManager::Shutdown()
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	spWindow = nullptr;
+
+	sound.shutdown();
 }
 
 void EventManager::Update()
@@ -110,6 +122,9 @@ void EventManager::Update()
 	double currentTime = glfwGetTime();
 	sFrameTime = static_cast<float>(currentTime - sLastFrameTime);
 	sLastFrameTime = currentTime;
+
+	// update sound
+	sound.update();
 }
 
 float EventManager::GetFrameTime()
