@@ -56,6 +56,9 @@
     <ClCompile Include="..\Source\Animation.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -90,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Animation.h">
       <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ThirdPersonCamera.h">
+      <Filter>Source Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
