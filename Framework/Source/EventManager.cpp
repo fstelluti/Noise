@@ -89,7 +89,7 @@ void EventManager::Initialize()
 void EventManager::Shutdown()
 {
 	// Close OpenGL window and terminate GLFW
-	glfwTerminate();
+	//glfwTerminate();
 	spWindow = nullptr;
 }
 

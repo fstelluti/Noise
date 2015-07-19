@@ -13,7 +13,7 @@ public:
 	//sets the target which the camera rotates around
 	virtual void setTarget(Model* model);
 private:
-	float distanceFromTarget;
+	float radius;
 	float rotateX;
 	float rotateY;
 	float angleSpeed;

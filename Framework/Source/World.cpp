@@ -222,12 +222,21 @@ void World::LoadScene(const char * scene_path)
 				CubeModel* cube = new CubeModel();
 				cube->Load(iss);
 				mModel.push_back(cube);
+
+				
+				
+				((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)cube);
+
 			}
             else if( result == "sphere" )
             {
                 SphereModel* sphere = new SphereModel();
                 sphere->Load(iss);
                 mModel.push_back(sphere);
+				
+				//((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)sphere);
+
+
             }
 			else if ( result == "animationkey" )
 			{

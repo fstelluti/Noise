@@ -11,10 +11,10 @@
 
 ThirdPersonCamera::ThirdPersonCamera(void)
 {
-	distanceFromTarget = 5.0f;
+	radius = 10.0f;
 	rotateX = 0;
 	rotateY = 0;
-	angleSpeed = 1;
+	angleSpeed = 10;
 	moveSpeed = 1;
 	
 	targetModel = NULL;
@@ -46,23 +46,30 @@ void ThirdPersonCamera::Update(float dt)
 	else if (rotateX < 360){
 		rotateX += 360;
 	}
-	if (rotateY > 360){
-		rotateY -= 360;
+	if (rotateY > 180){
+		rotateY = 180;
 	}
-	else if (rotateY < 360){
-		rotateY += 360;
+	else if (rotateY < -180){
+		rotateY = -180;
 	}
-	
-	glm::vec3 displaceVector = glm::vec3(1.0f);
-
 }
 
 glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
 	
+	glm::vec3 displacement = glm::vec3(0.0f,-rotateY/180,1.0f) * radius;
+	
+	float RX = glm::radians(rotateX);
+
+	displacement = glm::mat3(
+			cosf(RX),0.0f,sinf(RX),
+			0.0f,1.0f,0.0f,
+			-sinf(RX),0.0f,cosf(RX)) * displacement;
+
+
 	if(targetModel){
-		return glm::lookAt(targetModel->GetPosition(),-targetModel->GetPosition(),glm::vec3(0.0f,1.0f,0.0f));
+		return glm::lookAt(targetModel->GetPosition()-displacement,targetModel->GetPosition(),glm::vec3(0.0f,1.0f,0.0f));
 	}
 	else
-		return glm::mat4(1);
+		return glm::lookAt(glm::vec3(0,0,0)-displacement, glm::vec3(0,0,0),glm::vec3(0.0f,1.0f,0.0f));
 }
 
