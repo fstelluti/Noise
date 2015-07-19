@@ -13,6 +13,7 @@
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "ThirdPersonCamera.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -34,7 +35,10 @@ World::World()
 	mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+	mCamera.push_back(new ThirdPersonCamera());
+
 	mCurrentCamera = 0;
+
 
 }
 
@@ -97,7 +101,13 @@ void World::Update(float dt)
 			mCurrentCamera = 2;
 		}
 	}
-
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
+	{
+		if (mCamera.size() > 3)
+		{
+			mCurrentCamera = 3;
+		}
+	}
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -230,6 +240,9 @@ void World::LoadScene(const char * scene_path)
 				Animation* anim = new Animation();
 				anim->Load(iss);
 				mAnimation.push_back(anim);
+
+				//TODO: FIND A BETTER WAY TO ATTACH CAMERA TO OBJECTS
+				((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)anim);
 			}
 			else if ( result.empty() == false && result[0] == '#')
 			{

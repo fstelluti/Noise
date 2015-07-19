@@ -228,3 +228,33 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 
 	return worldMatrix;
 }
+
+AnimationKey Animation::getPrevKey(){
+	return mKey[getPrevKeyIndex()];
+}
+AnimationKey Animation::getNextKey(){
+	return mKey[getNextKeyIndex()];
+}
+
+int Animation::getNextKeyIndex(){
+	int i;
+	for(;i < mKeyTime.size() && mCurrentTime > mKeyTime[i]; i++);
+	return i;
+}
+
+int Animation::getPrevKeyIndex(){
+	return getNextKeyIndex()-1;
+}
+
+
+
+float Animation::getKeyProgress(){
+	int before = getPrevKeyIndex();
+	int after = getNextKeyIndex();
+	return (mKeyTime[before]-mCurrentTime) / (mKeyTime[after] - mKeyTime[before]);
+}
+
+glm::vec3 Animation::getPosition(){
+	return glm::mix(getPrevKey().GetPosition(), getNextKey().GetPosition(), getKeyProgress());
+}
+

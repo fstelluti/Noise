@@ -41,6 +41,9 @@ public:
     virtual void Update(float dt);
     virtual void Draw();
 
+	//a function that gets the position of the object
+	virtual glm::vec3 getPosition();
+
     void AddKey(AnimationKey* key, float time);
 	glm::mat4 GetAnimationWorldMatrix() const;
 
@@ -51,6 +54,25 @@ protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
 
 private:
+
+
+	/*  #justkeythings  */
+	
+	//gets the previous key's index
+	int getPrevKeyIndex();
+
+	//gets the next key's index
+	int getNextKeyIndex();
+	
+	//gets the key that happened before current time
+	AnimationKey getPrevKey();
+
+	//gets the key that happens after current time
+	AnimationKey getNextKey();
+
+	//gets how much progress has been made between two keys
+	float Animation::getKeyProgress();
+
 	ci_string mName; // The model name is mainly for debugging
 
 	float mCurrentTime;
