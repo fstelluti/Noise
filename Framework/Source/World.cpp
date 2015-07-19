@@ -223,19 +223,12 @@ void World::LoadScene(const char * scene_path)
 				cube->Load(iss);
 				mModel.push_back(cube);
 
-				
-				
-				((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)cube);
-
 			}
             else if( result == "sphere" )
             {
                 SphereModel* sphere = new SphereModel();
                 sphere->Load(iss);
                 mModel.push_back(sphere);
-				
-				//((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)sphere);
-
 
             }
 			else if ( result == "animationkey" )
@@ -250,8 +243,8 @@ void World::LoadScene(const char * scene_path)
 				anim->Load(iss);
 				mAnimation.push_back(anim);
 
-				//TODO: FIND A BETTER WAY TO ATTACH CAMERA TO OBJECTS
-				((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)anim);
+
+
 			}
 			else if ( result.empty() == false && result[0] == '#')
 			{
@@ -266,6 +259,14 @@ void World::LoadScene(const char * scene_path)
 	    }
 	}
 	input.close();
+
+	//Attach third person camera to some object
+	if(mModel[2]){
+		((ThirdPersonCamera*) mCamera[3])->setTarget(mModel[2]);
+	}
+	if(mAnimation[0]){
+		((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)mAnimation[0]);
+	}
 
 	// Set Animation vertex buffers
 	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)

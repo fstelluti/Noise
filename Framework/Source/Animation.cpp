@@ -223,38 +223,38 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	quat afterQuat = angleAxis(after.mRotationAngleInDegrees, after.mRotationAxis);
 	quat rotationQuat = slerp(beforeQuat, afterQuat, pt);
 	mat4 r = mat4_cast(rotationQuat);
-
+	
 	mat4 worldMatrix = t * r * s;
 
 	return worldMatrix;
 }
 
-AnimationKey Animation::getPrevKey(){
+AnimationKey Animation::getPrevKey() const {
 	return mKey[getPrevKeyIndex()];
 }
-AnimationKey Animation::getNextKey(){
+AnimationKey Animation::getNextKey() const{
 	return mKey[getNextKeyIndex()];
 }
 
-int Animation::getNextKeyIndex(){
-	int i;
-	for(;i < mKeyTime.size() && mCurrentTime > mKeyTime[i]; i++);
-	return i;
+int Animation::getNextKeyIndex() const {
+	int next = 0;
+	for(;next < mKeyTime.size() && mCurrentTime > mKeyTime[next]; next++);
+	return next;
 }
 
-int Animation::getPrevKeyIndex(){
-	return getNextKeyIndex()-1;
+int Animation::getPrevKeyIndex() const{
+	return getNextKeyIndex()-1; 
 }
 
 
 
-float Animation::getKeyProgress(){
+float Animation::getKeyProgress() const{
 	int before = getPrevKeyIndex();
 	int after = getNextKeyIndex();
-	return (mKeyTime[before]-mCurrentTime) / (mKeyTime[after] - mKeyTime[before]);
+	return (mKeyTime[after]-mCurrentTime) / (mKeyTime[1] - mKeyTime[0]);
 }
 
-glm::vec3 Animation::getPosition(){
-	return glm::mix(getPrevKey().GetPosition(), getNextKey().GetPosition(), getKeyProgress());
+glm::vec3 Animation::getPosition() const{
+	return glm::mix(getNextKey().GetPosition(),getPrevKey().GetPosition(), getKeyProgress());
 }
 

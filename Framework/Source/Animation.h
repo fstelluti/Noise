@@ -42,7 +42,7 @@ public:
     virtual void Draw();
 
 	//a function that gets the position of the object
-	virtual glm::vec3 getPosition();
+	virtual glm::vec3 getPosition() const;
 
     void AddKey(AnimationKey* key, float time);
 	glm::mat4 GetAnimationWorldMatrix() const;
@@ -59,19 +59,19 @@ private:
 	/*  #justkeythings  */
 	
 	//gets the previous key's index
-	int getPrevKeyIndex();
+	int getPrevKeyIndex() const;
 
 	//gets the next key's index
-	int getNextKeyIndex();
+	int getNextKeyIndex() const;
 	
 	//gets the key that happened before current time
-	AnimationKey getPrevKey();
+	AnimationKey getPrevKey() const;
 
 	//gets the key that happens after current time
-	AnimationKey getNextKey();
+	AnimationKey getNextKey() const;
 
 	//gets how much progress has been made between two keys
-	float Animation::getKeyProgress();
+	float getKeyProgress() const;
 
 	ci_string mName; // The model name is mainly for debugging
 
