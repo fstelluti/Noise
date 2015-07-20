@@ -264,9 +264,9 @@ void World::LoadScene(const char * scene_path)
 	if(mModel[2]){
 		((ThirdPersonCamera*) mCamera[3])->setTarget(mModel[2]);
 	}
-	if(mAnimation[0]){
-		((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)mAnimation[0]);
-	}
+	//if(mAnimation[1]){
+	//	((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)mAnimation[1]);
+	//}
 
 	// Set Animation vertex buffers
 	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)

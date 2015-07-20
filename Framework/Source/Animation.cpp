@@ -213,7 +213,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	float dt = afterT - beforeT;
 	float pt = dc / dt;
 	
-	vec3 posVec = mix(before.mPosition, after.mPosition, pt);
+	vec3 posVec = getPosition() ;// mix(before.mPosition, after.mPosition, pt);
 	mat4 t = translate(mat4(1.0f), posVec);
 	
 	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
@@ -245,8 +245,6 @@ int Animation::getNextKeyIndex() const {
 int Animation::getPrevKeyIndex() const{
 	return getNextKeyIndex()-1; 
 }
-
-
 
 float Animation::getKeyProgress() const{
 	int before = getPrevKeyIndex();
