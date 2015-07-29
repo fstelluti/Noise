@@ -93,7 +93,7 @@ void EventManager::Initialize()
 	//initialize sound
 	sound = Sound();
 	sound.initialize();
-	sound.playsong("Ariel.mp3");
+	sound.playSong("../Assets/Ariel.mp3");
 }
 
 void EventManager::Shutdown()
@@ -102,7 +102,7 @@ void EventManager::Shutdown()
 	glfwTerminate();
 	spWindow = nullptr;
 
-	sound.shutdown();
+	/*sound.shutdown();*/
 }
 
 void EventManager::Update()
@@ -124,7 +124,7 @@ void EventManager::Update()
 	sLastFrameTime = currentTime;
 
 	// update sound
-	sound.update();
+	/*sound.update();*/
 }
 
 float EventManager::GetFrameTime()

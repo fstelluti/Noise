@@ -10,7 +10,7 @@
 	void             *extradriverdata = 0;
 	int               numsubsounds;
 
-	void initialize(){
+	void Sound::initialize(){
 		
 		Common_Init(&extradriverdata);
 
@@ -32,7 +32,7 @@
 		ERRCHECK(result);
 	}
 
-	void playSong(const char *song){
+	void Sound::playSong(const char *song){
 		result = sSystem->createStream(song, FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
 		ERRCHECK(result);
 
@@ -59,7 +59,7 @@
 		channel->setLoopCount(-1);
 	}
 
-	void update(){
+	void Sound::update(){
 		Common_Update();
 
 		if (Common_BtnPress(BTN_ACTION1))
@@ -109,7 +109,7 @@
 		}
 	}
 
-	void shutDown(){
+	void Sound::shutDown(){
 		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
 		ERRCHECK(result);
 		result = sSystem->close();

@@ -8,19 +8,19 @@ class Sound{
 public:
 	FMOD::System     *sSystem;
 	FMOD::Sound      *sound, *sound_to_play;
-	FMOD::Channel    *channel = 0;
+	FMOD::Channel    *channel;
 	FMOD_RESULT       result;
 	unsigned int      version;
-	void             *extradriverdata = 0;
+	void             *extradriverdata;
 	int               numsubsounds;
 
 	void initialize();
 
-	void playsong(const char *song);
+	void playSong(const char *song);
 
 	void update();
 
-	void shutdown();
+	void shutDown();
 };
 
 #endif
