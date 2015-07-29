@@ -58,6 +58,7 @@ void FirstPersonCamera::Update(float dt)
 	mLookAt = vec3(cosf(phi)*cosf(theta), sinf(phi), -cosf(phi)*sinf(theta));
 	
 	vec3 sideVector = glm::cross(mLookAt, vec3(0.0f, 1.0f, 0.0f));
+	vec3 upVector = vec3(0.0f,1.0f,0.0f);
 	glm::normalize(sideVector);
 
 	// A S D W for motion along the camera basis vectors
@@ -79,6 +80,15 @@ void FirstPersonCamera::Update(float dt)
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A ) == GLFW_PRESS)
 	{
 		mPosition -= sideVector * dt * mSpeed;
+	}
+
+	//space and shift for up and down
+
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS){
+		mPosition += upVector * dt * mSpeed;
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS){
+		mPosition -= upVector * dt * mSpeed;
 	}
 }
 
