@@ -25,7 +25,7 @@ public:
 	
     static World* GetInstance();
 
-	void Update(float dt);
+	void Update(float dt, float currentVolume);
 	void Draw();
 
 	void LoadScene(const char * scene_path);

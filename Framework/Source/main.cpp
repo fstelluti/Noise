@@ -51,7 +51,8 @@ int main(int argc, char*argv[])
 
 		// Update World
 		float dt = EventManager::GetFrameTime();
-		world.Update(dt);
+		float currentVolume = EventManager::GetCurrentVolume();
+		world.Update(dt, currentVolume);
 
 		// Draw World
 		world.Draw();

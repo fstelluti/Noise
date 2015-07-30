@@ -38,7 +38,7 @@ public:
 
 	void CreateVertexBuffer();
 
-    virtual void Update(float dt);
+    virtual void Update(float dt, float currentVolume);
     virtual void Draw();
 
     void AddKey(AnimationKey* key, float time);
@@ -55,6 +55,7 @@ private:
 
 	float mCurrentTime;
     float mDuration;
+	float mCurrentVolume;
 
     std::vector<AnimationKey> mKey;
     std::vector<float> mKeyTime;

@@ -78,7 +78,7 @@ void Animation::CreateVertexBuffer()
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*mVertexBuffer.size(), &(mVertexBuffer[0]), GL_STATIC_DRAW);
 }
 
-void Animation::Update(float dt)
+void Animation::Update(float dt, float currentVolume)
 {
 	mCurrentTime += dt;
 
@@ -86,6 +86,7 @@ void Animation::Update(float dt)
     {
         mCurrentTime -= mDuration;
     }
+	mCurrentVolume = currentVolume;
 }
 
 void Animation::Draw()
@@ -217,6 +218,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	mat4 t = translate(mat4(1.0f), posVec);
 	
 	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
+	scaleVec = scaleVec + scaleVec * mCurrentVolume;
 	mat4 s = scale(mat4(1.0f), scaleVec);
 	
 	quat beforeQuat = angleAxis(before.mRotationAngleInDegrees, before.mRotationAxis);
