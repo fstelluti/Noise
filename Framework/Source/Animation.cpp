@@ -215,6 +215,8 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	float pt = dc / dt;
 	
 	vec3 posVec = mix(before.mPosition, after.mPosition, pt);
+	vec3 up(0.0f, 1.0f, 0.0f);
+	posVec = posVec + up * mCurrentVolume;
 	mat4 t = translate(mat4(1.0f), posVec);
 	
 	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
