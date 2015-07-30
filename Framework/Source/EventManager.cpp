@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 using namespace std;
 
 
@@ -36,6 +37,16 @@ GLFWwindow* EventManager::spWindow = nullptr;
 
 // Sound
 Sound sound;
+FMOD_DSP_PARAMETER_FFT *fftParameter;
+float val;
+unsigned int len;
+char s[256];
+int windowsize = 2048;
+float *specLeft = new float[windowsize / 2];
+float *specRight = new float[windowsize / 2];
+float *spec = new float[windowsize / 2];
+float currentVolume = 0;
+
 
 
 void EventManager::Initialize()
@@ -124,7 +135,28 @@ void EventManager::Update()
 	sLastFrameTime = currentTime;
 
 	// update sound
-	/*sound.update();*/
+	sound.update();
+
+	sound.fft->setParameterInt(FMOD_DSP_FFT_WINDOWSIZE, windowsize);
+	sound.fft->getParameterFloat(FMOD_DSP_FFT_DOMINANT_FREQ, &val, 0, 0);
+	sound.fft->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void **)&fftParameter, &len, s, 256);
+	float globalVolume = 0;
+	for (int i = 0; i < windowsize / 2; i++){
+		specLeft[i] = fftParameter->spectrum[0][i];
+		specRight[i] = fftParameter->spectrum[1][i];
+		spec[i] = specLeft[i] + specRight[i] / 2;
+		globalVolume += spec[i];
+	}
+	globalVolume = globalVolume / 1024;
+	currentVolume = globalVolume * 1000;
+
+	//THE FOLLOWING LINES WILL NORMALIZE THE SPECTRUM VALUES
+	/*auto maxIterator = std::max_element(&spec[0], &spec[windowsize / 2]);
+	float maxVol = *maxIterator;
+
+	// Normalize
+	if (maxVol != 0)
+		std::transform(&spec[0], &spec[windowsize / 2], &spec[0], [maxVol](float dB) -> float { return dB / maxVol; });*/
 }
 
 float EventManager::GetFrameTime()
@@ -151,7 +183,9 @@ float EventManager::GetMouseMotionY()
 {
 	return sMouseDeltaY;
 }
-
+float EventManager::GetCurrentVolume(){
+	return currentVolume;
+}
 void EventManager::EnableMouseCursor()
 {
 	glfwSetInputMode(spWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);

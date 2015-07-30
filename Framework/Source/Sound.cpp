@@ -5,6 +5,7 @@
 	FMOD::System     *sSystem;
 	FMOD::Sound      *sound, *sound_to_play;
 	FMOD::Channel    *channel = 0;
+	FMOD::DSP		 *fft;
 	FMOD_RESULT       result;
 	unsigned int      version;
 	void             *extradriverdata = 0;
@@ -30,10 +31,12 @@
 	
 		result = sSystem->init(32, FMOD_INIT_NORMAL, extradriverdata);
 		ERRCHECK(result);
+
+		result = sSystem->createDSPByType(FMOD_DSP_TYPE_FFT, &fft);
 	}
 
 	void Sound::playSong(const char *song){
-		result = sSystem->createStream(song, FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
+		result = sSystem->createStream(song, FMOD_LOOP_NORMAL, 0, &sound);
 		ERRCHECK(result);
 
 		result = sound->getNumSubSounds(&numsubsounds);
@@ -57,6 +60,7 @@
 
 		channel->setMode(FMOD_LOOP_NORMAL);
 		channel->setLoopCount(-1);
+		channel->addDSP(0, fft);
 	}
 
 	void Sound::update(){

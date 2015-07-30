@@ -9,6 +9,7 @@ public:
 	FMOD::System     *sSystem;
 	FMOD::Sound      *sound, *sound_to_play;
 	FMOD::Channel    *channel;
+	FMOD::DSP		 *fft;
 	FMOD_RESULT       result;
 	unsigned int      version;
 	void             *extradriverdata;
