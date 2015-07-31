@@ -1,0 +1,98 @@
+[Animation]
+name		= "RotateX"
+
+[Animation]
+name		= "StretchX"
+
+[Animation]
+name		= "StretchY"
+
+[Animation]
+name		= "StretchZ"
+
+[Animation]
+name		= "Scale"
+
+[Animation]
+name		= "TranslateX"
+
+[Animation]
+name		= "TranslateY"
+
+[Animation]
+name		= "TranslateZ"
+
+[Cube]
+name		= "Ground"
+scaling		= 100.0 1.0 100.0
+position	= 0.0 -0.5 0.0
+rotation	= 0.0 0.0 1.0 0.0
+
+
+[Cube]
+name		= "Cube"
+scaling		= 1.0 1.0 1.0
+position	= 0.0 1.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "Scale"
+
+[Cube]
+name		= "Cube1"
+scaling		= 1.0 1.0 1.0
+position	= 2.0 1.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube2"
+scaling		= 1.0 1.0 1.0
+position	= 0.0 1.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube3"
+scaling		= 1.0 1.0 1.0
+position	= 2.0 1.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube4"
+scaling		= 1.0 1.0 1.0
+position	= -2.0 1.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube5"
+scaling		= 1.0 1.0 1.0
+position	= 0.0 1.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube6"
+scaling		= 1.0 1.0 1.0
+position	= -2.0 1.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube7"
+scaling		= 1.0 1.0 1.0
+position	= -2.0 1.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Cube]
+name		= "Cube8"
+scaling		= 1.0 1.0 1.0
+position	= 2.0 1.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchY"
+
+[Sphere]
+name		= "Sphere"
+position	= 10.0 2.0 0.0
+animation	= "translateY"

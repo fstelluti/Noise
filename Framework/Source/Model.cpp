@@ -125,7 +125,7 @@ glm::mat4 Model::GetWorldMatrix() const
 	mat4 worldMatrix;
 
 	if (mAnimation != nullptr){
-		worldMatrix = (*mAnimation).GetAnimationWorldMatrix();
+		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mRotationAxis, mRotationAngleInDegrees);
 	}
 	else{
 		worldMatrix = translate(mat4(1.0f), mPosition) * rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis) * scale(mat4(1.0f), mScaling);

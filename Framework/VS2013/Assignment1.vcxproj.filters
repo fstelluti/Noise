@@ -138,5 +138,8 @@
     <None Include="..\Assets\Scenes\AnimatedScene.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
+    <None Include="..\Assets\Scenes\NOISE.Scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
   </ItemGroup>
 </Project>

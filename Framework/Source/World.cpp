@@ -149,7 +149,7 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
-
+	/*
 	// Draw Path Lines
 	
 	// Set Shader for path lines
@@ -167,7 +167,7 @@ void World::Draw()
 		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
 		(*it)->Draw();
-	}
+	}*/
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 	{
@@ -178,8 +178,8 @@ void World::Draw()
 	}
 
 
-	// Restore previous shader
-	Renderer::SetShader((ShaderType) prevShader);
+	/*// Restore previous shader
+	Renderer::SetShader((ShaderType) prevShader);*/
 
 	Renderer::EndFrame();
 }
@@ -245,12 +245,12 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
-	// Set Animation vertex buffers
+	/*// Set Animation vertex buffers
 	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
 	{
 		// Draw model
 		(*it)->CreateVertexBuffer();
-	}
+	}*/
 }
 
 Animation* World::FindAnimation(ci_string animName)
