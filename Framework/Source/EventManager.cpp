@@ -105,7 +105,7 @@ void EventManager::Initialize()
 	//initialize sound
 	sound = Sound();
 	sound.initialize();
-	sound.playSong("../Assets/Ariel.mp3");
+	sound.playSong("../Assets/All You're Waiting For.mp3");
 }
 
 void EventManager::Shutdown()
