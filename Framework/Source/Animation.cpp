@@ -193,7 +193,7 @@ ci_string Animation::GetName() const
 	return mName;
 }
 
-glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 stretchVec) const
+glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 axis, float angle) const
 {
 	if (mName == "\"StretchX\""){
 		vec3 scaleVec(1.0f, 0.0f, 0.0f);
@@ -227,18 +227,6 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 		mat4 t = translate(mat4(1.0f), position + translateVec);
 		mat4 worldMatrix = t * s;
 		return worldMatrix;
-	}
-	else if (mName == "\"StretchVec\""){
-		vec3 scaleVec(abs(stretchVec.x), abs(stretchVec.y), abs(stretchVec.z));
-		scaleVec = scaleVec * mCurrentVolume;
-		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
-
-		vec3 translateVec = stretchVec;
-		translateVec = translateVec * mCurrentVolume;
-		mat4 t = translate(mat4(1.0f), position + translateVec);
-		mat4 worldMatrix = t * s;
-		return worldMatrix;
-
 	}
 	else if (mName == "\"Scale\""){
 		vec3 scaleVec(1.0f, 1.0f, 1.0f);

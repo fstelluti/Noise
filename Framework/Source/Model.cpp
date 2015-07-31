@@ -111,15 +111,6 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
             
             mAnimation = World::GetInstance()->FindAnimation(animName);
 		}
-		else if (token[0] == "direction"){
-			assert(token.size() > 4);
-			assert(token[1] == "=");
-
-			mStretchVec.x = static_cast<float>(atof(token[2].c_str()));
-			mStretchVec.y = static_cast<float>(atof(token[3].c_str()));
-			mStretchVec.z = static_cast<float>(atof(token[4].c_str()));
-			normalize(mStretchVec);
-		}
 		else
 		{
 			return false;
@@ -134,7 +125,7 @@ glm::mat4 Model::GetWorldMatrix() const
 	mat4 worldMatrix;
 
 	if (mAnimation != nullptr){
-		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mStretchVec);
+		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mRotationAxis, mRotationAngleInDegrees);
 	}
 	else{
 		worldMatrix = translate(mat4(1.0f), mPosition) * rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis) * scale(mat4(1.0f), mScaling);
