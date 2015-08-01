@@ -96,6 +96,21 @@ World* World::GetInstance()
     return instance;
 }
 
+const Camera* World::GetCurrentCamera() const
+{
+     return mCamera[mCurrentCamera];
+}
+
+void World::AddBillboard(Billboard* b)
+{
+    mpBillboardList->AddBillboard(b);
+}
+
+void World::RemoveBillboard(Billboard* b)
+{
+    mpBillboardList->RemoveBillboard(b);
+}
+
 void World::Update(float dt, float currentVolume, float* currentSpec)
 {
 	// User Inputs
