@@ -16,6 +16,7 @@
 
 int TextureLoader::LoadTexture(const char * imagepath)
 {    
+
     // Load image using the Free Image library
     FREE_IMAGE_FORMAT format = FreeImage_GetFileType(imagepath, 0);
     FIBITMAP* image = FreeImage_Load(format, imagepath);

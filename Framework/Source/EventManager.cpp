@@ -201,3 +201,10 @@ void EventManager::DisableMouseCursor()
 {
 	glfwSetInputMode(spWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
+
+float EventManager::GetRandomFloat(float min, float max)
+{
+	float value = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+
+	return min + value*(max - min);
+}

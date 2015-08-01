@@ -11,6 +11,8 @@
 #include "World.h"
 #include "EventManager.h"
 #include "Sound.h"
+#include "Billboard.h"
+#include "TextureLoader.h"
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
