@@ -78,7 +78,7 @@ Animation::~Animation()
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*mVertexBuffer.size(), &(mVertexBuffer[0]), GL_STATIC_DRAW);
 }*/
 
-void Animation::Update(float dt, float currentVolume)
+void Animation::Update(float dt, float currentVolume, float* currentSpec)
 {
 	mCurrentTime += dt;
 	if (mDuration > 0){
@@ -89,6 +89,7 @@ void Animation::Update(float dt, float currentVolume)
 	}
     
 	mCurrentVolume = currentVolume;
+	mCurrentSpec = currentSpec;
 }
 
 void Animation::Draw()
@@ -193,7 +194,7 @@ ci_string Animation::GetName() const
 	return mName;
 }
 
-glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 stretchVec) const
+glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 stretchVec, int numerator, int denominator) const
 {
 	if (mName == "\"StretchX\""){
 		vec3 scaleVec(1.0f, 0.0f, 0.0f);
@@ -281,6 +282,45 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 		mat4 r = mat4_cast(rotationQuat);
 		mat4 s = scale(mat4(1.0f), scaling);
 		mat4 worldMatrix = t * r * s;
+		return worldMatrix;
+	} 
+	else if (mName == "\"SpectrumTranslate\""){
+		int range = 1024 / denominator;
+		int startIndex = (numerator * range) - range;
+		int endIndex = numerator * range;
+		float rangeVolume = 0;
+		for (int i = startIndex; i < endIndex; i++){
+			rangeVolume += mCurrentSpec[i];
+		}
+		rangeVolume = rangeVolume / range;
+		rangeVolume *= 500;
+
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * rangeVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"SpectrumStretch\""){
+		int range = 1024 / denominator;
+		int startIndex = (numerator * range) - range;
+		int endIndex = numerator * range;
+		float rangeVolume = 0;
+		for (int i = startIndex; i < endIndex; i++){
+			rangeVolume += mCurrentSpec[i];
+		}
+		rangeVolume = rangeVolume / range;
+		rangeVolume *= 500;
+
+		vec3 scaleVec(0.0f, 1.0f, 0.0f);
+		scaleVec = scaleVec * rangeVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * rangeVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
 		return worldMatrix;
 	}
 	else{

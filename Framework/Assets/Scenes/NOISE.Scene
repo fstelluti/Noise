@@ -25,6 +25,12 @@ name		= "TranslateY"
 [Animation]
 name		= "TranslateZ"
 
+[Animation]
+name		= "SpectrumTranslate"
+
+[Animation]
+name		= "SpectrumStretch"
+
 [Cube]
 name		= "Skybox"
 scaling		= 150.0 150.0 150.0
@@ -112,7 +118,7 @@ direction	= 1.0 1.0 -1.0
 name		= "Cube9"
 scaling		= 1.0 1.0 1.0
 position	= 0.0 8.0 0.0
-rotation	= 0.0 0.0 1.0 180
+rotation	= 0.0 0.0 1.0 0
 
 [Cube]
 name		= "Cube10"
@@ -253,4 +259,196 @@ direction	= 1.0 -1.0 -1.0
 [Sphere]
 name		= "Sphere"
 position	= 10.0 6.0 0.0
-animation	= "Scale"
+animation	= "TranslateY"
+
+[Cube]
+name		= "Cube0"
+position	= -20.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 1 / 16
+
+[Cube]
+name		= "Cube1"
+position	= -18.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 2 / 16
+
+[Cube]
+name		= "Cube2"
+position	= -16.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 3 / 16
+
+[Cube]
+name		= "Cube3"
+position	= -14.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 4 / 16
+
+[Cube]
+name		= "Cube4"
+position	= -12.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 5 / 16
+
+[Cube]
+name		= "Cube5"
+position	= -10.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 6 / 16
+
+[Cube]
+name		= "Cube6"
+position	= -8.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 7 / 16
+
+[Cube]
+name		= "Cube7"
+position	= -6.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 16
+
+[Cube]
+name		= "Cube8"
+position	= -4.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 9 / 16
+
+[Cube]
+name		= "Cube9"
+position	= -2.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 10 / 16
+
+[Cube]
+name		= "Cube10"
+position	= 0.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 11 / 16
+
+[Cube]
+name		= "Cube11"
+position	= 2.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 12 / 16
+
+[Cube]
+name		= "Cube12"
+position	= 4.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 13 / 16
+
+[Cube]
+name		= "Cube13"
+position	= 6.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 14 / 16
+
+[Cube]
+name		= "Cube14"
+position	= 8.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 15 / 16
+
+[Cube]
+name		= "Cube15"
+position	= 10.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 16 / 16
+
+[Sphere]
+name		= "Sphere0"
+position	= -20.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 1 / 16
+
+[Sphere]
+name		= "Sphere1"
+position	= -18.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 2 / 16
+
+[Sphere]
+name		= "Sphere2"
+position	= -16.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 3 / 16
+
+[Sphere]
+name		= "Sphere3"
+position	= -14.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 4 / 16
+
+[Sphere]
+name		= "Sphere4"
+position	= -12.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 5 / 16
+
+[Sphere]
+name		= "Sphere5"
+position	= -10.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 6 / 16
+
+[Sphere]
+name		= "Sphere6"
+position	= -8.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 7 / 16
+
+[Sphere]
+name		= "Sphere7"
+position	= -6.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 8 / 16
+
+[Sphere]
+name		= "Sphere8"
+position	= -4.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 9 / 16
+
+[Sphere]
+name		= "Sphere9"
+position	= -2.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 10 / 16
+
+[Sphere]
+name		= "Sphere10"
+position	= 0.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 11 / 16
+
+[Sphere]
+name		= "Sphere11"
+position	= 2.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 12 / 16
+
+[Sphere]
+name		= "Sphere12"
+position	= 4.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 13 / 16
+
+[Sphere]
+name		= "Sphere13"
+position	= 6.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 14 / 16
+
+[Sphere]
+name		= "Sphere14"
+position	= 8.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 15 / 16
+
+[Sphere]
+name		= "Sphere15"
+position	= 10.0 2.0 6.0
+animation	= "SpectrumTranslate"
+range		= 16 / 16

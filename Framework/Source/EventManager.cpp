@@ -189,6 +189,9 @@ float EventManager::GetMouseMotionY()
 float EventManager::GetCurrentVolume(){
 	return currentVolume;
 }
+float* EventManager::GetCurrentSpec(){
+	return spec;
+}
 void EventManager::EnableMouseCursor()
 {
 	glfwSetInputMode(spWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);

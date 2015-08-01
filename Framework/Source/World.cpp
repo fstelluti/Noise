@@ -75,7 +75,7 @@ World* World::GetInstance()
     return instance;
 }
 
-void World::Update(float dt, float currentVolume)
+void World::Update(float dt, float currentVolume, float* currentSpec)
 {
 	// User Inputs
 	// 0 1 2 to change the Camera
@@ -111,7 +111,7 @@ void World::Update(float dt, float currentVolume)
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
-        (*it)->Update(dt, currentVolume);
+        (*it)->Update(dt, currentVolume, currentSpec);
     }
     
     for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)

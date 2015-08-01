@@ -48,6 +48,8 @@ protected:
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
 	glm::vec3 mStretchVec;
+	int rangeNumerator;
+	int rangeDenominator;
 	float     mRotationAngleInDegrees;
 
     // Makes the model follow a list of Animation Keys so it's world transform changes over time

@@ -26,6 +26,7 @@ public:
 	static float GetMouseMotionX();
 	static float GetMouseMotionY();
 	static float GetCurrentVolume();
+	static float* GetCurrentSpec();
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();

@@ -120,6 +120,14 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			mStretchVec.z = static_cast<float>(atof(token[4].c_str()));
 			normalize(mStretchVec);
 		}
+		else if (token[0] == "range"){
+			assert(token.size() > 4);
+			assert(token[1] == "=");
+			assert(token[3] == "/");
+
+			rangeNumerator = static_cast<int>(atof(token[2].c_str()));
+			rangeDenominator = static_cast<int>(atof(token[4].c_str()));
+		}
 		else
 		{
 			return false;
@@ -134,7 +142,7 @@ glm::mat4 Model::GetWorldMatrix() const
 	mat4 worldMatrix;
 
 	if (mAnimation != nullptr){
-		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mStretchVec);
+		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mStretchVec, rangeNumerator, rangeDenominator);
 	}
 	else{
 		worldMatrix = translate(mat4(1.0f), mPosition) * rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis) * scale(mat4(1.0f), mScaling);
