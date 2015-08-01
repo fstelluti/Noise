@@ -99,10 +99,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Animation.cpp" />
+    <ClCompile Include="..\Source\Billboard.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\common.cpp" />
     <ClCompile Include="..\Source\common_platform.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
+    <ClCompile Include="..\Source\ParticleDescriptor.cpp" />
+    <ClCompile Include="..\Source\ParticleEmitter.cpp" />
+    <ClCompile Include="..\Source\ParticleSystem.cpp" />
     <ClCompile Include="..\Source\Sound.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
@@ -111,15 +115,20 @@
     <ClCompile Include="..\Source\Model.cpp" />
     <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\TextureLoader.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
+    <ClInclude Include="..\Source\Billboard.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\common.h" />
     <ClInclude Include="..\Source\common_platform.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
+    <ClInclude Include="..\Source\ParticleDescriptor.h" />
+    <ClInclude Include="..\Source\ParticleEmitter.h" />
+    <ClInclude Include="..\Source\ParticleSystem.h" />
     <ClInclude Include="..\Source\Sound.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
@@ -127,6 +136,7 @@
     <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
+    <ClInclude Include="..\Source\TextureLoader.h" />
     <ClInclude Include="..\Source\World.h" />
   </ItemGroup>
   <ItemGroup>
