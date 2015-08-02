@@ -42,7 +42,7 @@ public:
     virtual void Draw();
 
 	//a function that gets the position of the object
-	virtual glm::vec3 getPosition() const;
+	virtual glm::vec3 GetPosition() const;
 
     void AddKey(AnimationKey* key, float time);
 	glm::mat4 GetAnimationWorldMatrix() const;

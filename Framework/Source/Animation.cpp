@@ -213,7 +213,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix() const
 	float dt = afterT - beforeT;
 	float pt = dc / dt;
 	
-	vec3 posVec = getPosition() ;// mix(before.mPosition, after.mPosition, pt);
+	vec3 posVec = GetPosition() ;// mix(before.mPosition, after.mPosition, pt);
 	mat4 t = translate(mat4(1.0f), posVec);
 	
 	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
@@ -252,7 +252,7 @@ float Animation::getKeyProgress() const{
 	return (mKeyTime[after]-mCurrentTime) / (mKeyTime[1] - mKeyTime[0]);
 }
 
-glm::vec3 Animation::getPosition() const{
+glm::vec3 Animation::GetPosition() const{
 	return glm::mix(getNextKey().GetPosition(),getPrevKey().GetPosition(), getKeyProgress());
 }
 

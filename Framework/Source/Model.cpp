@@ -134,6 +134,8 @@ glm::mat4 Model::GetWorldMatrix() const
 	return worldMatrix;
 }
 
+glm::vec3 Model::GetPosition() const { return mPosition; }
+
 void Model::SetPosition(glm::vec3 position)
 {
 	mPosition = position;
