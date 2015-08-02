@@ -310,13 +310,7 @@ void World::LoadScene(const char * scene_path)
 	    }
 	}
 	input.close();
-	//Attach third person camera to some object
-	if(mModel[1]){
-		((ThirdPersonCamera*) mCamera[3])->setTarget(mModel[2]);
-	}
-	if(mAnimation[0]){
-		((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)mAnimation[0]);
-	}
+
 	/* Set Animation vertex buffers
 	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
 	{
