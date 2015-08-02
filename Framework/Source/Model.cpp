@@ -10,6 +10,9 @@
 #include "Model.h"
 #include "Animation.h"
 #include "World.h"
+#include "ParticleEmitter.h"
+#include "ParticleDescriptor.h"
+#include "ParticleSystem.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
@@ -24,6 +27,11 @@ Model::Model()
 
 Model::~Model()
 {
+	/*if (mParticleSystem)
+    {
+        World::GetInstance()->RemoveParticleSystem(mParticleSystem);
+        delete mParticleSystem;
+    }*/
 }
 
 void Model::Update(float dt)
@@ -111,6 +119,45 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
             
             mAnimation = World::GetInstance()->FindAnimation(animName);
 		}
+		else if (token[0] == "direction"){
+			assert(token.size() > 4);
+			assert(token[1] == "=");
+
+			mStretchVec.x = static_cast<float>(atof(token[2].c_str()));
+			mStretchVec.y = static_cast<float>(atof(token[3].c_str()));
+			mStretchVec.z = static_cast<float>(atof(token[4].c_str()));
+			normalize(mStretchVec);
+		}
+		else if (token[0] == "range"){
+			assert(token.size() > 4);
+			assert(token[1] == "=");
+			assert(token[3] == "/");
+
+			rangeNumerator = static_cast<int>(atof(token[2].c_str()));
+			rangeDenominator = static_cast<int>(atof(token[4].c_str()));
+		}
+		else if (token[0] == "particlesystem")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+			assert(token[2] == "\"fire\"" || token[2] == "\"fountain\""); // only to hardcoded particle systems
+
+
+			ParticleEmitter* emitter = new ParticleEmitter(vec3(0.0f, 0.0f, 0.0f), this);
+			ParticleDescriptor* desc = new ParticleDescriptor();
+
+			if (token[2] == "\"fire\"")
+			{
+				desc->SetFireDescriptor();
+			}
+			else if (token[2] == "\"fountain\"")
+			{
+				desc->SetFountainDescriptor();
+			}
+
+			mParticleSystem = new ParticleSystem(emitter, desc);
+			World::GetInstance()->AddParticleSystem(mParticleSystem);
+		}
 		else
 		{
 			return false;
@@ -125,7 +172,7 @@ glm::mat4 Model::GetWorldMatrix() const
 	mat4 worldMatrix;
 
 	if (mAnimation != nullptr){
-		worldMatrix = (*mAnimation).GetAnimationWorldMatrix();
+		worldMatrix = (*mAnimation).GetAnimationWorldMatrix(mPosition, mScaling, mStretchVec, rangeNumerator, rangeDenominator);
 	}
 	else{
 		worldMatrix = translate(mat4(1.0f), mPosition) * rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis) * scale(mat4(1.0f), mScaling);

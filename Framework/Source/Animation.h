@@ -36,16 +36,16 @@ public:
 	Animation();
     virtual ~Animation();
 
-	void CreateVertexBuffer();
+	/*void CreateVertexBuffer();*/
 
-    virtual void Update(float dt);
+    virtual void Update(float dt, float currentVolume, float* currentSpec);
     virtual void Draw();
 
 	//a function that gets the position of the object
 	virtual glm::vec3 GetPosition() const;
 
     void AddKey(AnimationKey* key, float time);
-	glm::mat4 GetAnimationWorldMatrix() const;
+	glm::mat4 GetAnimationWorldMatrix(glm::vec3 position, glm::vec3 scaling, glm::vec3 stretchVec, int numerator, int denominator) const;
 
 	void Load(ci_istringstream& iss);
 	ci_string GetName() const;
@@ -77,6 +77,8 @@ private:
 
 	float mCurrentTime;
     float mDuration;
+	float mCurrentVolume;
+	float* mCurrentSpec;
 
     std::vector<AnimationKey> mKey;
     std::vector<float> mKeyTime;

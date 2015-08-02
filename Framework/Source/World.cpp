@@ -18,9 +18,17 @@
 #include "CubeModel.h"
 #include "SphereModel.h"
 #include "Animation.h"
+#include "Billboard.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
+
+#include "TextureLoader.h"
+
+#include "ParticleDescriptor.h"
+#include "ParticleEmitter.h"
+#include "ParticleSystem.h"
+
 
 using namespace std;
 using namespace glm;
@@ -39,6 +47,17 @@ World::World()
 
 	mCurrentCamera = 0;
 
+	// TODO: You can play with different textures by changing the billboardTest.bmp to another texture
+#if defined(PLATFORM_OSX)
+	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+#else
+	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
+	int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+#endif
+	assert(billboardTextureID != 0);
+
+	mpBillboardList = new BillboardList(2048, billboardTextureID);
 
 }
 
@@ -72,6 +91,8 @@ World::~World()
 		delete *it;
 	}
 	mCamera.clear();
+
+	delete mpBillboardList;
 }
 
 World* World::GetInstance()
@@ -79,7 +100,22 @@ World* World::GetInstance()
     return instance;
 }
 
-void World::Update(float dt)
+const Camera* World::GetCurrentCamera() const
+{
+     return mCamera[mCurrentCamera];
+}
+
+void World::AddBillboard(Billboard* b)
+{
+    mpBillboardList->AddBillboard(b);
+}
+
+void World::RemoveBillboard(Billboard* b)
+{
+    mpBillboardList->RemoveBillboard(b);
+}
+
+void World::Update(float dt, float currentVolume, float* currentSpec)
 {
 	// User Inputs
 	// 0 1 2 to change the Camera
@@ -121,7 +157,7 @@ void World::Update(float dt)
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
-        (*it)->Update(dt);
+        (*it)->Update(dt, currentVolume, currentSpec);
     }
     
     for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
@@ -138,8 +174,18 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
-}
 
+
+    // Update billboards
+    
+    for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
+    {
+        (*it)->Update(dt);
+    }
+    
+    mpBillboardList->Update(dt);
+
+}
 void World::Draw()
 {
 	Renderer::BeginFrame();
@@ -159,7 +205,7 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
-
+	/*
 	// Draw Path Lines
 	
 	// Set Shader for path lines
@@ -177,7 +223,7 @@ void World::Draw()
 		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
 		(*it)->Draw();
-	}
+	}*/
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 	{
@@ -187,9 +233,14 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
+	Renderer::CheckForErrors();
+    
+    // Draw Billboards
+    mpBillboardList->Draw();
 
-	// Restore previous shader
-	Renderer::SetShader((ShaderType) prevShader);
+
+	/*// Restore previous shader
+	Renderer::SetShader((ShaderType) prevShader);*/
 
 	Renderer::EndFrame();
 }
@@ -259,7 +310,6 @@ void World::LoadScene(const char * scene_path)
 	    }
 	}
 	input.close();
-
 	//Attach third person camera to some object
 	if(mModel[1]){
 		((ThirdPersonCamera*) mCamera[3])->setTarget(mModel[2]);
@@ -267,13 +317,12 @@ void World::LoadScene(const char * scene_path)
 	if(mAnimation[0]){
 		((ThirdPersonCamera*) mCamera[3])->setTarget((Model*)mAnimation[0]);
 	}
-
-	// Set Animation vertex buffers
+	/* Set Animation vertex buffers
 	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
 	{
 		// Draw model
 		(*it)->CreateVertexBuffer();
-	}
+	}*/
 }
 
 Animation* World::FindAnimation(ci_string animName)
@@ -298,4 +347,15 @@ AnimationKey* World::FindAnimationKey(ci_string keyName)
         }
     }
     return nullptr;
+}
+
+void World::AddParticleSystem(ParticleSystem* particleSystem)
+{
+	mParticleSystemList.push_back(particleSystem);
+}
+
+void World::RemoveParticleSystem(ParticleSystem* particleSystem)
+{
+	vector<ParticleSystem*>::iterator it = std::find(mParticleSystemList.begin(), mParticleSystemList.end(), particleSystem);
+	mParticleSystemList.erase(it);
 }

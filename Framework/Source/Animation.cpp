@@ -59,7 +59,7 @@ Animation::~Animation()
 {
 }
 
-void Animation::CreateVertexBuffer()
+/*void Animation::CreateVertexBuffer()
 {
     // This is just to display lines between the animation keys
     for (int i=0; i<mKey.size(); ++i)
@@ -76,16 +76,20 @@ void Animation::CreateVertexBuffer()
 	glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3)*mVertexBuffer.size(), &(mVertexBuffer[0]), GL_STATIC_DRAW);
-}
+}*/
 
-void Animation::Update(float dt)
+void Animation::Update(float dt, float currentVolume, float* currentSpec)
 {
 	mCurrentTime += dt;
-
-    while(mCurrentTime > mDuration)
-    {
-        mCurrentTime -= mDuration;
-    }
+	if (mDuration > 0){
+		while(mCurrentTime > mDuration)
+			{
+				mCurrentTime -= mDuration;
+			}
+	}
+    
+	mCurrentVolume = currentVolume;
+	mCurrentSpec = currentSpec;
 }
 
 void Animation::Draw()
@@ -190,43 +194,172 @@ ci_string Animation::GetName() const
 	return mName;
 }
 
-glm::mat4 Animation::GetAnimationWorldMatrix() const
+glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 stretchVec, int numerator, int denominator) const
 {
-	
-	float beforeT = 0.0f;
-	AnimationKey before;
-	AnimationKey after;
-	float afterT = mDuration;
-
-	for (int i = 0; i < mKeyTime.size(); i++){ //find before and after keyframes
-		if (mKeyTime[i] >= beforeT && mKeyTime[i] <= mCurrentTime){
-			beforeT = mKeyTime[i];
-			before = mKey[i];
-		}
-		if (mKeyTime[i] <= afterT && mKeyTime[i] >= mCurrentTime){
-			afterT = mKeyTime[i];
-			after = mKey[i];
-		}
+	if (mName == "\"StretchX\""){
+		vec3 scaleVec(1.0f, 0.0f, 0.0f);
+		scaleVec = scaleVec * mCurrentVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+		
+		vec3 translateVec(1.0f, 0.0f, 0.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
 	}
-	//% between keyframes
-	float dc = mCurrentTime - beforeT;
-	float dt = afterT - beforeT;
-	float pt = dc / dt;
-	
-	vec3 posVec = GetPosition() ;// mix(before.mPosition, after.mPosition, pt);
-	mat4 t = translate(mat4(1.0f), posVec);
-	
-	vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
-	mat4 s = scale(mat4(1.0f), scaleVec);
-	
-	quat beforeQuat = angleAxis(before.mRotationAngleInDegrees, before.mRotationAxis);
-	quat afterQuat = angleAxis(after.mRotationAngleInDegrees, after.mRotationAxis);
-	quat rotationQuat = slerp(beforeQuat, afterQuat, pt);
-	mat4 r = mat4_cast(rotationQuat);
-	
-	mat4 worldMatrix = t * r * s;
+	else if (mName == "\"StretchY\""){
+		vec3 scaleVec(0.0f, 1.0f, 0.0f);
+		scaleVec = scaleVec * mCurrentVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
 
-	return worldMatrix;
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"StretchZ\""){
+		vec3 scaleVec(0.0f, 0.0f, 1.0f);
+		scaleVec = scaleVec * mCurrentVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+
+		vec3 translateVec(0.0f, 0.0f, 1.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"StretchVec\""){
+		vec3 scaleVec(abs(stretchVec.x), abs(stretchVec.y), abs(stretchVec.z));
+		scaleVec = scaleVec * mCurrentVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+
+		vec3 translateVec = stretchVec;
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+
+	}
+	else if (mName == "\"Scale\""){
+		vec3 scaleVec(1.0f, 1.0f, 1.0f);
+		scaleVec = scaleVec * mCurrentVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+
+		mat4 t = translate(mat4(1.0f), position);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"TranslateX\""){
+		vec3 translateVec(1.0f, 0.0f, 0.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"TranslateY\""){
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"TranslateZ\""){
+		vec3 translateVec(0.0f, 0.0f, 1.0f);
+		translateVec = translateVec * mCurrentVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"RotateX\""){
+		mat4 t = translate(mat4(1.0f), position);
+		float angle = 1.0f;
+		angle = angle + angle * mCurrentVolume;
+		quat rotationQuat(angle, vec3(1.0f, 0.0f, 0.0f));
+		mat4 r = mat4_cast(rotationQuat);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * r * s;
+		return worldMatrix;
+	} 
+	else if (mName == "\"SpectrumTranslate\""){
+		int range = 1024 / denominator;
+		int startIndex = (numerator * range) - range;
+		int endIndex = numerator * range;
+		float rangeVolume = 0;
+		for (int i = startIndex; i < endIndex; i++){
+			rangeVolume += mCurrentSpec[i];
+		}
+		rangeVolume = rangeVolume / range;
+		rangeVolume *= 500;
+
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * rangeVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 s = scale(mat4(1.0f), scaling);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else if (mName == "\"SpectrumStretch\""){
+		int range = 1024 / denominator;
+		int startIndex = (numerator * range) - range;
+		int endIndex = numerator * range;
+		float rangeVolume = 0;
+		for (int i = startIndex; i < endIndex; i++){
+			rangeVolume += mCurrentSpec[i];
+		}
+		rangeVolume = rangeVolume / range;
+		rangeVolume *= 500;
+
+		vec3 scaleVec(0.0f, 1.0f, 0.0f);
+		scaleVec = scaleVec * rangeVolume;
+		mat4 s = scale(mat4(1.0f), scaling + scaleVec);
+
+		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		translateVec = translateVec * rangeVolume;
+		mat4 t = translate(mat4(1.0f), position + translateVec);
+		mat4 worldMatrix = t * s;
+		return worldMatrix;
+	}
+	else{
+		float beforeT = 0.0f;
+		AnimationKey before;
+		AnimationKey after;
+		float afterT = mDuration;
+
+		for (int i = 0; i < mKeyTime.size(); i++){ //find before and after keyframes
+			if (mKeyTime[i] >= beforeT && mKeyTime[i] <= mCurrentTime){
+				beforeT = mKeyTime[i];
+				before = mKey[i];
+			}
+			if (mKeyTime[i] <= afterT && mKeyTime[i] >= mCurrentTime){
+				afterT = mKeyTime[i];
+				after = mKey[i];
+			}
+		}
+		//% between keyframes
+		float dc = mCurrentTime - beforeT;
+		float dt = afterT - beforeT;
+		float pt = dc / dt;
+
+		vec3 posVec = mix(before.mPosition, after.mPosition, pt);
+		vec3 up(0.0f, 1.0f, 0.0f);
+		mat4 t = translate(mat4(1.0f), posVec);
+
+		vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
+		mat4 s = scale(mat4(1.0f), scaleVec);
+
+		quat beforeQuat = angleAxis(before.mRotationAngleInDegrees, before.mRotationAxis);
+		quat afterQuat = angleAxis(after.mRotationAngleInDegrees, after.mRotationAxis);
+		quat rotationQuat = slerp(beforeQuat, afterQuat, pt);
+		mat4 r = mat4_cast(rotationQuat);
+
+		mat4 worldMatrix = t * r * s;
+
+		return worldMatrix;
+	}
 }
 
 AnimationKey Animation::getPrevKey() const {

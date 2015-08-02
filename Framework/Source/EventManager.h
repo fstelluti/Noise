@@ -8,7 +8,6 @@
 //
 
 #pragma once
-
 struct GLFWwindow;
 
 class EventManager
@@ -26,10 +25,13 @@ public:
 
 	static float GetMouseMotionX();
 	static float GetMouseMotionY();
+	static float GetCurrentVolume();
+	static float* GetCurrentSpec();
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();
 
+	static float GetRandomFloat(float min, float max);
 
 private:
 	// Time

@@ -56,6 +56,7 @@ void Renderer::Initialize()
     
     
 	// Black background
+	//(243.0f / 255.0f, 164.0f / 255.0f, 232.0f / 255.0f, 0.0f);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	// Enable depth test
@@ -63,6 +64,12 @@ void Renderer::Initialize()
     
 	// Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS); 
+
+// Enable Blending
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    CheckForErrors();
 
 	// Loading Shaders
 #if defined(PLATFORM_OSX)

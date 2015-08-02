@@ -10,6 +10,12 @@
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"
+#include "Sound.h"
+#include "Billboard.h"
+#include "TextureLoader.h"
+
+#include <fmod.hpp>
+#include <fmod_errors.h>
 
 
 int main(int argc, char*argv[])
@@ -33,7 +39,9 @@ int main(int argc, char*argv[])
 //		world.LoadScene("Scenes/StaticScene.scene");
 //		world.LoadScene("Scenes/CoordinateSystem.scene");
 #else
-		world.LoadScene("../Assets/Scenes/AnimatedScene.scene");
+		world.LoadScene("../Assets/Scenes/AnimatedSceneWithParticles.scene");
+	//	world.LoadScene("../Assets/Scenes/NOISE.scene");
+	//	world.LoadScene("../Assets/Scenes/AnimatedScene.scene");
 	//	world.LoadScene("../Assets/Scenes/StaticScene.scene");
 	//	world.LoadScene("../Assets/Scenes/CoordinateSystem.scene");
 #endif
@@ -42,12 +50,14 @@ int main(int argc, char*argv[])
 	// Main Loop
 	do
 	{
-		// Update Event Manager - Frame time / input / events processing 
+		// Update Event Manager - Frame time / input / events processing / sound
 		EventManager::Update();
 
 		// Update World
 		float dt = EventManager::GetFrameTime();
-		world.Update(dt);
+		float currentVolume = EventManager::GetCurrentVolume();
+		float* currentSpec = EventManager::GetCurrentSpec();
+		world.Update(dt, currentVolume, currentSpec);
 
 		// Draw World
 		world.Draw();
