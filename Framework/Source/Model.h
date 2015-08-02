@@ -16,6 +16,7 @@
 #include <GLM/glm.hpp>
 
 class Animation;
+class ParticleSystem;
 
 class Model
 {
@@ -54,6 +55,7 @@ protected:
 
     // Makes the model follow a list of Animation Keys so it's world transform changes over time
     Animation* mAnimation;
+	ParticleSystem* mParticleSystem;
 
 	friend class Animation;
 };

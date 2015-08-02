@@ -65,6 +65,12 @@ void Renderer::Initialize()
 	// Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS); 
 
+// Enable Blending
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    CheckForErrors();
+
 	// Loading Shaders
 #if defined(PLATFORM_OSX)
     std::string shaderPathPrefix = "Shaders/";

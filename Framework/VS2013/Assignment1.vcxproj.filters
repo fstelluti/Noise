@@ -24,11 +24,11 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{6e5749a6-60f3-4554-a8e3-4a49e80463f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Paticles">
-      <UniqueIdentifier>{09e1eea4-e6f8-43d2-a201-a4c1dd5744f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{c02d0b2a-8a4a-4e3d-8bfe-58af80c45246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{09e1eea4-e6f8-43d2-a201-a4c1dd5744f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,16 +78,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\ParticleDescriptor.cpp">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\ParticleEmitter.cpp">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\ParticleSystem.cpp">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Billboard.cpp">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,16 +137,16 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ParticleDescriptor.h">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ParticleEmitter.h">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ParticleSystem.h">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Billboard.h">
-      <Filter>Source Files\Paticles</Filter>
+      <Filter>Source Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

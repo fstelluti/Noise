@@ -107,95 +107,79 @@ void BillboardList::Update(float dt)
     for (list<Billboard*>::iterator it = mBillboardList.begin(); it != mBillboardList.end(); ++it)
     {
         const Billboard* b = *it;
-		//using the viewMatrix get the camera position
-		mat4 viewModel = inverse(viewMatrix);
-		vec3 cameraPos(viewModel[3]); // Might have to divide by w if you can't assume w == 1
 
-		//Get the particleLookAt Vector
-		vec3 particlePos = vec3(b->position.x, b->position.y, b->position.z);
-		vec3 particleLookAt = cameraPos - particlePos;
-		particleLookAt = normalize(particleLookAt);
-
-		//Get particlRight
-		vec3 camUp(viewModel[1]);
-		vec3 particleRight = cross(camUp, particleLookAt);
-		particleRight = normalize(particleRight);
-
-		//Cross prod of lookAt and right to get particle's up:
-		vec3 particleUp = cross(particleLookAt, particleRight);
-		particleUp = normalize(particleUp);
-
-		//First Tri:
-		//Top Left
-		mVertexBuffer[firstVertexIndex].position = b->position + (particleRight * (-0.5f * b->size.x)) + (particleUp * 0.5f * b->size.y);
-		mVertexBuffer[firstVertexIndex].color = b->color;
-		mVertexBuffer[firstVertexIndex].normal = cross(particleRight, particleUp);
-
-		//Bottom Left
-		mVertexBuffer[firstVertexIndex + 1].position = b->position + (particleRight * (-0.5f * b->size.x)) + (particleUp * (-0.5f) * b->size.y);
-		mVertexBuffer[firstVertexIndex + 1].color = b->color;
-		mVertexBuffer[firstVertexIndex + 1].normal = cross(particleRight, particleUp);
-
-		//Top right
-		mVertexBuffer[firstVertexIndex + 2].position = b->position + (particleRight * 0.5f * b->size.x) + (particleUp * 0.5f * b->size.y);
-		mVertexBuffer[firstVertexIndex + 2].color = b->color;
-		mVertexBuffer[firstVertexIndex + 2].normal = cross(particleRight, particleUp);
-
-		//Second tri
-		//Top right
-		mVertexBuffer[firstVertexIndex + 3].position = b->position + (particleRight * 0.5f * b->size.x) + (particleUp * 0.5f * b->size.y);
-		mVertexBuffer[firstVertexIndex + 3].color = b->color;
-		mVertexBuffer[firstVertexIndex + 3].normal = cross(particleRight, particleUp);
-
-		//Bottom left
-		mVertexBuffer[firstVertexIndex + 4].position = b->position + (particleRight * (-0.5f * b->size.x)) + (particleUp * (-0.5f) * b->size.y);
-		mVertexBuffer[firstVertexIndex + 4].color = b->color;
-		mVertexBuffer[firstVertexIndex + 4].normal = cross(particleRight, particleUp);
-
-		//Bottom right
-		mVertexBuffer[firstVertexIndex + 5].position = b->position + (particleRight * 0.5f * b->size.x) + (particleUp * (-0.5f) * b->size.y);
-		mVertexBuffer[firstVertexIndex + 5].color = b->color;
-		mVertexBuffer[firstVertexIndex + 5].normal = cross(particleRight, particleUp);
-
-
-
-
-		/*
         // ... The code below needs to be modified ...
-        // First triangle
+
+
+        //first extract camera position and camera up from view matrix
+		vec3 cameraPosition = -vec3(viewMatrix[3]) * mat3(viewMatrix);
+		vec3 cameraUp = vec3(viewMatrix[1]);
+
+		//find billboard normal vector
+		vec3 bNormal = cameraPosition - b->position;
+		//find billboard right vector from camera up vector
+		vec3 bRight = cross(bNormal, cameraUp);
+		//find billboard up vector from billboard right vector
+		vec3 bUp = cross(bRight, bNormal);
+
+		//calculate halfHeight and halfWidth vectors
+		
+		vec3 halfWidth = normalize(bRight) * (0.5f * b->size.x);
+		vec3 halfHeight = normalize(bUp) * (0.5f * b->size.y);
+
+		// First triangle
         // Top left
-        mVertexBuffer[firstVertexIndex].position.x = b->position.x - 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex].position = b->position - halfWidth + halfHeight;
+		mVertexBuffer[firstVertexIndex].normal = bNormal;
+		mVertexBuffer[firstVertexIndex].color = b->color;
+        /*mVertexBuffer[firstVertexIndex].position.x = b->position.x - 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex].position.y = b->position.y + 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex].position.z = b->position.z;*/
         
         // Bottom Left
-        mVertexBuffer[firstVertexIndex + 1].position.x = b->position.x - 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex + 1].position = b->position - halfWidth - halfHeight;
+		mVertexBuffer[firstVertexIndex + 1].normal = bNormal;
+		mVertexBuffer[firstVertexIndex + 1].color = b->color;
+        /*mVertexBuffer[firstVertexIndex + 1].position.x = b->position.x - 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex + 1].position.y = b->position.y - 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex + 1].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex + 1].position.z = b->position.z;*/
         
         // Top Right
-        mVertexBuffer[firstVertexIndex + 2].position.x = b->position.x + 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex + 2].position = b->position + halfWidth + halfHeight;
+		mVertexBuffer[firstVertexIndex + 2].normal = bNormal;
+		mVertexBuffer[firstVertexIndex + 2].color = b->color;
+       /*mVertexBuffer[firstVertexIndex + 2].position.x = b->position.x + 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex + 2].position.y = b->position.y + 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex + 2].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex + 2].position.z = b->position.z;*/
         
         // Second Triangle
         // Top Right
-        mVertexBuffer[firstVertexIndex + 3].position.x = b->position.x + 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex + 3].position = b->position + halfWidth + halfHeight;
+		mVertexBuffer[firstVertexIndex + 3].normal = bNormal;
+		mVertexBuffer[firstVertexIndex + 3].color = b->color;
+        /*mVertexBuffer[firstVertexIndex + 3].position.x = b->position.x + 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex + 3].position.y = b->position.y + 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex + 3].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex + 3].position.z = b->position.z;*/
         
         // Bottom Left
-        mVertexBuffer[firstVertexIndex + 4].position.x = b->position.x - 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex + 4].position = b->position - halfWidth - halfHeight;
+		mVertexBuffer[firstVertexIndex + 4].normal = bNormal;
+		mVertexBuffer[firstVertexIndex + 4].color = b->color;
+        /*mVertexBuffer[firstVertexIndex + 4].position.x = b->position.x - 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex + 4].position.y = b->position.y - 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex + 4].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex + 4].position.z = b->position.z;*/
         
         // Bottom Right
-        mVertexBuffer[firstVertexIndex + 5].position.x = b->position.x + 0.5f*b->size.x;
+		mVertexBuffer[firstVertexIndex + 5].position = b->position + halfWidth - halfHeight;
+		mVertexBuffer[firstVertexIndex + 5].normal = bNormal;
+		mVertexBuffer[firstVertexIndex + 5].color = b->color;
+        /*mVertexBuffer[firstVertexIndex + 5].position.x = b->position.x + 0.5f*b->size.x;
         mVertexBuffer[firstVertexIndex + 5].position.y = b->position.y - 0.5f*b->size.y;
-        mVertexBuffer[firstVertexIndex + 5].position.z = b->position.z;
+        mVertexBuffer[firstVertexIndex + 5].position.z = b->position.z;*/
         
+		
         // ... The code above needs to be modified ...
-		*/
+
         
         firstVertexIndex += 6;
     }

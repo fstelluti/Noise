@@ -16,7 +16,7 @@ ParticleDescriptor::ParticleDescriptor()
     SetFountainDescriptor();
 }
 
-// IMPORTNAT:
+// IMPORTANT:
 //If you do implement this version, please keep the old version in the project but commented out for the demo
 
 void ParticleDescriptor::SetFountainDescriptor()

@@ -86,38 +86,18 @@ void ParticleSystem::Update(float dt)
         // Step 2 : You can rotate the result in step 1 by an random angle from 0 to
         //          360 degrees about the original velocity vector
 
+		vec3 originalVelocityVector = newParticle->velocity;
+		vec3 randomVector(1.0f, 1.0f, 1.0f);
+		vec3 firstRotationAxis = glm::cross(randomVector, originalVelocityVector);
 
+		float step1Angle = EventManager::GetRandomFloat(0.0f, mpDescriptor->velocityDeltaAngle);
+		mat4 step1Rotation = glm::rotate(mat4(1.0f), step1Angle, firstRotationAxis);//rotation matrix along x axis
+		newParticle->velocity = vec3(step1Rotation * vec4(newParticle->velocity, 0));
 
-		vec3 xAxis = vec3(1.0f, 0.0f, 0.0f);
-		vec3 yAxis = vec3(0.0f, 1.0f, 0.0f);
+		float step2Angle = EventManager::GetRandomFloat(0.0f, 360.0f);
+		mat4 step2Rotation = glm::rotate(mat4(1.0f), step2Angle, originalVelocityVector);//rotation matrix along original velocity vector
+		newParticle->velocity = vec3(step2Rotation * vec4(newParticle->velocity, 0));
 
-		vec3 axisFirstRot;
-		vec3 velocityVector = newParticle->velocity;
-
-		float firstAxis = dot(velocityVector, xAxis);
-		float  secondAxis = dot(velocityVector, yAxis);
-
-		if (firstAxis < secondAxis){
-			axisFirstRot = cross(velocityVector, xAxis);
-			axisFirstRot = normalize(axisFirstRot);
-		}
-		else {
-			axisFirstRot = cross(velocityVector, yAxis);
-			axisFirstRot = normalize(axisFirstRot);
-		}
-
-		float angleFirstRot = EventManager::GetRandomFloat(0.0f, mpDescriptor->velocityDeltaAngle);
-		mat4 firstRot = glm::rotate(mat4(1.0f), angleFirstRot, axisFirstRot);
-		newParticle->velocity = vec3(firstRot* vec4(newParticle->velocity, 0));
-
-
-		float angleSecondRot = EventManager::GetRandomFloat(0.0f, 360.0f);
-		mat4 secondRot = glm::rotate(mat4(1.0f), angleSecondRot, velocityVector);
-		newParticle->velocity = vec3(secondRot*vec4(newParticle->velocity, 0));
-
-
-
-        
         World::GetInstance()->AddBillboard(&newParticle->billboard);
     }
     
@@ -138,32 +118,23 @@ void ParticleSystem::Update(float dt)
         // Phase 2 - Mid:     from t = [fadeInTime, lifeTime - fadeOutTime] - color is mid color
         // Phase 3 - End:     from t = [lifeTime - fadeOutTime, lifeTime]
                 
-		/*
-        // ...
-        p->billboard.position += p->velocity * dt;
-        p->billboard.color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-        p->billboard.size += 0.01f;
-        // ...
-		*/
-        
-        
-		p->billboard.size += mpDescriptor->sizeGrowthVelocity *dt;
-		p->velocity += mpDescriptor->acceleration *dt;
-		p->billboard.position += p->velocity * dt;
 
-
-		float normTime = 0.0f;
-		if (p->currentTime < (mpDescriptor->fadeInTime)){
-			normTime = p->currentTime / mpDescriptor->fadeInTime;
-			p->billboard.color = mix(mpDescriptor->initialColor, mpDescriptor->midColor, normTime);
+		// ...
+		p->velocity += mpDescriptor->acceleration * dt; //new velocity (u/s) = old velocity (u/s) + acceleration (u/s^2) * delta time (s)
+        p->billboard.position += p->velocity * dt; //new position (u) = old position (u) + new velocity (u/s) * delta time (s)
+		if (p->currentTime < mpDescriptor->fadeInTime){
+			float percent = p->currentTime / mpDescriptor->fadeInTime;
+			p->billboard.color = mix(mpDescriptor->initialColor, mpDescriptor->midColor, percent);
 		}
-		else if ((p->currentTime >= mpDescriptor->fadeInTime) && (p->currentTime < (mpDescriptor->totalLifetime - mpDescriptor->fadeOutTime))){
+		else if (p->currentTime > mpDescriptor->fadeInTime && p->currentTime < mpDescriptor->fadeOutTime){
 			p->billboard.color = mpDescriptor->midColor;
 		}
-		else if ((p->currentTime >= (mpDescriptor->totalLifetime - mpDescriptor->fadeOutTime)) && (p->currentTime < mpDescriptor->totalLifetime)){
-			normTime = (p->currentTime - (p->lifeTime - mpDescriptor->fadeOutTime)) / (mpDescriptor->totalLifetime - mpDescriptor->fadeOutTime);
-			p->billboard.color = mix(mpDescriptor->midColor, mpDescriptor->endColor, normTime);
+		else{
+			float percent = (p->currentTime - mpDescriptor->fadeOutTime) / (mpDescriptor->totalLifetime - mpDescriptor->fadeOutTime);
+			p->billboard.color = mix(mpDescriptor->midColor, mpDescriptor->endColor, percent);
 		}
+        p->billboard.size = mpDescriptor->initialSize + mpDescriptor->sizeGrowthVelocity * p->currentTime;
+        // ...
 
         // Particles are destroyed if expired
         // Remove from the send particle to inactive list

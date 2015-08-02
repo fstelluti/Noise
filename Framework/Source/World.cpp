@@ -89,6 +89,8 @@ World::~World()
 		delete *it;
 	}
 	mCamera.clear();
+
+	delete mpBillboardList;
 }
 
 World* World::GetInstance()
@@ -164,8 +166,18 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	{
 		(*it)->Update(dt);
 	}
-}
 
+
+    // Update billboards
+    
+    for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
+    {
+        (*it)->Update(dt);
+    }
+    
+    mpBillboardList->Update(dt);
+
+}
 void World::Draw()
 {
 	Renderer::BeginFrame();
@@ -212,6 +224,11 @@ void World::Draw()
 
 		(*it)->Draw();
 	}
+
+	Renderer::CheckForErrors();
+    
+    // Draw Billboards
+    mpBillboardList->Draw();
 
 
 	/*// Restore previous shader
@@ -311,4 +328,15 @@ AnimationKey* World::FindAnimationKey(ci_string keyName)
         }
     }
     return nullptr;
+}
+
+void World::AddParticleSystem(ParticleSystem* particleSystem)
+{
+	mParticleSystemList.push_back(particleSystem);
+}
+
+void World::RemoveParticleSystem(ParticleSystem* particleSystem)
+{
+	vector<ParticleSystem*>::iterator it = std::find(mParticleSystemList.begin(), mParticleSystemList.end(), particleSystem);
+	mParticleSystemList.erase(it);
 }

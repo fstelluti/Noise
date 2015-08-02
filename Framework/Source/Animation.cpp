@@ -346,11 +346,9 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 
 		vec3 posVec = mix(before.mPosition, after.mPosition, pt);
 		vec3 up(0.0f, 1.0f, 0.0f);
-		posVec = posVec + up * mCurrentVolume;
 		mat4 t = translate(mat4(1.0f), posVec);
 
 		vec3 scaleVec = mix(before.mScaling, after.mScaling, pt);
-		scaleVec = scaleVec + scaleVec * mCurrentVolume;
 		mat4 s = scale(mat4(1.0f), scaleVec);
 
 		quat beforeQuat = angleAxis(before.mRotationAngleInDegrees, before.mRotationAxis);
