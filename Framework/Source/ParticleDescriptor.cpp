@@ -19,7 +19,7 @@ ParticleDescriptor::ParticleDescriptor()
 // IMPORTANT:
 //If you do implement this version, please keep the old version in the project but commented out for the demo
 
-void ParticleDescriptor::SetFountainDescriptor()
+/*void ParticleDescriptor::SetFountainDescriptor()
 {
 	velocity = vec3(0.0f, 17.0f, 0.0f);
 	velocityDeltaAngle = 15;
@@ -62,10 +62,10 @@ void ParticleDescriptor::SetFireDescriptor()
 	fadeOutTime = 0.2f;
 	totalLifetime = 1.7f;
 	totalLifetimeDelta = 0.0f;
-}
+}*/
 
 
-/*
+
 void ParticleDescriptor::SetFountainDescriptor()
 {
     velocity = vec3(0.0f, 10.0f, 0.0f);
@@ -111,4 +111,3 @@ void ParticleDescriptor::SetFireDescriptor()
     totalLifetime = 2.5f;
     totalLifetimeDelta = 0.0f;
 }
-*/

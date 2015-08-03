@@ -68,12 +68,14 @@ void EventManager::Initialize()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_DEPTH_BITS, 32);
     
 #else
     // Allow older laptops to run the framework, even though, our framework
     // is compatible with OpenGL 3.3 (which removed many deprecated features)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	glfwWindowHint(GLFW_DEPTH_BITS, 32);
 #endif
     
     
@@ -114,7 +116,6 @@ void EventManager::Shutdown()
 	//glfwTerminate();
 	spWindow = nullptr;
 
-	/*sound.shutdown();*/
 }
 
 void EventManager::Update()
