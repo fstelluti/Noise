@@ -29,6 +29,7 @@ public:
 	~ParticleSystem();
 
     void Update(float dt);
+	void EmitParticles(int n);
 
 private:
     ParticleDescriptor* mpDescriptor;

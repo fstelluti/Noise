@@ -53,10 +53,41 @@ ParticleSystem::~ParticleSystem()
 	mInactiveParticles.resize(0);
 	mParticleList.resize(0);
 }
+void ParticleSystem::EmitParticles(int n){
+	for (int i = 0; i < n; i++){
+		// emit particle
+		// transfer a particle from the inactive pool to the active pool
+		Particle* newParticle = mInactiveParticles.back();
+		mParticleList.push_back(newParticle);
+		mInactiveParticles.pop_back();
+
+		// Set particle initial parameters
+		newParticle->billboard.position = mpEmitter->GetRandomPosition();
+		newParticle->billboard.size = mpDescriptor->initialSize + EventManager::GetRandomFloat(-1.0f, 1.0f) * mpDescriptor->initialSizeDelta;
+		newParticle->billboard.color = mpDescriptor->initialColor;
+		newParticle->currentTime = 0.0f;
+		newParticle->lifeTime = mpDescriptor->totalLifetime + mpDescriptor->totalLifetimeDelta * EventManager::GetRandomFloat(-1.0f, 1.0f);
+		newParticle->velocity = mpDescriptor->velocity;
+
+		vec3 originalVelocityVector = newParticle->velocity;
+		vec3 randomVector(1.0f, 1.0f, 1.0f);
+		vec3 firstRotationAxis = glm::cross(randomVector, originalVelocityVector);
+
+		float step1Angle = EventManager::GetRandomFloat(0.0f, mpDescriptor->velocityDeltaAngle);
+		mat4 step1Rotation = glm::rotate(mat4(1.0f), step1Angle, firstRotationAxis);//rotation matrix along x axis
+		newParticle->velocity = vec3(step1Rotation * vec4(newParticle->velocity, 0));
+
+		float step2Angle = EventManager::GetRandomFloat(0.0f, 360.0f);
+		mat4 step2Rotation = glm::rotate(mat4(1.0f), step2Angle, originalVelocityVector);//rotation matrix along original velocity vector
+		newParticle->velocity = vec3(step2Rotation * vec4(newParticle->velocity, 0));
+
+		World::GetInstance()->AddBillboard(&newParticle->billboard);
+	}
+}
 
 void ParticleSystem::Update(float dt)
 {
-    // Emit particle according to the emission rate
+   /* // Emit particle according to the emission rate
     float averageTimeBetweenEmission = 1.0f / mpDescriptor->emissionRate;
     float randomValue = EventManager::GetRandomFloat(0.0f, 1.0f) * averageTimeBetweenEmission;
     while (mInactiveParticles.size() > 0 && randomValue < dt)
@@ -99,7 +130,7 @@ void ParticleSystem::Update(float dt)
 		newParticle->velocity = vec3(step2Rotation * vec4(newParticle->velocity, 0));
 
         World::GetInstance()->AddBillboard(&newParticle->billboard);
-    }
+    }*/
     
     
     for (std::list<Particle*>::iterator it = mParticleList.begin(); it != mParticleList.end(); )

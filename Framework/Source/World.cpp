@@ -154,6 +154,14 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		Renderer::SetShader(SHADER_BLUE);
 	}
 
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
+		{
+			(*it)->EmitParticles(1);
+		}
+	}
+	
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
