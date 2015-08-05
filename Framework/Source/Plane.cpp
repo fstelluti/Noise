@@ -35,7 +35,7 @@ Plane::Plane(int side) : Model()
 			Vertex temp;
 			temp.position = vec3(xPosition, yPosition, zPosition);
 			temp.normal = vec3(0.0f, 0.0f, 1.0f);
-			temp.color = vec3(100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f);
+			temp.color = vec3(45.0f / 255.0f, 29.0f / 255.0f, 222.0f / 255.0f);
 			vertexBuffer.push_back(temp);
 		}
 	}
