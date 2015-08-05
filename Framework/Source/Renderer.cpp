@@ -56,8 +56,8 @@ void Renderer::Initialize()
     
     
 	// Black background
-	//(243.0f / 255.0f, 164.0f / 255.0f, 232.0f / 255.0f, 0.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(243.0f / 255.0f, 164.0f / 255.0f, 232.0f / 255.0f, 0.0f);
+	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	// Enable depth test
     glEnable(GL_DEPTH_TEST);

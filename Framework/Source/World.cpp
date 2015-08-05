@@ -17,6 +17,7 @@
 
 #include "CubeModel.h"
 #include "SphereModel.h"
+#include "Plane.h"
 #include "Animation.h"
 #include "Billboard.h"
 
@@ -290,6 +291,11 @@ void World::LoadScene(const char * scene_path)
                 mModel.push_back(sphere);
 
             }
+			else if (result == "plane"){
+				Plane* plane = new Plane(64);
+				plane->Load(iss);
+				mModel.push_back(plane);
+			}
 			else if ( result == "animationkey" )
 			{
 				AnimationKey* key = new AnimationKey();
