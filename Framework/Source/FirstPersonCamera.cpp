@@ -64,12 +64,14 @@ void FirstPersonCamera::Update(float dt)
 	// A S D W for motion along the camera basis vectors
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W ) == GLFW_PRESS)
 	{
-		mPosition += mLookAt * dt * mSpeed;
+		vec3 direction = normalize(glm::vec3(mLookAt.x, 0.0f, mLookAt.z));
+		mPosition += direction * dt * mSpeed;
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S ) == GLFW_PRESS)
 	{
-		mPosition -= mLookAt * dt * mSpeed;
+		vec3 direction = normalize(glm::vec3(mLookAt.x, 0.0f, mLookAt.z));
+		mPosition -= direction * dt * mSpeed;
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D ) == GLFW_PRESS)
