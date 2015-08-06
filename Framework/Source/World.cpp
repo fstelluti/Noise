@@ -10,6 +10,7 @@
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"
+#include "Skybox.h"
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
@@ -17,7 +18,11 @@
 
 #include "CubeModel.h"
 #include "SphereModel.h"
+<<<<<<< HEAD
 #include "LightModel.h"
+=======
+#include "Plane.h"
+>>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
 #include "Animation.h"
 #include "Billboard.h"
 
@@ -226,6 +231,10 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
+
+	//Draw the skybox seperatly 
+	skyboxModel.Draw();
+
 	/*
 	// Draw Path Lines
 	
@@ -303,6 +312,11 @@ void World::LoadScene(const char * scene_path)
                 mModel.push_back(sphere);
 
             }
+			else if (result == "plane"){
+				Plane* plane = new Plane(64);
+				plane->Load(iss);
+				mModel.push_back(plane);
+			}
 			else if ( result == "animationkey" )
 			{
 				AnimationKey* key = new AnimationKey();
@@ -315,12 +329,25 @@ void World::LoadScene(const char * scene_path)
 				anim->Load(iss);
 				mAnimation.push_back(anim);
 			}
+<<<<<<< HEAD
 			else if(result == "light")
 			{
 				LightModel* light = new LightModel();
 				light->Load(iss);
 				mModel.push_back(light);
 			}
+=======
+		    else if( result == "skybox1" ) 
+			{
+				//Skybox attributes
+				Skybox* skybox = new Skybox();
+				skybox->Load(iss);
+				//Set to skybox attribute
+				skyboxModel = *skybox;
+
+			} 
+
+>>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line

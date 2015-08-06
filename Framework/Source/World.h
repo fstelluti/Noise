@@ -11,6 +11,7 @@
 
 #include "ParsingHelper.h"
 #include "Billboard.h"
+#include "Skybox.h"
 #include <vector>
 
 class Camera;
@@ -45,6 +46,7 @@ private:
     static World* instance;
 
 	std::vector<Model*> mModel;
+	Skybox skyboxModel;
     std::vector<Animation*> mAnimation;
     std::vector<AnimationKey*> mAnimationKey;
 	std::vector<Camera*> mCamera;

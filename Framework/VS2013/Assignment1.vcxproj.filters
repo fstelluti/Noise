@@ -92,8 +92,13 @@
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Source\LightModel.cpp">
       <Filter>Source Files\Model</Filter>
+=======
+    <ClCompile Include="..\Source\Skybox.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,8 +162,13 @@
     <ClInclude Include="..\Source\ThirdPersonCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Source\LightModel.h">
       <Filter>Source Files\Model</Filter>
+=======
+    <ClInclude Include="..\Source\Skybox.h">
+      <Filter>Source Files</Filter>
+>>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -192,10 +202,16 @@
     <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
-    <None Include="..\..\..\..\Assignment2_v2\Framework\Assets\Shaders\Texture.fragmentshader">
+    <None Include="..\Assets\Shaders\Skybox.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="..\..\..\..\Assignment2_v2\Framework\Assets\Shaders\Texture.vertexshader">
+    <None Include="..\Assets\Shaders\Skybox.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Texture.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Texture.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Assets\Shaders\Flat.vertexshader">
@@ -210,6 +226,24 @@
       <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\Particle.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\negx.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\negy.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\negz.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\posx.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\posy.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\posz.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

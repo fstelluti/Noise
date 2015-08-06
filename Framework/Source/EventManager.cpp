@@ -149,7 +149,7 @@ void EventManager::Update()
 		spec[i] = specLeft[i] + specRight[i] / 2;
 		globalVolume += spec[i];
 	}
-	globalVolume = (globalVolume / 1024) * 500;//do the average volume then multiply by 1000 because its too small
+	globalVolume = (globalVolume / 1024) * 500;//do the average volume then multiply by 500 because its too small
 	smoothedVolume += (globalVolume - smoothedVolume) * 0.1;
 	currentVolume = smoothedVolume;
 

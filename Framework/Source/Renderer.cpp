@@ -56,8 +56,8 @@ void Renderer::Initialize()
     
     
 	// Black background
-	//(243.0f / 255.0f, 164.0f / 255.0f, 232.0f / 255.0f, 0.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(243.0f / 255.0f, 164.0f / 255.0f, 232.0f / 255.0f, 0.0f);
+	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	// Enable depth test
     glEnable(GL_DEPTH_TEST);
@@ -87,13 +87,23 @@ void Renderer::Initialize()
                             shaderPathPrefix + "PathLines.fragmentshader")
                                );
 	sShaderProgramID.push_back(
+<<<<<<< HEAD
                 LoadShaders(shaderPathPrefix + "Flat.vertexshader",
                             shaderPathPrefix + "Flat.fragmentshader")
                                );
     
+=======
+                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
+                            shaderPathPrefix + "BlueColor.fragmentshader")
+                               );   
+>>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
     sShaderProgramID.push_back(
-                               LoadShaders(shaderPathPrefix + "Texture.vertexshader",
-                                           shaderPathPrefix + "Texture.fragmentshader")
+                LoadShaders(shaderPathPrefix + "Texture.vertexshader",
+                            shaderPathPrefix + "Texture.fragmentshader")
+                               );
+	sShaderProgramID.push_back(
+                LoadShaders(shaderPathPrefix + "Skybox.vertexshader",
+                            shaderPathPrefix + "Skybox.fragmentshader")
                                );
 
 	sCurrentShader = 0;
