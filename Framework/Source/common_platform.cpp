@@ -71,7 +71,7 @@ void Common_Init(void** /*extraDriverData*/)
     cursorInfo.dwSize = 100;
     SetConsoleCursorInfo(gConsoleHandle, &cursorInfo);
 
-    SetConsoleTitleA("FMOD Example");
+    SetConsoleTitleA("NOISE");
 }
 
 void Common_Close()

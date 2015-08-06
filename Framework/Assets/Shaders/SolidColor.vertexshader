@@ -12,7 +12,6 @@ uniform mat4 WorldTransform;
 // Outputs to fragment shader
 out vec3 normal;  // You will need this when you do per-fragment lighting
 out vec4 v_color;
-
 void main()
 {
 	// Output position of the vertex, in clip space : MVP * position

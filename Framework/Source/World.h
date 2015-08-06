@@ -39,6 +39,7 @@ public:
 	void RemoveBillboard(Billboard* b);
 	void AddParticleSystem(ParticleSystem* particleSystem);
 	void RemoveParticleSystem(ParticleSystem* particleSystem);
+	void TriggerBeat();
 
 private:
     static World* instance;

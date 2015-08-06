@@ -42,7 +42,6 @@ void Model::Draw()
 {
 }
 
-
 void Model::Load(ci_istringstream& iss)
 {
 	ci_string line;
@@ -118,6 +117,7 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			ci_string animName = token[2];
             
             mAnimation = World::GetInstance()->FindAnimation(animName);
+			mAnimation->setCurrentModel(this);
 		}
 		else if (token[0] == "direction"){
 			assert(token.size() > 4);

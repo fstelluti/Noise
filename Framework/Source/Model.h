@@ -37,7 +37,10 @@ public:
 
 	virtual glm::vec3 GetPosition() const;
 	glm::vec3 GetScaling() const		{ return mScaling; }
+	glm::vec3 GetStretchVec() const		{ return mStretchVec; }
 	glm::vec3 GetRotationAxis() const	{ return mRotationAxis; }
+	int	GetNumerator() const			{ return rangeNumerator; }
+	int	GetDenominator() const			{ return rangeDenominator; }
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
     ci_string GetName()                 { return mName; }
 

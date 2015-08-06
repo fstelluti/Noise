@@ -105,7 +105,12 @@ const Camera* World::GetCurrentCamera() const
 {
      return mCamera[mCurrentCamera];
 }
-
+void World::TriggerBeat(){
+	for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
+	{
+		(*it)->EmitParticles(1);
+	}
+}
 void World::AddBillboard(Billboard* b)
 {
     mpBillboardList->AddBillboard(b);
@@ -157,10 +162,7 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
 	{
-		for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
-		{
-			(*it)->EmitParticles(1);
-		}
+		TriggerBeat();
 	}
 	
     // Update animation and keys
@@ -307,9 +309,6 @@ void World::LoadScene(const char * scene_path)
 				Animation* anim = new Animation();
 				anim->Load(iss);
 				mAnimation.push_back(anim);
-
-
-
 			}
 			else if ( result.empty() == false && result[0] == '#')
 			{

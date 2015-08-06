@@ -12,7 +12,6 @@ Plane::Plane(int side) : Model()
 	Plane::side = side;
 	int SIZE_PER_SIDE = side;
 	float MIN_POSITION = -side / 2;
-	float POSITION_RANGE = side;
 
 	int* vbo = new int[1];
 	int* ibo = new int[1];
@@ -21,22 +20,15 @@ Plane::Plane(int side) : Model()
 	int xLength = SIZE_PER_SIDE;
 	int yLength = SIZE_PER_SIDE;
 
-	std::vector<Vertex> vertexBuffer;
-
 	for (int y = 0; y < yLength; y++){
 		for (int x = 0; x < xLength; x++){
-			float xRatio = x / (float)(xLength - 1);
-			float yRatio = 1.0f - (y / (float)(yLength - 1));
-
-			float xPosition = MIN_POSITION + (xRatio * POSITION_RANGE);
-			float yPosition = MIN_POSITION + (yRatio * POSITION_RANGE);
+			float xPosition = MIN_POSITION + x;
+			float yPosition = MIN_POSITION + y;
 			float zPosition = 0.0f;
 
-			Vertex temp;
-			temp.position = vec3(xPosition, yPosition, zPosition);
-			temp.normal = vec3(0.0f, 0.0f, 1.0f);
-			temp.color = vec3(45.0f / 255.0f, 29.0f / 255.0f, 222.0f / 255.0f);
-			vertexBuffer.push_back(temp);
+			vertexBuffer.push_back(glm::vec3(xPosition, yPosition, zPosition));
+			vertexBuffer.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+			vertexBuffer.push_back(glm::vec3(45.0f / 255.0f, 29.0f / 255.0f, 222.0f / 255.0f));
 		}
 	}
 
@@ -67,7 +59,7 @@ Plane::Plane(int side) : Model()
 	// Upload Vertex Buffer to the GPU, keep a reference to it (mVertexBufferID)
 	glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(Vertex), &vertexBuffer[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(vec3), &vertexBuffer[0], GL_DYNAMIC_DRAW);
 
 	glGenBuffers(1, &mIndexBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBufferID);
@@ -93,6 +85,13 @@ void Plane::Update(float dt)
 
 void Plane::Draw()
 {
+	// Create a vertex array
+	glGenVertexArrays(1, &mVertexArrayID);
+
+	glGenBuffers(1, &mVertexBufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(vec3), &vertexBuffer[0], GL_DYNAMIC_DRAW);
+
 	// Draw the Vertex Buffer
 	// Note this draws a unit Cube
 	// The Model View Projection transforms are computed in the Vertex Shader
@@ -156,4 +155,8 @@ bool Plane::ParseLine(const std::vector<ci_string> &token)
 	{
 		return Model::ParseLine(token);
 	}
+}
+
+std::vector<glm::vec3>* Plane::getVertexBuffer(){
+	return &(Plane::vertexBuffer);
 }
