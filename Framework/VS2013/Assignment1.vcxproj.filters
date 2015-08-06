@@ -1,250 +1,220 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Camera">
-      <UniqueIdentifier>{9c463473-23b9-42c4-8131-b91f4104c082}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Model">
-      <UniqueIdentifier>{05095d5c-2fc5-4dfe-a464-e30c7f31bdb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{d8c6f640-d50d-4388-8a50-90686886c71a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Scenes">
-      <UniqueIdentifier>{66439e2a-f58c-4c2a-aad1-3af2e58e4920}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sound">
-      <UniqueIdentifier>{6e5749a6-60f3-4554-a8e3-4a49e80463f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{c02d0b2a-8a4a-4e3d-8bfe-58af80c45246}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Particles">
-      <UniqueIdentifier>{09e1eea4-e6f8-43d2-a201-a4c1dd5744f9}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\Source\EventManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\StaticCamera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
+    <ClCompile Include="..\Source\Animation.cpp" />
+    <ClCompile Include="..\Source\EventManager.cpp" />
+    <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\TextureLoader.cpp" />
+    <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="..\Source\Camera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Model.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\CubeModel.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\SphereModel.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\FirstPersonCamera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Animation.cpp">
-      <Filter>Source Files\Model</Filter>
+      <Filter>Cameras</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\common.cpp">
-      <Filter>Source Files\Sound</Filter>
+      <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\common_platform.cpp">
-      <Filter>Source Files\Sound</Filter>
+      <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Sound.cpp">
-      <Filter>Source Files\Sound</Filter>
+    <ClCompile Include="..\Source\FirstPersonCamera.cpp">
+      <Filter>Cameras</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\TextureLoader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\Source\CubeModel.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\ParticleDescriptor.cpp">
-      <Filter>Source Files\Particles</Filter>
+    <ClCompile Include="..\Source\LightModel.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\ParticleEmitter.cpp">
-      <Filter>Source Files\Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\ParticleSystem.cpp">
-      <Filter>Source Files\Particles</Filter>
+    <ClCompile Include="..\Source\Model.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Billboard.cpp">
-      <Filter>Source Files\Particles</Filter>
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ParticleDescriptor.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ParticleEmitter.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ParticleSystem.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Skybox.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SphereModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\StaticCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Plane.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Sound.cpp">
+      <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Source\LightModel.cpp">
-      <Filter>Source Files\Model</Filter>
-=======
-    <ClCompile Include="..\Source\Skybox.cpp">
-      <Filter>Source Files</Filter>
->>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
+      <Filter>Cameras</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\EventManager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Renderer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\StaticCamera.h">
-      <Filter>Source Files\Camera</Filter>
-    </ClInclude>
+    <ClInclude Include="..\Source\Animation.h" />
+    <ClInclude Include="..\Source\ParsingHelper.h" />
+    <ClInclude Include="..\Source\EventManager.h" />
+    <ClInclude Include="..\Source\Renderer.h" />
+    <ClInclude Include="..\Source\TextureLoader.h" />
+    <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="..\Source\Camera.h">
-      <Filter>Source Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Model.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\CubeModel.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\World.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\ParsingHelper.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\SphereModel.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\FirstPersonCamera.h">
-      <Filter>Source Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Animation.h">
-      <Filter>Source Files\Model</Filter>
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\common.h">
-      <Filter>Source Files\Sound</Filter>
+      <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\common_platform.h">
-      <Filter>Source Files\Sound</Filter>
+      <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Sound.h">
-      <Filter>Source Files\Sound</Filter>
+    <ClInclude Include="..\Source\FirstPersonCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\TextureLoader.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\Source\CubeModel.h">
+      <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\ParticleDescriptor.h">
-      <Filter>Source Files\Particles</Filter>
+    <ClInclude Include="..\Source\LightModel.h">
+      <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\ParticleEmitter.h">
-      <Filter>Source Files\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\ParticleSystem.h">
-      <Filter>Source Files\Particles</Filter>
+    <ClInclude Include="..\Source\Model.h">
+      <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Billboard.h">
-      <Filter>Source Files\Particles</Filter>
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ParticleDescriptor.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ParticleEmitter.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ParticleSystem.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Skybox.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Plane.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SphereModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Sound.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\StaticCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ThirdPersonCamera.h">
-      <Filter>Source Files\Camera</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="..\Source\LightModel.h">
-      <Filter>Source Files\Model</Filter>
-=======
-    <ClInclude Include="..\Source\Skybox.h">
-      <Filter>Source Files</Filter>
->>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Assets\Shaders\BlueColor.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\PathLines.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\PathLines.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\SolidColor.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\SolidColor.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Scenes\CoordinateSystem.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Assets\Scenes\StaticScene.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Assets\Scenes\AnimatedScene.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Assets\Scenes\NOISE.Scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Skybox.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Skybox.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Texture.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Texture.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Flat.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Assets\Shaders\Flat.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\BillboardTest.bmp">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\Particle.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
     <Image Include="..\Assets\Textures\negx.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="..\Assets\Textures\negy.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="..\Assets\Textures\negz.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\BillboardTest.bmp">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\Particle.png">
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="..\Assets\Textures\posx.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="..\Assets\Textures\posy.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="..\Assets\Textures\posz.jpg">
-      <Filter>Resource Files\Textures</Filter>
+      <Filter>Assets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Scenes\AnimatedScene.scene">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\CoordinateSystem.scene">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\BlueColor.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Flat.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Flat.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\NOISE.Scene">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\PathLines.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\PathLines.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Skybox.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Skybox.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\SolidColor.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\SolidColor.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\StaticScene.scene">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Texture.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Texture.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{46ace607-bef2-44f5-a47c-ab12afab8084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{6177d34c-f2ea-41a9-8558-55f680a6374d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{a64e3f6d-7529-4572-94f3-6cf9497362b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{c92f8312-124c-4030-bebc-73da5aa1212a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{cd7bcace-a48f-43e8-8748-198cdebb4f71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{89346553-5494-496f-8a85-a33a6dbadcac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{cd9fdb52-8a81-4db9-9590-1082a3f8973a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

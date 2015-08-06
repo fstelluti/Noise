@@ -87,16 +87,13 @@ void Renderer::Initialize()
                             shaderPathPrefix + "PathLines.fragmentshader")
                                );
 	sShaderProgramID.push_back(
-<<<<<<< HEAD
                 LoadShaders(shaderPathPrefix + "Flat.vertexshader",
                             shaderPathPrefix + "Flat.fragmentshader")
                                );
-    
-=======
+	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
                             shaderPathPrefix + "BlueColor.fragmentshader")
                                );   
->>>>>>> ab7db6e9730f1491b831be6ea174ca1415313c72
     sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "Texture.vertexshader",
                             shaderPathPrefix + "Texture.fragmentshader")
