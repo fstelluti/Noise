@@ -17,6 +17,7 @@
 
 #include "CubeModel.h"
 #include "SphereModel.h"
+#include "Skybox.h"
 #include "Animation.h"
 #include "Billboard.h"
 
@@ -213,6 +214,10 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
+
+	//Draw the skybox seperatly 
+	skyboxModel.Draw();
+
 	/*
 	// Draw Path Lines
 	
@@ -281,6 +286,15 @@ void World::LoadScene(const char * scene_path)
 				CubeModel* cube = new CubeModel();
 				cube->Load(iss);
 				mModel.push_back(cube);
+
+			}
+			else if( result == "skybox1" ) 
+			{
+				//Skybox attributes
+				Skybox* skybox = new Skybox();
+				skybox->Load(iss);
+				//Set to skybox attribute
+				skyboxModel = *skybox;
 
 			}
             else if( result == "sphere" )
