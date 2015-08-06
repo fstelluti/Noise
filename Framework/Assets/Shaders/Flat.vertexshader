@@ -35,13 +35,13 @@ void main()
 	float cosTheta = clamp(dot(-n, -1), 0, 1);
 
 	// Diffuse
-	vec3 diffuseColor = v_color * cosTheta * LightColor;
+	vec3 diffuseColor = vec3(v_color * cosTheta * LightColor);
 	//Ambient
-	vec3 ambientColor = v_color;
+	vec3 ambientColor = vec3(v_color);
 	//Specular
 	vec3 normEye = normalize(eyeVector);
 	vec3 reflection = reflect(normLight, norm);
-	float cosAlpha = clam(dot(normEye, reflection), 0, 1);
+	float cosAlpha = clamp(dot(normEye, reflection), 0, 1);
 
 	// Final color
 	v_color = ambientColor + diffuseColor;
