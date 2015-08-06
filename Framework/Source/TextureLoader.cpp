@@ -48,7 +48,7 @@ int TextureLoader::LoadTexture(const char * imagepath)
     return texture;
 }
 
-int TextureLoader::LoadSkyboxTexture(const char* imagepath, GLuint texture)
+int TextureLoader::LoadSkyboxTexture(const char* imagepath, GLuint skyTexture, GLenum side)
 {    
     // Load image using the Free Image library
     FREE_IMAGE_FORMAT format = FreeImage_GetFileType(imagepath, 0);
@@ -57,15 +57,15 @@ int TextureLoader::LoadSkyboxTexture(const char* imagepath, GLuint texture)
     
 
     //Generate the cube map texture in Opengl
-    glActiveTexture (GL_TEXTURE0);
-    glGenTextures (1, &texture);
+    //glActiveTexture (GL_TEXTURE0);
+    glGenTextures (1, &skyTexture);
     //GLuint textureInd = 0;
     //glGenTextures(1, &textureInd);
-    assert(texture != 0);
+    assert(skyTexture != 0);
     
     // Set OpenGL filtering properties (bi-linear interpolation)
     //Bind the texture to the cube map
-	glBindTexture (GL_TEXTURE_CUBE_MAP, texture);
+	glBindTexture (GL_TEXTURE_CUBE_MAP, skyTexture);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -81,12 +81,12 @@ int TextureLoader::LoadSkyboxTexture(const char* imagepath, GLuint texture)
     int height = FreeImage_GetHeight(image32bits);
     
     // This will upload the texture to the GPU memory
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height,
+    glTexImage2D(side, 0, GL_RGBA8, width, height,
                  0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(image32bits));
     
     // Free images
     FreeImage_Unload(image);
     FreeImage_Unload(image32bits);
  
-    return texture;
+    return skyTexture;
 }

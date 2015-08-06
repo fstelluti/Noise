@@ -17,7 +17,7 @@ class TextureLoader
 {
 public:
     static int LoadTexture(const char * imagepath);
-	static int LoadSkyboxTexture(const char * imagepath, GLuint texture);
+	static int LoadSkyboxTexture(const char * imagepath, GLuint skyTexture, GLenum side);
 
 private:
     
