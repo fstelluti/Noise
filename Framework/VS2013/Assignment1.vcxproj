@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -104,10 +104,11 @@
     <ClCompile Include="..\Source\common.cpp" />
     <ClCompile Include="..\Source\common_platform.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
+    <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\ParticleDescriptor.cpp" />
     <ClCompile Include="..\Source\ParticleEmitter.cpp" />
     <ClCompile Include="..\Source\ParticleSystem.cpp" />
-    <ClCompile Include="..\Source\Plane.cpp" />
+    <ClCompile Include="..\Source\Skybox.cpp" />
     <ClCompile Include="..\Source\Sound.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
@@ -127,11 +128,12 @@
     <ClInclude Include="..\Source\common.h" />
     <ClInclude Include="..\Source\common_platform.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
+    <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\ParticleDescriptor.h" />
     <ClInclude Include="..\Source\ParticleEmitter.h" />
     <ClInclude Include="..\Source\ParticleSystem.h" />
-    <ClInclude Include="..\Source\Plane.h" />
+    <ClInclude Include="..\Source\Skybox.h" />
     <ClInclude Include="..\Source\Sound.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
@@ -144,22 +146,32 @@
     <ClInclude Include="..\Source\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Assignment2_v2\Framework\Assets\Shaders\Texture.fragmentshader" />
-    <None Include="..\..\..\..\Assignment2_v2\Framework\Assets\Shaders\Texture.vertexshader" />
     <None Include="..\Assets\Scenes\AnimatedScene.scene" />
     <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene" />
     <None Include="..\Assets\Scenes\CoordinateSystem.scene" />
     <None Include="..\Assets\Scenes\NOISE.Scene" />
     <None Include="..\Assets\Scenes\StaticScene.scene" />
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader" />
+    <None Include="..\Assets\Shaders\Flat.fragmentshader" />
+    <None Include="..\Assets\Shaders\Flat.vertexshader" />
     <None Include="..\Assets\Shaders\PathLines.fragmentshader" />
     <None Include="..\Assets\Shaders\PathLines.vertexshader" />
+    <None Include="..\Assets\Shaders\Skybox.fragmentshader" />
+    <None Include="..\Assets\Shaders\Skybox.vertexshader" />
     <None Include="..\Assets\Shaders\SolidColor.fragmentshader" />
     <None Include="..\Assets\Shaders\SolidColor.vertexshader" />
+    <None Include="..\Assets\Shaders\Texture.fragmentshader" />
+    <None Include="..\Assets\Shaders\Texture.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\BillboardTest.bmp" />
     <Image Include="..\..\..\..\Assignment2_v2\Framework\Assets\Textures\Particle.png" />
+    <Image Include="..\Assets\Textures\negx.jpg" />
+    <Image Include="..\Assets\Textures\negy.jpg" />
+    <Image Include="..\Assets\Textures\negz.jpg" />
+    <Image Include="..\Assets\Textures\posx.jpg" />
+    <Image Include="..\Assets\Textures\posy.jpg" />
+    <Image Include="..\Assets\Textures\posz.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

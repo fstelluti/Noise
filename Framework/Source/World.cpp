@@ -10,6 +10,7 @@
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"
+#include "Skybox.h"
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
@@ -17,6 +18,7 @@
 
 #include "CubeModel.h"
 #include "SphereModel.h"
+#include "LightModel.h"
 #include "Plane.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -150,6 +152,7 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 3;
 		}
 	}
+
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -157,7 +160,7 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_BLUE);
+		Renderer::SetShader(SHADER_FLAT);
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
@@ -200,7 +203,18 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 void World::Draw()
 {
 	Renderer::BeginFrame();
-	
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
+	glEnable(GL_LIGHT3);
+	glEnable(GL_LIGHT4);
+
+	GLfloat al[] = {0.2, 1.0, 0.2, 1.0};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, al);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
@@ -216,6 +230,10 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
+
+	//Draw the skybox seperatly 
+	skyboxModel.Draw();
+
 	/*
 	// Draw Path Lines
 	
@@ -310,6 +328,20 @@ void World::LoadScene(const char * scene_path)
 				anim->Load(iss);
 				mAnimation.push_back(anim);
 			}
+			else if(result == "light")
+			{
+				LightModel* light = new LightModel();
+				light->Load(iss);
+				mModel.push_back(light);
+			}
+		    	else if( result == "skybox1" ) 
+			{
+				//Skybox attributes
+				Skybox* skybox = new Skybox();
+				skybox->Load(iss);
+				//Set to skybox attribute
+				skyboxModel = *skybox;
+			} 
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -337,6 +369,18 @@ Animation* World::FindAnimation(ci_string animName)
     for(std::vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
         if((*it)->GetName() == animName)
+        {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+Model* World::FindModel(ci_string modelName)
+{
+    for(std::vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+    {
+        if((*it)->GetName() == modelName)
         {
             return *it;
         }
