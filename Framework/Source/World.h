@@ -32,6 +32,7 @@ public:
 
 	void LoadScene(const char * scene_path);
     Animation* FindAnimation(ci_string animName);
+	Model* FindModel(ci_string modelName);
 	AnimationKey* FindAnimationKey(ci_string keyName);
 
 	const Camera* GetCurrentCamera() const;

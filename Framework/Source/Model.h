@@ -30,12 +30,15 @@ public:
 	void Load(ci_istringstream& iss);
 
 	virtual glm::mat4 GetWorldMatrix() const;
+	virtual glm::vec3 GetLightLocation();
+	virtual glm::vec3 GetLightColor();
 
 	void SetPosition(glm::vec3 position);
 	void SetScaling(glm::vec3 scaling);
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 
 	virtual glm::vec3 GetPosition() const;
+	virtual glm::vec3 GetColor() const;
 	glm::vec3 GetScaling() const		{ return mScaling; }
 	glm::vec3 GetRotationAxis() const	{ return mRotationAxis; }
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
@@ -46,6 +49,7 @@ protected:
 
 	ci_string mName; // The model name is mainly for debugging
 	glm::vec3 mPosition;
+	glm::vec3 mColor;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
 	glm::vec3 mStretchVec;

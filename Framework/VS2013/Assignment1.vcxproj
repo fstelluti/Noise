@@ -104,6 +104,7 @@
     <ClCompile Include="..\Source\common.cpp" />
     <ClCompile Include="..\Source\common_platform.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
+    <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\ParticleDescriptor.cpp" />
     <ClCompile Include="..\Source\ParticleEmitter.cpp" />
     <ClCompile Include="..\Source\ParticleSystem.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\Source\common.h" />
     <ClInclude Include="..\Source\common_platform.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
+    <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\ParticleDescriptor.h" />
     <ClInclude Include="..\Source\ParticleEmitter.h" />
@@ -150,6 +152,8 @@
     <None Include="..\Assets\Scenes\NOISE.Scene" />
     <None Include="..\Assets\Scenes\StaticScene.scene" />
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader" />
+    <None Include="..\Assets\Shaders\Flat.fragmentshader" />
+    <None Include="..\Assets\Shaders\Flat.vertexshader" />
     <None Include="..\Assets\Shaders\PathLines.fragmentshader" />
     <None Include="..\Assets\Shaders\PathLines.vertexshader" />
     <None Include="..\Assets\Shaders\SolidColor.fragmentshader" />

@@ -92,6 +92,9 @@
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\LightModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -154,6 +157,9 @@
     <ClInclude Include="..\Source\ThirdPersonCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\LightModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader">
@@ -190,6 +196,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\..\..\..\Assignment2_v2\Framework\Assets\Shaders\Texture.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Flat.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Flat.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
