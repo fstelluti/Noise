@@ -48,6 +48,7 @@ int TextureLoader::LoadTexture(const char * imagepath)
     return texture;
 }
 
+//This method is used to load the skybox textures, since it is handled differently than a regular texture
 int TextureLoader::LoadSkyboxTexture(const char* imagepath, GLuint skyTexture, GLenum side)
 {    
     // Load image using the Free Image library
