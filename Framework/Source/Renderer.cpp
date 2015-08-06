@@ -89,11 +89,14 @@ void Renderer::Initialize()
 	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
                             shaderPathPrefix + "BlueColor.fragmentshader")
-                               );
-    
+                               );   
     sShaderProgramID.push_back(
-                               LoadShaders(shaderPathPrefix + "Texture.vertexshader",
-                                           shaderPathPrefix + "Texture.fragmentshader")
+                LoadShaders(shaderPathPrefix + "Texture.vertexshader",
+                            shaderPathPrefix + "Texture.fragmentshader")
+                               );
+	sShaderProgramID.push_back(
+                LoadShaders(shaderPathPrefix + "Skybox.vertexshader",
+                            shaderPathPrefix + "Skybox.fragmentshader")
                                );
 
 	sCurrentShader = 0;

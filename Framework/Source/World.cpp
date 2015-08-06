@@ -10,6 +10,7 @@
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"
+#include "Skybox.h"
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
@@ -214,6 +215,10 @@ void World::Draw()
 	{
 		(*it)->Draw();
 	}
+
+	//Draw the skybox seperatly 
+	skyboxModel.Draw();
+
 	/*
 	// Draw Path Lines
 	
@@ -307,10 +312,17 @@ void World::LoadScene(const char * scene_path)
 				Animation* anim = new Animation();
 				anim->Load(iss);
 				mAnimation.push_back(anim);
-
-
-
 			}
+		    else if( result == "skybox1" ) 
+			{
+				//Skybox attributes
+				Skybox* skybox = new Skybox();
+				skybox->Load(iss);
+				//Set to skybox attribute
+				skyboxModel = *skybox;
+
+			} 
+
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
