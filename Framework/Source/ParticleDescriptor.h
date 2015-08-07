@@ -20,6 +20,7 @@ public:
     ParticleDescriptor();
     
     void SetFountainDescriptor();
+	void SetStarsDescriptor();
     void SetFireDescriptor();
     
 private:

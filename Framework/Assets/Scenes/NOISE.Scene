@@ -252,7 +252,7 @@ direction	= 1.0 -1.0 -1.0
 name		= "Sphere"
 position	= 10.0 6.0 0.0
 animation	= "TranslateY"
-particleSystem = "Fountain"
+particleSystem = "Stars"
 
 [Cube]
 name		= "Cube0"

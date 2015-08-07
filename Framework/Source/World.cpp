@@ -53,10 +53,12 @@ World::World()
 	// TODO: You can play with different textures by changing the billboardTest.bmp to another texture
 #if defined(PLATFORM_OSX)
 	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
-	int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+	//int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/starhollow.png");
 #else
 	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
-	int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+	//int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/starhollow.png");
 #endif
 	assert(billboardTextureID != 0);
 
