@@ -331,7 +331,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 		std::vector<glm::vec3>* vertexBuffer = ((Plane*)currentModel)->getVertexBuffer();
 		for (int i = 0; i < vertexBuffer->size(); i += 3){
 			vec3 currentVec(vertexBuffer->at(i));
-			vec3 newVec(currentVec.x, currentVec.y, mCurrentVolume * sin(currentVec.x + (mCurrentTime * 10)));
+			vec3 newVec(currentVec.x, currentVec.y, mCurrentVolume * sin(currentVec.x + (mCurrentTime * 5)) * sin(currentVec.y + (mCurrentTime * 5)));
 			vertexBuffer->at(i) = newVec;
 		}
 		mat4 worldMatrix = translate(mat4(1.0f), position) * rotate(mat4(1.0f), currentModel->GetRotationAngle(), currentModel->GetRotationAxis()) * scale(mat4(1.0f), scaling);

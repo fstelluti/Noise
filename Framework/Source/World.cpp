@@ -220,10 +220,13 @@ void World::Draw()
 
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &mCamera[mCurrentCamera]->GetViewProjectionMatrix()[0][0]);
 
-	// Send the view projection constants to the shader
-	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+	GLuint LightLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightLocation");
+	glUniform3fv(LightLocation, 1, &FindModel("\"Light1\"")->GetPosition()[0]);
+
+	GLuint LightColor = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
+	glUniform3fv(LightColor, 1, &FindModel("\"Light1\"")->GetColor()[0]);
 
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
@@ -256,9 +259,6 @@ void World::Draw()
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 	{
-		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
 		(*it)->Draw();
 	}
 

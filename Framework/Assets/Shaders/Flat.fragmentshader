@@ -1,13 +1,24 @@
 #version 330 core
 
-// Ouput to fragment shader
+uniform mat4 ViewProjectionTransform;
+uniform mat4 WorldTransform;
+uniform vec3 LightLocation;
+uniform vec3 LightColor;
+
+// Ouput from fragment shader
 out vec4 color;
 
 in vec4 v_color;
-in vec3 normal; // You will need this when you do per-fragment lighting
+in vec3 position;
 
 void main()
 {
-	// set the fragment color to the interpolated vertex color
-	color = v_color;
+	vec3 projectionNormal = cross(dFdy(position), dFdx(position));
+	vec3 norm = normalize(projectionNormal);
+
+	vec3 L = (mat3(ViewProjectionTransform) * mat3(WorldTransform) * LightLocation) - position;
+
+	float LdotN = dot(normalize(L), norm);
+
+	color = v_color + vec4(LdotN * LightColor * 10 / length(L), 1.0f);
 }

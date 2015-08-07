@@ -15,6 +15,7 @@ using namespace glm;
 
 LightModel::LightModel(vec3 size) : Model()
 {
+	mColor = vec3(1.0f, 1.0f, 1.0f);
 	vec3 vertexBuffer[] = {vec3(0.0f, 0.0f ,0.0f)};
 
     numOfVertices = 1;

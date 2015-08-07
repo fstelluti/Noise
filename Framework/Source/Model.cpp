@@ -181,24 +181,6 @@ glm::mat4 Model::GetWorldMatrix() const
 	return worldMatrix;
 }
 
-glm::vec3 Model::GetLightLocation()
-{
-	vec3 lightLocation;
-
-	lightLocation = World::GetInstance()->FindModel("\"Light1\"")->GetPosition();
-
-	return lightLocation;
-}
-
-glm::vec3 Model::GetLightColor()
-{
-	vec3 lightColor;
-
-	lightColor = World::GetInstance()->FindModel("\"Light1\"")->GetColor();
-
-	return lightColor;
-}
-
 glm::vec3 Model::GetPosition() const { return mPosition; }
 glm::vec3 Model::GetColor() const { return mColor; }
 

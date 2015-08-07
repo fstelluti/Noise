@@ -8,42 +8,18 @@ layout(location = 2) in vec3 vertexColor;
 // Values that stay constant for the whole mesh.
 uniform mat4 ViewProjectionTransform;
 uniform mat4 WorldTransform;
-uniform vec3 LightLocation;
-uniform vec3 LightColor;
 
 // Outputs to fragment shader
-out vec3 normal;  // You will need this when you do per-fragment lighting
 out vec4 v_color;
+out vec3 position;
 
 void main()
 {
-
 	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  ViewProjectionTransform * WorldTransform * vec4(vertexPosition_modelspace, 1);
+	gl_Position =  ViewProjectionTransform * WorldTransform * vec4(vertexPosition_modelspace, 1.0f);
 
+	position = mat3(ViewProjectionTransform) * mat3(WorldTransform) * vertexPosition_modelspace;
 	v_color = vec4(vertexColor, 1.0f);
 
-	vec3 eyeVector = (WorldTransform * vec4(vertexPosition_modelspace, 1)).xyz;
-	vec3 normal = (WorldTransform * vec4(vertexNormal_modespace, 0)).xyz;
-	vec3 lightPosition = (ViewProjectionTransform * vec4(LightLocation, 1)).xyz;
-	vec3 lightVector = lightPosition + eyeVector;
-
-	vec3 norm = normalize(normal);
-
-	vec3 normLight = normalize(LightColor);
-
-	float cosTheta = clamp(dot(-n, -1), 0, 1);
-
-	// Diffuse
-	vec3 diffuseColor = vec3(v_color * cosTheta * LightColor);
-	//Ambient
-	vec3 ambientColor = vec3(v_color);
-	//Specular
-	vec3 normEye = normalize(eyeVector);
-	vec3 reflection = reflect(normLight, norm);
-	float cosAlpha = clamp(dot(normEye, reflection), 0, 1);
-
-	// Final color
-	v_color = ambientColor + diffuseColor;
 }
 
