@@ -16,7 +16,7 @@ void main()
 	vec3 projectionNormal = cross(dFdy(position), dFdx(position));
 	vec3 norm = normalize(projectionNormal);
 
-	vec3 L = (mat3(ViewProjectionTransform) * mat3(WorldTransform) * LightLocation) - position;
+	vec3 L = (mat3(ViewProjectionTransform) * LightLocation) - position;
 
 	float LdotN = dot(normalize(L), norm);
 
