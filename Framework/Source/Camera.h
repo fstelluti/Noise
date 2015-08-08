@@ -23,6 +23,8 @@ public:
 	virtual glm::mat4 GetProjectionMatrix() const;
 	glm::mat4 GetViewProjectionMatrix() const;
 
+	static bool hasMoved;  //Checks if camera has moved
+
 private:
 
 };

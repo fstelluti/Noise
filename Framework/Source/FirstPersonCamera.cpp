@@ -8,6 +8,7 @@
 
 #include "FirstPersonCamera.h"
 #include "EventManager.h"
+#include "Renderer.h"
 #include <GLM/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -66,32 +67,39 @@ void FirstPersonCamera::Update(float dt)
 	{
 		vec3 direction = normalize(glm::vec3(mLookAt.x, 0.0f, mLookAt.z));
 		mPosition += direction * dt * mSpeed;
+		hasMoved = true;
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S ) == GLFW_PRESS)
 	{
 		vec3 direction = normalize(glm::vec3(mLookAt.x, 0.0f, mLookAt.z));
 		mPosition -= direction * dt * mSpeed;
+		hasMoved = true;
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D ) == GLFW_PRESS)
 	{
 		mPosition += sideVector * dt * mSpeed;
+		hasMoved = true;
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A ) == GLFW_PRESS)
 	{
 		mPosition -= sideVector * dt * mSpeed;
+		hasMoved = true;
 	}
 
 	//space and shift for up and down
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS){
 		mPosition += upVector * dt * mSpeed;
+		hasMoved = true;
 	}
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS){
 		mPosition -= upVector * dt * mSpeed;
+		hasMoved = true;
 	}
+
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const
