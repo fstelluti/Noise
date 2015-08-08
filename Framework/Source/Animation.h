@@ -50,6 +50,8 @@ public:
 	void Load(ci_istringstream& iss);
 	ci_string GetName() const;
 
+	void setCurrentModel(Model* currentModel);
+
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
 
@@ -83,6 +85,7 @@ private:
     std::vector<AnimationKey> mKey;
     std::vector<float> mKeyTime;
 
+	Model* currentModel;
     // For drawing lines between keys
     // The vertex format is only position
     struct Vertex

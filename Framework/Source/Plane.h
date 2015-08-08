@@ -11,6 +11,8 @@ public:
 	virtual void Update(float dt);
 	virtual void Draw();
 
+	std::vector<glm::vec3>* getVertexBuffer();
+
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
 
@@ -22,7 +24,7 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
-
+	std::vector<glm::vec3> vertexBuffer;
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
 	unsigned int mIndexBufferID;

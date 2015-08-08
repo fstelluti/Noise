@@ -10,6 +10,7 @@
 #include "Animation.h"
 #include "Renderer.h"
 #include "World.h"
+#include "Plane.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 
@@ -50,7 +51,7 @@ bool AnimationKey::ParseLine(const std::vector<ci_string> &token)
 	}
 }
 
-Animation::Animation() 
+Animation::Animation()
 	: mName(""), mCurrentTime(0.0f), mDuration(0.0f), mVertexBufferID(0), mVertexArrayID(0)
 {
 }
@@ -59,6 +60,9 @@ Animation::~Animation()
 {
 }
 
+void Animation::setCurrentModel(Model* currentModel){
+	Animation::currentModel = currentModel;
+}
 /*void Animation::CreateVertexBuffer()
 {
     // This is just to display lines between the animation keys
@@ -322,6 +326,15 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 		mat4 t = translate(mat4(1.0f), position + translateVec);
 		mat4 worldMatrix = t * s;
 		return worldMatrix;
+	}
+	else if (mName == "\"PlaneWave\""){
+		std::vector<glm::vec3>* vertexBuffer = ((Plane*)currentModel)->getVertexBuffer();
+		for (int i = 0; i < vertexBuffer->size(); i += 3){
+			vec3 currentVec(vertexBuffer->at(i));
+			vec3 newVec(currentVec.x, currentVec.y, mCurrentVolume * sin(currentVec.x + 2 * currentVec.y + (mCurrentTime * 5)));
+			vertexBuffer->at(i) = newVec;
+		}
+		mat4 worldMatrix = translate(mat4(1.0f), position) * rotate(mat4(1.0f), currentModel->GetRotationAngle(), currentModel->GetRotationAxis()) * scale(mat4(1.0f), scaling);
 	}
 	else{
 		float beforeT = 0.0f;

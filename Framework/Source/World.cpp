@@ -18,6 +18,7 @@
 
 #include "CubeModel.h"
 #include "SphereModel.h"
+#include "LightModel.h"
 #include "Plane.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -52,10 +53,12 @@ World::World()
 	// TODO: You can play with different textures by changing the billboardTest.bmp to another texture
 #if defined(PLATFORM_OSX)
 	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
-	int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+	//int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/starhollow.png");
 #else
 	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
-	int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+	//int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
+	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/starhollow.png");
 #endif
 	assert(billboardTextureID != 0);
 
@@ -106,7 +109,12 @@ const Camera* World::GetCurrentCamera() const
 {
      return mCamera[mCurrentCamera];
 }
-
+void World::TriggerBeat(){
+	for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
+	{
+		(*it)->EmitParticles(1);
+	}
+}
 void World::AddBillboard(Billboard* b)
 {
     mpBillboardList->AddBillboard(b);
@@ -146,6 +154,7 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 3;
 		}
 	}
+
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -153,15 +162,12 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_BLUE);
+		Renderer::SetShader(SHADER_FLAT);
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
 	{
-		for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
-		{
-			(*it)->EmitParticles(1);
-		}
+		TriggerBeat();
 	}
 	
     // Update animation and keys
@@ -199,16 +205,30 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 void World::Draw()
 {
 	Renderer::BeginFrame();
-	
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
+	glEnable(GL_LIGHT3);
+	glEnable(GL_LIGHT4);
+
+	GLfloat al[] = {0.2, 1.0, 0.2, 1.0};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, al);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &mCamera[mCurrentCamera]->GetViewProjectionMatrix()[0][0]);
 
-	// Send the view projection constants to the shader
-	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+	GLuint LightLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightLocation");
+	glUniform3fv(LightLocation, 1, &FindModel("\"Light1\"")->GetPosition()[0]);
+
+	GLuint LightColor = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
+	glUniform3fv(LightColor, 1, &FindModel("\"Light1\"")->GetColor()[0]);
 
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
@@ -246,9 +266,6 @@ void World::Draw()
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 	{
-		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
 		(*it)->Draw();
 	}
 
@@ -318,16 +335,20 @@ void World::LoadScene(const char * scene_path)
 				anim->Load(iss);
 				mAnimation.push_back(anim);
 			}
-		    else if( result == "skybox1" ) 
+			else if(result == "light")
+			{
+				LightModel* light = new LightModel();
+				light->Load(iss);
+				mModel.push_back(light);
+			}
+		    	else if( result == "skybox1" ) 
 			{
 				//Skybox attributes
 				Skybox* skybox = new Skybox();
 				skybox->Load(iss);
 				//Set to skybox attribute
 				skyboxModel = *skybox;
-
 			} 
-
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -355,6 +376,18 @@ Animation* World::FindAnimation(ci_string animName)
     for(std::vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
         if((*it)->GetName() == animName)
+        {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+Model* World::FindModel(ci_string modelName)
+{
+    for(std::vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+    {
+        if((*it)->GetName() == modelName)
         {
             return *it;
         }

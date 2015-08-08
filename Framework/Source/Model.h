@@ -36,8 +36,12 @@ public:
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 
 	virtual glm::vec3 GetPosition() const;
+	virtual glm::vec3 GetColor() const;
 	glm::vec3 GetScaling() const		{ return mScaling; }
+	glm::vec3 GetStretchVec() const		{ return mStretchVec; }
 	glm::vec3 GetRotationAxis() const	{ return mRotationAxis; }
+	int	GetNumerator() const			{ return rangeNumerator; }
+	int	GetDenominator() const			{ return rangeDenominator; }
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
     ci_string GetName()                 { return mName; }
 
@@ -46,6 +50,7 @@ protected:
 
 	ci_string mName; // The model name is mainly for debugging
 	glm::vec3 mPosition;
+	glm::vec3 mColor;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
 	glm::vec3 mStretchVec;

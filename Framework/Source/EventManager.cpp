@@ -10,6 +10,8 @@
 #include "EventManager.h"
 #include "Renderer.h"
 #include "Sound.h"
+#include "ParticleSystem.h"
+#include "World.h"
 
 #include <GLFW/glfw3.h>
 #include "fmod.hpp"
@@ -47,6 +49,9 @@ float *specRight = new float[windowsize / 2];
 float *spec = new float[windowsize / 2];
 float smoothedVolume = 0;
 float currentVolume = 0;
+
+float energyBuffer[43];
+int index = 0;
 
 
 
@@ -108,6 +113,9 @@ void EventManager::Initialize()
 	sound = Sound();
 	sound.initialize();
 	sound.playSong("../Assets/All You're Waiting For.mp3");
+	for (int i = 0; i < 43; i++){
+		energyBuffer[i] = 0;
+	}
 }
 
 void EventManager::Shutdown()
@@ -143,24 +151,45 @@ void EventManager::Update()
 	sound.fft->getParameterFloat(FMOD_DSP_FFT_DOMINANT_FREQ, &val, 0, 0);
 	sound.fft->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void **)&fftParameter, &len, s, 256);
 	float globalVolume = 0;
+	float energy = 0;
 	for (int i = 0; i < windowsize / 2; i++){
 		specLeft[i] = fftParameter->spectrum[0][i];
 		specRight[i] = fftParameter->spectrum[1][i];
 		spec[i] = specLeft[i] + specRight[i] / 2;
+		energy += specLeft[i] * specLeft[i] + specRight[i] * specRight[i];
 		globalVolume += spec[i];
 	}
 	globalVolume = (globalVolume / 1024) * 500;//do the average volume then multiply by 500 because its too small
 	smoothedVolume += (globalVolume - smoothedVolume) * 0.1;
 	currentVolume = smoothedVolume;
 
+	//BEAT DETECTION
 
-	//THE FOLLOWING LINES WILL NORMALIZE THE SPECTRUM VALUES
-	/*auto maxIterator = std::max_element(&spec[0], &spec[windowsize / 2]);
-	float maxVol = *maxIterator;
-
-	// Normalize
-	if (maxVol != 0)
-		std::transform(&spec[0], &spec[windowsize / 2], &spec[0], [maxVol](float dB) -> float { return dB / maxVol; });*/
+	//fill buffer
+	energyBuffer[index] = energy;
+	//find buffer average
+	float energyAverage = 0;
+	for (int i = 0; i < 43; i++){
+		energyAverage += energyBuffer[i];
+	}
+	energyAverage = energyAverage / 43;
+	//find variance
+	float energyVariance = 0;
+	for (int i = 0; i < 43; i++){
+		energyVariance = (energyAverage - energyBuffer[i]) * (energyAverage - energyBuffer[i]);
+	}
+	energyVariance = energyVariance / 43;
+	//find C
+	float C = -0.0000015 * energyVariance + 1.5142857;
+	if (energyBuffer[index] > C * energyAverage){
+		World::GetInstance()->TriggerBeat();
+	}
+	if (index == 42){
+		index = 0;
+	}
+	else{
+		index++;
+	}
 }
 
 float EventManager::GetFrameTime()
