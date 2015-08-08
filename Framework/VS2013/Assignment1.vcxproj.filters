@@ -58,6 +58,9 @@
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\TrackCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
@@ -115,6 +118,9 @@
       <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ThirdPersonCamera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TrackCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,6 +15,7 @@
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
 #include "ThirdPersonCamera.h"
+#include "TrackCamera.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -47,6 +48,7 @@ World::World()
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new ThirdPersonCamera());
+	mCamera.push_back(new TrackCamera());
 
 	mCurrentCamera = 0;
 
@@ -128,7 +130,7 @@ void World::RemoveBillboard(Billboard* b)
 void World::Update(float dt, float currentVolume, float* currentSpec)
 {
 	// User Inputs
-	// 0 1 2 to change the Camera
+	// 1 2 3 4 5 to change the Camera
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1 ) == GLFW_PRESS)
 	{
 		mCurrentCamera = 0;
@@ -154,6 +156,15 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 3;
 		}
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
+	{
+		if (mCamera.size() > 4)
+		{
+			mCurrentCamera = 4;
+		}
+	}
+
+
 
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
