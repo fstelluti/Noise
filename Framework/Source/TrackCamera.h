@@ -4,9 +4,14 @@
 #include <glm/gtx/spline.hpp>
 #include <vector>
 
+
+enum curveType{
+	linear = 0,
+	hermite = 1,
+	bspline = 2
+};
 class TrackCamera :
-	public Camera
-{
+	public Camera{
 public:
 	TrackCamera(void);
 	~TrackCamera(void);
@@ -15,11 +20,12 @@ public:
 	virtual glm::mat4 GetViewMatrix() const;
 	glm::vec3 GetPosition(float t) const;
 	glm::vec3 GetTangent(float t) const;
+	void setCurveType(int t);
 
 private:
 	Curve* curve;
 	float progress;
-
+	int type;
 };
 
 

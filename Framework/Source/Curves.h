@@ -114,24 +114,18 @@ public:
 		while(t > 1){
 			t -= 1;
 			for (int i = 0; i < 4; i++){
-				p[i] = (p[i] + 2)%points.size();
+				p[i] = (p[i] + 1)%points.size();
 			}
 		}
-		glm::mat4 MG = glm::mat4(1/6.0) * glm::transpose(glm::mat4(
-			-1.0f,	3.0f,	-3.0f, 1.0f,
-			3.0f,	-6.0f,	3.0f,	0.0f,
-			-3.0f,	0.0f,	3.0f,	0.0f,
-			1.0f,	4.0f,	1.0f,	0.0f
-			)) * 
-			glm::mat4(
-				glm::vec4(points[p[0]],0), glm::vec4(points[p[1]],0), glm::vec4(points[p[2]],0), glm::vec4(points[p[3]],0)
-				);
-		return glm::cubic(
-			glm::vec3(MG[0]),
-			glm::vec3(MG[1]),
-			glm::vec3(MG[2]),
-			glm::vec3(MG[3]),
-			t);
+
+		glm::vec4 MG = glm::vec4(1.0f/6.0f) * glm::vec4(t*t*t, t*t, t, 1.0f) * (glm::mat4(
+			glm::vec4(-1,	3,	-3,	1),
+			glm::vec4(3,	-6,	0,	4),
+			glm::vec4(-3,	3,	3,	1),
+			glm::vec4(1,	0,	0,	0)
+			));
+		return
+			glm::vec3(MG.x * points[p[0]] + MG.y * points[p[1]] + MG.z * points[p[2]] + MG.w * points[p[3]]);
 	}
 	virtual void nextPoint(){
 		for (int i = 0; i < 4; i++){

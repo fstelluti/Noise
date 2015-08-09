@@ -1,20 +1,36 @@
 #include "TrackCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "EventManager.h"
+#include <GLFW/glfw3.h>
 
 
 
 TrackCamera::TrackCamera(void)
 {
+	type = 2;
+	setCurveType(bspline);
+}
 
-	enum curveType{
-		linear = 0,
-		hermite = 1,
-		bspline = 2
-	};
+
+void TrackCamera::setCurveType(int t){
 	
-	int type = 1;
+	if (t == 2){
+		const int numPoints = 4;
+		glm::vec3 arrpoints[numPoints] = {
+				glm::vec3(20,	5,	30),
+				glm::vec3(30,	10,	12),
+				glm::vec3(20,	5,	10),
+				glm::vec3(3,	12,  32)
+		};
 
-	if (type == hermite){
+		std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
+		for(int i = 0; i < numPoints; i++){
+			points.push_back(arrpoints[i]);
+		}
+
+		curve = new BSplineCurve(points);
+	}
+	else if (t == 1){
 		const int numPoints = 4;
 		glm::vec3 arrpoints[numPoints] = {
 				glm::vec3(0,	5,	-50),
@@ -29,16 +45,16 @@ TrackCamera::TrackCamera(void)
 			points.push_back(arrpoints[i]);
 		}
 
-		curve = new BSplineCurve(points);
+		curve = new HermiteCurve(points);
 	}
 
-	else{
+	else if(t == 0){
 		const int numPoints = 4;
 		glm::vec3 arrpoints[numPoints] = {
-				glm::vec3(0,	5,	-50),
-				glm::vec3(100,	0,	0),
-				glm::vec3(0,	5,	50),
-				glm::vec3(-100,	0,  0)
+				glm::vec3(4,	5,	21),
+				glm::vec3(32,	40,	21),
+				glm::vec3(22,	13,	24),
+				glm::vec3(15,	16,  32)
 
 		};
 
@@ -50,6 +66,7 @@ TrackCamera::TrackCamera(void)
 		curve = new LinearCurve(points);
 	}
 }
+
 
 
 TrackCamera::~TrackCamera(void)
@@ -65,6 +82,16 @@ void TrackCamera::Update(float dt){
 	}
 	if(progress < 0){
 		progress = 0;
+	}
+
+	static bool five_pressed = 1;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS && !five_pressed){
+		five_pressed = 1;
+		type = (type+1) % 3;
+		setCurveType(type);
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_RELEASE){
+		five_pressed = 0;
 	}
 }
 glm::mat4 TrackCamera::GetViewMatrix() const{
