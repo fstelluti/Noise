@@ -100,7 +100,7 @@ void Skybox::Draw() {
 	Renderer::CheckForErrors();
 
 	//Disable DepthMask so that everything always gets draw in fron of the skybox
-	//glDepthMask (GL_FALSE);
+	glDepthMask(GL_FALSE);
 
 	// Set current shader to be the Textured Shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
@@ -122,55 +122,39 @@ void Skybox::Draw() {
     
     // Send the view projection constants to the shader
     const Camera* currentCamera = World::GetInstance()->GetCurrentCamera();
-    mat4 VP = currentCamera->GetViewProjectionMatrix();
+	mat4 projectionM = currentCamera->GetProjectionMatrix();
 
-    glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+    glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &projectionM[0][0]);
 
 	//Draw the vertex buffer
 	//Generate and bind the vertex array
 	glBindVertexArray (mSkyBoxVertexArrayID);
 
-	///////////
-	//TODO Remove translation information here????
-	///////////
+	//Use the Skybox shader
+	glUseProgram(Renderer::GetShaderProgramID());
 
 	//Check if the camera has moved, and if so, build a view matrix that contains no translation information
 	//Pass this view Matrix to the Skybox shader
 	if(Camera::hasMoved) {
+		
+		//Remove translation info from the View matrix
+		mat4 viewMatrix = mat4(mat3(currentCamera->GetViewMatrix()));
+
 		//Get the view transform matrix
 		GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
 
-		mat4 viewMatrix = currentCamera->GetViewMatrix();
-		//viewMatrix = inverse(viewMatrix);
-
-		//Get the Right, lookat and up vectors
-		//vec4 cameraRight = vec4(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0], 0.0f);
-		//vec4 cameraUp = vec4(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1], 0.0f);
-		//vec4 lookat = vec4(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2], 0.0f);
-		//vec4 ident = vec4(0.0, 0.0, 0.0, 1.0f);
-		//mat4 ViewNoTranslation = mat4(cameraRight, cameraUp, lookat, ident);
-
-		//translate by inverse of current position
-		vec4 translate = vec4(-viewMatrix[3][0], -viewMatrix[3][1], -viewMatrix[3][2], -viewMatrix[3][3]);
-		//viewMatrix[3][0] = translate.x;
-		//viewMatrix[3][1] = translate.y;
-		//viewMatrix[3][2] = translate.z;
-		//viewMatrix[3][3] = translate.w;
-
-		viewMatrix = inverse(viewMatrix);
-
-		//Use the Skybox shader
-		glUseProgram(Renderer::GetShaderProgramID());
-
 		glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
 	}
 	else {
-		//Get the world transform matrix
-		GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
 
-		//Skybox is relative to the origin (??)
-		//mat4 worldMatrix(1.0f);
-		glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+		mat4 viewMatrix = currentCamera->GetViewMatrix();
+
+		//Get the view transform matrix
+		GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
+
+		glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
 	}
 
 	glEnableVertexAttribArray (0);
@@ -188,7 +172,7 @@ void Skybox::Draw() {
 
 	glDisableVertexAttribArray(0);
 
-	//glDepthMask (GL_TRUE);
+	glDepthMask (GL_TRUE);
 
 	Renderer::CheckForErrors();
     
