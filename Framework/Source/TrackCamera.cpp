@@ -5,8 +5,8 @@ TrackCamera::TrackCamera(void)
 {
 	glm::vec3 arrpoints[8] = {
 			glm::vec3(0,	5,	0),
-			glm::vec3(0,	5,	10),
-			glm::vec3(10,	5,	10),
+			glm::vec3(0,	5,	13),
+			glm::vec3(10,	5,	19),
 			glm::vec3(10,	10,	10),
 			glm::vec3(15,	15,	13),
 			glm::vec3(0,	5,	10),
@@ -47,31 +47,30 @@ void TrackCamera::Update(float dt){
 }
 glm::mat4 TrackCamera::GetViewMatrix() const{
 
-
-	glm::vec3 position = glm::cubic(
+	glm::vec3 position = GetPosition(
 		points[currentPoints[0]],
 		points[currentPoints[1]],
 		points[currentPoints[2]],
 		points[currentPoints[3]],
 		progress);
 
-	/*glm::vec3 p0 = glm::cubic(
+	glm::vec3 tangent = GetTangent(
 		points[currentPoints[0]],
 		points[currentPoints[1]],
 		points[currentPoints[2]],
 		points[currentPoints[3]],
-		progress+0.2);
-	glm::vec3 p2 = glm::cubic(
-		points[currentPoints[0]],
-		points[currentPoints[1]],
-		points[currentPoints[2]],
-		points[currentPoints[3]],
-		progress-0.2);
-
-
-	std::cout << position << endl;
-	glm::vec3 tangent = p0-p2;*/
-	return glm::lookAt(position, /*position+tangent*/ glm::vec3(0), glm::vec3(0.0f, 1.0f, 0.0f));
+		progress);
+	return glm::lookAt(position, position+tangent /*glm::vec3(0)*/, glm::vec3(0.0f, 1.0f, 0.0f));
 
 }
 
+glm::vec3 TrackCamera::GetPosition(glm::vec3 v1,glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, float p) const{
+	 return glm::mix(
+		v1,
+		v4,
+		p);
+}
+
+glm::vec3 TrackCamera::GetTangent(glm::vec3 v1,glm::vec3 v2, glm::vec3 v3, glm::vec3 v4, float p) const{
+	return GetPosition(v1, v2, v3, v4, p + 0.05) - GetPosition(v1, v2, v3, v4, p - 0.05);
+}
