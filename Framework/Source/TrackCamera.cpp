@@ -8,29 +8,46 @@ TrackCamera::TrackCamera(void)
 
 	enum curveType{
 		linear = 0,
-		hermite = 1
+		hermite = 1,
+		bspline = 2
 	};
 	
 	int type = 1;
 
-
-
 	if (type == hermite){
-	const int numPoints = 4;
-	glm::vec3 arrpoints[numPoints] = {
-			glm::vec3(0,	5,	-50),
-			glm::vec3(100,	0,	0),
-			glm::vec3(0,	5,	50),
-			glm::vec3(-100,	0,  0)
+		const int numPoints = 4;
+		glm::vec3 arrpoints[numPoints] = {
+				glm::vec3(0,	5,	-50),
+				glm::vec3(100,	0,	0),
+				glm::vec3(0,	5,	50),
+				glm::vec3(-100,	0,  0)
 
-	};
+		};
 
-	std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
-	for(int i = 0; i < numPoints; i++){
-		points.push_back(arrpoints[i]);
+		std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
+		for(int i = 0; i < numPoints; i++){
+			points.push_back(arrpoints[i]);
+		}
+
+		curve = new BSplineCurve(points);
 	}
 
-	curve = new HermiteCurve(points);
+	else{
+		const int numPoints = 4;
+		glm::vec3 arrpoints[numPoints] = {
+				glm::vec3(0,	5,	-50),
+				glm::vec3(100,	0,	0),
+				glm::vec3(0,	5,	50),
+				glm::vec3(-100,	0,  0)
+
+		};
+
+		std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
+		for(int i = 0; i < numPoints; i++){
+			points.push_back(arrpoints[i]);
+		}
+
+		curve = new LinearCurve(points);
 	}
 }
 
