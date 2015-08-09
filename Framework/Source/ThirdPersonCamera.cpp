@@ -4,9 +4,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Animation.h"
+#include "World.h"
 
 #include <stdio.h>
 
+#include <string>
 #include <GLFW/glfw3.h>
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
@@ -24,6 +26,9 @@ glm::vec3 rotateAroundAxis(glm::vec3 displacement, glm::vec3 newAxis, float RY){
 
 ThirdPersonCamera::ThirdPersonCamera(void)
 {
+
+	setTarget(getNextModel());
+
 	radius = 10.0f;
 	rotateX = 0;
 	rotateY = 0;
@@ -73,11 +78,33 @@ void ThirdPersonCamera::Update(float dt)
 		radius += 0.01  * angleSpeed;
 	}
 
+	static bool pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_N) == GLFW_PRESS && !pressed){
+		pressed = 1;
+		setTarget(getNextModel());
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_N) == GLFW_RELEASE){
+		pressed = 0;
+	}
+
 	if(radius < 0){
 		radius = 0;
 	}
 }
 
+Model* ThirdPersonCamera::getNextModel(){
+
+	static int index = 0;
+	index = (index + 1) % 2;
+	std::string names[4] = {
+		"\"Cube4\"",
+		"\"Sphere\""
+	};
+
+	World* w = World::GetInstance();
+	return w->FindModel(ci_string(names[index].c_str()));
+
+}
 glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
 	
 	glm::vec3 displacement = glm::vec3(0.0f,0.0f,1.0f);
@@ -99,7 +126,7 @@ glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
 	displacement *= radius;
 	
 	if(targetModel){
-		glm::vec3 pos = ((Animation*)targetModel)->GetPosition();
+		glm::vec3 pos = (targetModel)->GetPosition();
 		return glm::lookAt(pos-displacement,pos,glm::vec3(0.0f,1.0f,0.0f));
 	}
 	else
