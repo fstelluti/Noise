@@ -5,22 +5,33 @@
 
 TrackCamera::TrackCamera(void)
 {
-	glm::vec3 arrpoints[8] = {
-			glm::vec3(5,	5,	5),
-			glm::vec3(10,	5,	11),
-			glm::vec3(20,	5,	22),
-			glm::vec3(30,	10,	33),
-			glm::vec3(15,	15,	13),
-			glm::vec3(0,	5,	10),
-			glm::vec3(10,	5,	10),
-			glm::vec3(10,	10,	10)
+
+	enum curveType{
+		linear = 0,
+		hermite = 1
 	};
+	
+	int type = 1;
+
+
+
+	if (type == hermite){
+	const int numPoints = 4;
+	glm::vec3 arrpoints[numPoints] = {
+			glm::vec3(0,	5,	-50),
+			glm::vec3(100,	0,	0),
+			glm::vec3(0,	5,	50),
+			glm::vec3(-100,	0,  0)
+
+	};
+
 	std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
-	for(int i = 0; i < 8; i++){
+	for(int i = 0; i < numPoints; i++){
 		points.push_back(arrpoints[i]);
 	}
 
-	curve = new LinearCurve(points);
+	curve = new HermiteCurve(points);
+	}
 }
 
 
