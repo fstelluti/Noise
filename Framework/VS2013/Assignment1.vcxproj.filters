@@ -123,6 +123,9 @@
     <ClInclude Include="..\Source\TrackCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
+    <ClInclude Include="Curves.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Assets\Textures\negx.jpg">
