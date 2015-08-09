@@ -247,8 +247,13 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
+	//Disable DepthMask so that everything always gets draw in fron of the skybox
+	glDepthMask(GL_FALSE);
+
 	//Draw the skybox seperatly 
 	skyboxModel.Draw();
+
+	glDepthMask (GL_TRUE);
 
 	/*
 	// Draw Path Lines

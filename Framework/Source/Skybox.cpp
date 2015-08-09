@@ -100,7 +100,7 @@ void Skybox::Draw() {
 	Renderer::CheckForErrors();
 
 	//Disable DepthMask so that everything always gets draw in fron of the skybox
-	glDepthMask (GL_FALSE);
+	glDepthMask(GL_FALSE);
 
 	// Set current shader to be the Textured Shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
@@ -122,22 +122,40 @@ void Skybox::Draw() {
     
     // Send the view projection constants to the shader
     const Camera* currentCamera = World::GetInstance()->GetCurrentCamera();
-    mat4 VP = currentCamera->GetViewProjectionMatrix();
-	///////////
-	//TODO Remove translation information????
-	///////////
-    glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+	mat4 projectionM = currentCamera->GetProjectionMatrix();
+
+    glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &projectionM[0][0]);
 
 	//Draw the vertex buffer
 	//Generate and bind the vertex array
 	glBindVertexArray (mSkyBoxVertexArrayID);
 
-	//Get the world transform matrix
-	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
+	//Use the Skybox shader
+	glUseProgram(Renderer::GetShaderProgramID());
 
-	//Skybox is relative to the origin (??)
-	mat4 worldMatrix(1.0f);
-	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+	//Check if the camera has moved, and if so, build a view matrix that contains no translation information
+	//Pass this view Matrix to the Skybox shader
+	if(Camera::hasMoved) {
+		
+		//Remove translation info from the View matrix
+		mat4 viewMatrix = mat4(mat3(currentCamera->GetViewMatrix()));
+
+		//Get the view transform matrix
+		GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
+
+		glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
+	}
+	else {
+
+		mat4 viewMatrix = currentCamera->GetViewMatrix();
+
+		//Get the view transform matrix
+		GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform"); 
+
+		glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
+	}
 
 	glEnableVertexAttribArray (0);
 	glBindBuffer (GL_ARRAY_BUFFER, mSkyBoxVertexBufferID);
