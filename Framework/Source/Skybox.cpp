@@ -78,8 +78,8 @@ Skybox::Skybox() : Model() {
 
 	//Load textures
 	skyTextureID = 1;
-	cubeMap("../Assets/Textures/negz.jpg","../Assets/Textures/posz.jpg","../Assets/Textures/negy.jpg", "../Assets/Textures/posy.jpg",
-			"../Assets/Textures/negx.jpg", "../Assets/Textures/posx.jpg", &skyTextureID);
+	cubeMap("../Assets/Textures/negz.png","../Assets/Textures/posz.png","../Assets/Textures/negy.png", "../Assets/Textures/posy.png",
+			"../Assets/Textures/negx.png", "../Assets/Textures/posx.png", &skyTextureID);
 
 }
 
