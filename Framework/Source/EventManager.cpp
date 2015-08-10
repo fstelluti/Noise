@@ -112,7 +112,7 @@ void EventManager::Initialize()
 	//initialize sound
 	sound = Sound();
 	sound.initialize();
-	sound.playSong("../Assets/All You're Waiting For.mp3");
+	sound.playSong("../Assets/Harder Better Faster.mp3");
 	for (int i = 0; i < 43; i++){
 		energyBuffer[i] = 0;
 	}
