@@ -24,47 +24,47 @@ Skybox::Skybox() : Model() {
 	
 	//Create the Cube for the Skybox, as an array of floats
 	float cubeVerticies[] = {
-	  -50.0f,  50.0f, -50.0f,
-	  -50.0f, -50.0f, -50.0f,
-	   50.0f, -50.0f, -50.0f,
-	   50.0f, -50.0f, -50.0f,
-	   50.0f,  50.0f, -50.0f,
-	  -50.0f,  50.0f, -50.0f,
+	  -100.0f,  100.0f, -100.0f,
+	  -100.0f, -100.0f, -100.0f,
+	   100.0f, -100.0f, -100.0f,
+	   100.0f, -100.0f, -100.0f,
+	   100.0f,  100.0f, -100.0f,
+	  -100.0f,  100.0f, -100.0f,
   
-	  -50.0f, -50.0f,  50.0f,
-	  -50.0f, -50.0f, -50.0f,
-	  -50.0f,  50.0f, -50.0f,
-	  -50.0f,  50.0f, -50.0f,
-	  -50.0f,  50.0f,  50.0f,
-	  -50.0f, -50.0f,  50.0f,
+	  -100.0f, -100.0f,  100.0f,
+	  -100.0f, -100.0f, -100.0f,
+	  -100.0f,  100.0f, -100.0f,
+	  -100.0f,  100.0f, -100.0f,
+	  -100.0f,  100.0f,  100.0f,
+	  -100.0f, -100.0f,  100.0f,
   
-	   50.0f, -50.0f, -50.0f,
-	   50.0f, -50.0f,  50.0f,
-	   50.0f,  50.0f,  50.0f,
-	   50.0f,  50.0f,  50.0f,
-	   50.0f,  50.0f, -50.0f,
-	   50.0f, -50.0f, -50.0f,
+	   100.0f, -100.0f, -100.0f,
+	   100.0f, -100.0f,  100.0f,
+	   100.0f,  100.0f,  100.0f,
+	   100.0f,  100.0f,  100.0f,
+	   100.0f,  100.0f, -100.0f,
+	   100.0f, -100.0f, -100.0f,
    
-	  -50.0f, -50.0f,  50.0f,
-	  -50.0f,  50.0f,  50.0f,
-	   50.0f,  50.0f,  50.0f,
-	   50.0f,  50.0f,  50.0f,
-	   50.0f, -50.0f,  50.0f,
-	  -50.0f, -50.0f,  50.0f,
+	  -100.0f, -100.0f,  100.0f,
+	  -100.0f,  100.0f,  100.0f,
+	   100.0f,  100.0f,  100.0f,
+	   100.0f,  100.0f,  100.0f,
+	   100.0f, -100.0f,  100.0f,
+	  -100.0f, -100.0f,  100.0f,
   
-	  -50.0f,  50.0f, -50.0f,
-	   50.0f,  50.0f, -50.0f,
-	   50.0f,  50.0f,  50.0f,
-	   50.0f,  50.0f,  50.0f,
-	  -50.0f,  50.0f,  50.0f,
-	  -50.0f,  50.0f, -50.0f,
+	  -100.0f,  100.0f, -100.0f,
+	   100.0f,  100.0f, -100.0f,
+	   100.0f,  100.0f,  100.0f,
+	   100.0f,  100.0f,  100.0f,
+	  -100.0f,  100.0f,  100.0f,
+	  -100.0f,  100.0f, -100.0f,
   
-	  -50.0f, -50.0f, -50.0f,
-	  -50.0f, -50.0f,  50.0f,
-	   50.0f, -50.0f, -50.0f,
-	   50.0f, -50.0f, -50.0f,
-	  -50.0f, -50.0f,  50.0f,
-	   50.0f, -50.0f,  50.0f
+	  -100.0f, -100.0f, -100.0f,
+	  -100.0f, -100.0f,  100.0f,
+	   100.0f, -100.0f, -100.0f,
+	   100.0f, -100.0f, -100.0f,
+	  -100.0f, -100.0f,  100.0f,
+	   100.0f, -100.0f,  100.0f
 	};
 
 	//Create a vertex array
@@ -102,7 +102,8 @@ void Skybox::Draw() {
 	//Disable DepthMask so that everything always gets draw in fron of the skybox
 	glDepthMask(GL_FALSE);
 
-	// Set current shader to be the Textured Shader
+	//Set current shader to be the Textured Shader
+	//First save the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
     
 	//Use the Skybox shaders
@@ -176,7 +177,9 @@ void Skybox::Draw() {
 
 	Renderer::CheckForErrors();
     
+	//Set the old shader back
     Renderer::SetShader(oldShader);
+	glUseProgram(Renderer::GetShaderProgramID());
 
 }
 
