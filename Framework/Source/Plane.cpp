@@ -28,7 +28,7 @@ Plane::Plane(int side) : Model()
 
 			vertexBuffer.push_back(glm::vec3(xPosition, yPosition, zPosition));
 			vertexBuffer.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
-			vertexBuffer.push_back(glm::vec3(45.0f / 255.0f, 29.0f / 255.0f, 222.0f / 255.0f));
+			vertexBuffer.push_back(glm::vec3(x*5 / 255.0f, y*5 / 255.0f, (x+y)*5 / 255.0f));
 		}
 	}
 

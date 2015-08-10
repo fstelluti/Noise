@@ -56,11 +56,11 @@ World::World()
 #if defined(PLATFORM_OSX)
 	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
-	int billboardTextureID = TextureLoader::LoadTexture("Textures/starhollow.png");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/star.png");
 #else
 	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
-	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/starhollow.png");
+	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/star.png");
 #endif
 	assert(billboardTextureID != 0);
 

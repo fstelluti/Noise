@@ -77,9 +77,9 @@ void ParticleDescriptor::SetStarsDescriptor()
     
     sizeGrowthVelocity = vec2(0.7f, 0.7f);
     
-    initialColor = vec4(0.5f, 0.5f, 0.5f, 0.0f);
-    midColor = vec4(0.8f, 0.8f, 1.0f, 1.0f);
-    endColor = vec4(0.5f, 0.5f, 0.5f, 0.0f);
+    initialColor = vec4(1.0f, 0.0f, 0.0f, 0.1f);
+    midColor = vec4(238.0f / 255.0f, 130.0f / 255.0f, 238.0f / 255.0f, 1.0f);
+    endColor = vec4(0.0f, 1.0f, 1.0f, 0.0f);
 
     emissionRate = 50.0f;
     fadeInTime = 0.2f;
