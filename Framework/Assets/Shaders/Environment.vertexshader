@@ -22,11 +22,9 @@ void main()
 	mat4 MVP = ProjectionTransform * MV;
 
 	// Output position of the vertex, in clip space : MVP * position
-	//gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
 	gl_Position = MVP * vec4(vertexPosition_modelspace,1);
 
-	//normal = (transpose(inverse(MV)) * vec4(vertexNormal_modelspace,0.0)).xyz;
-	normal = vertexNormal_modelspace;
+	normal = (transpose(inverse(MV)) * vec4(vertexNormal_modelspace,0.0)).xyz;
 
 	// Set up for caluclating the eyeVector
 	vec3 vertexPosition_CameraSpace = (MV * vec4(vertexPosition_modelspace,1.0)).xyz;
