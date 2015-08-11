@@ -85,10 +85,10 @@ void Plane::Update(float dt)
 
 void Plane::Draw()
 {
+	
 	// Create a vertex array
-	glGenVertexArrays(1, &mVertexArrayID);
-
-	glGenBuffers(1, &mVertexBufferID);
+	// glGenVertexArrays(1, &mVertexArrayID);
+	// glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(vec3), &vertexBuffer[0], GL_DYNAMIC_DRAW);
 
@@ -99,6 +99,7 @@ void Plane::Draw()
 
 	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
 	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+
 
 	// 1st attribute buffer : vertex Positions
 	glEnableVertexAttribArray(0);
@@ -122,7 +123,7 @@ void Plane::Draw()
 		(void*)sizeof(vec3)    // Normal is Offseted by vec3 (see class Vertex)
 		);
 
-
+	
 	// 3rd attribute buffer : vertex color
 	glEnableVertexAttribArray(2);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
@@ -133,7 +134,7 @@ void Plane::Draw()
 		sizeof(Vertex),
 		(void*)(2 * sizeof(vec3)) // Color is Offseted by 2 vec3 (see class Vertex)
 		);
-
+	
 	//index buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBufferID);
 
