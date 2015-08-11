@@ -166,6 +166,11 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		}
 	}
 
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
+		Model * light = this->FindModel("\"Light1\"");
+
+	}
+
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{

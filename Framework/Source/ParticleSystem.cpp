@@ -54,6 +54,7 @@ ParticleSystem::~ParticleSystem()
 	mParticleList.resize(0);
 }
 void ParticleSystem::EmitParticles(int n){
+
 	for (int i = 0; i < n; i++){
 		// emit particle
 		// transfer a particle from the inactive pool to the active pool
@@ -83,6 +84,7 @@ void ParticleSystem::EmitParticles(int n){
 
 		World::GetInstance()->AddBillboard(&newParticle->billboard);
 	}
+	
 }
 
 void ParticleSystem::Update(float dt)
