@@ -158,10 +158,14 @@
     <None Include="..\Assets\Scenes\NOISE.Scene" />
     <None Include="..\Assets\Scenes\StaticScene.scene" />
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader" />
+    <None Include="..\Assets\Shaders\Environment.fragmentshader" />
+    <None Include="..\Assets\Shaders\Environment.vertexshader" />
     <None Include="..\Assets\Shaders\Flat.fragmentshader" />
     <None Include="..\Assets\Shaders\Flat.vertexshader" />
     <None Include="..\Assets\Shaders\PathLines.fragmentshader" />
     <None Include="..\Assets\Shaders\PathLines.vertexshader" />
+    <None Include="..\Assets\Shaders\Phong.fragmentshader" />
+    <None Include="..\Assets\Shaders\Phong.vertexshader" />
     <None Include="..\Assets\Shaders\Skybox.fragmentshader" />
     <None Include="..\Assets\Shaders\Skybox.vertexshader" />
     <None Include="..\Assets\Shaders\SolidColor.fragmentshader" />
