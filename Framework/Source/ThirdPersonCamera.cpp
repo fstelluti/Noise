@@ -78,13 +78,13 @@ void ThirdPersonCamera::Update(float dt)
 		radius += 0.01  * angleSpeed;
 	}
 
-	static bool npressed = 0;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_N) == GLFW_PRESS && !npressed){
-		npressed = 1;
+	static bool four_pressed = 1;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS && !four_pressed){
+		four_pressed = 1;
 		setTarget(getNextModel());
 	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_N) == GLFW_RELEASE){
-		npressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_RELEASE){
+		four_pressed = 0;
 	}
 
 	if(radius < 0){

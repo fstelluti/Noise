@@ -21,6 +21,9 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+
+#include "../Assets/dirent.h"
+
 using namespace std;
 
 
@@ -81,6 +84,7 @@ void EventManager::Initialize()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_DEPTH_BITS, 32);
+	LoadMusicFileNames();
 #endif
     
     
@@ -112,7 +116,7 @@ void EventManager::Initialize()
 	//initialize sound
 	sound = Sound();
 	sound.initialize();
-	sound.playSong("../Assets/All You're Waiting For.mp3");
+	sound.playSong("../Assets/Harder Better Faster.mp3");
 	for (int i = 0; i < 43; i++){
 		energyBuffer[i] = 0;
 	}
@@ -128,6 +132,21 @@ void EventManager::Shutdown()
 
 void EventManager::Update()
 {
+
+	static bool m_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_M) == GLFW_PRESS && !m_pressed){
+		
+		m_pressed = 1;
+		static int song = 0;
+		if(filenames.size() > 0){
+			song = (song + 1) % filenames.size();
+			sound.switchSong(std::string("../Assets/" + filenames[song]).c_str());
+		}
+		
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_M) == GLFW_RELEASE){
+		m_pressed = 0;
+	}
 	// Update inputs / events
 	glfwPollEvents();
 
@@ -190,6 +209,32 @@ void EventManager::Update()
 	else{
 		index++;
 	}
+
+
+}
+
+std::vector<std::string> EventManager::filenames = std::vector<std::string>(0);
+
+void EventManager::LoadMusicFileNames(){
+	std::string folder = "../Assets/";
+	DIR *dir;
+	struct dirent *ent;
+	//printf("In Folder: %s\n", folder.c_str());
+	if ((dir = opendir (folder.c_str())) != NULL) {
+		while ((ent = readdir (dir)) != NULL) {
+			std::string filename = std::string(ent->d_name);
+			int len = filename.length();
+			if(filename != std::string("..") && filename != std::string("."))
+				if(filename.substr(len-3, 3) == std::string("mp3")){
+					filenames.push_back(filename);
+				}
+		}
+		closedir (dir);
+	}
+	else {
+		perror ("could not open folder");
+	}
+	
 }
 
 float EventManager::GetFrameTime()

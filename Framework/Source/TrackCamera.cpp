@@ -15,12 +15,15 @@ TrackCamera::TrackCamera(void)
 void TrackCamera::setCurveType(int t){
 	
 	if (t == 2){
-		const int numPoints = 4;
+		const int numPoints = 6;
 		glm::vec3 arrpoints[numPoints] = {
-				glm::vec3(20,	5,	30),
-				glm::vec3(30,	10,	12),
-				glm::vec3(20,	5,	10),
-				glm::vec3(3,	12,  32)
+				glm::vec3(30,	5,	30),
+				glm::vec3(0, 20, 0),
+				glm::vec3(-30,	5,	30),
+				glm::vec3(30,	12,  -30),
+				glm::vec3(0, 20, 0),
+				glm::vec3(-30,	5,	-30)
+
 		};
 
 		std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
@@ -55,7 +58,6 @@ void TrackCamera::setCurveType(int t){
 				glm::vec3(32,	40,	21),
 				glm::vec3(22,	13,	24),
 				glm::vec3(15,	16,  32)
-
 		};
 
 		std::vector<glm::vec3>	points = std::vector<glm::vec3>(0);
@@ -75,7 +77,7 @@ TrackCamera::~TrackCamera(void)
 }
 
 void TrackCamera::Update(float dt){
-	progress+=0.001;//dt*0.1;
+	progress+= dt*0.1 * (EventManager::GetCurrentVolume()*3);
 	if(progress >= 1){
 		progress = 0;
 		curve->nextPoint();

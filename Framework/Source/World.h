@@ -45,7 +45,7 @@ public:
 
 private:
     static World* instance;
-
+	
 	std::vector<Model*> mModel;
 	Skybox skyboxModel;
     std::vector<Animation*> mAnimation;

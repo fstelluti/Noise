@@ -148,6 +148,7 @@
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\TrackCamera.h" />
     <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="..\ThirdParty\dirent.h" />
     <ClInclude Include="Curves.h" />
   </ItemGroup>
   <ItemGroup>

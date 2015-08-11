@@ -33,7 +33,6 @@
 #include "ParticleEmitter.h"
 #include "ParticleSystem.h"
 
-
 using namespace std;
 using namespace glm;
 
@@ -67,6 +66,9 @@ World::World()
 	mpBillboardList = new BillboardList(2048, billboardTextureID);
 
 }
+
+
+
 
 World::~World()
 {
@@ -163,8 +165,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 4;
 		}
 	}
-
-
 
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)

@@ -19,6 +19,8 @@ public:
 
 	void playSong(const char *song);
 
+	void switchSong(const char *song);
+
 	void update();
 
 	void shutDown();
