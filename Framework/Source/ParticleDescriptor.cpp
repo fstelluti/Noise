@@ -70,12 +70,12 @@ void ParticleDescriptor::SetStarsDescriptor()
 	velocity = vec3(0.0f, 10.0f, 0.0f);
     velocityDeltaAngle = 15;
     
-    acceleration = vec3(0.0f, -9.8f, 0.0f);
+    acceleration = vec3(0.0f, -6.8f, 0.0f);
     
-    initialSize = vec2(0.1f, 0.1f);
+    initialSize = vec2(0.2f, 0.2f);
     initialSizeDelta = vec2(0.1f, 0.1f);
     
-    sizeGrowthVelocity = vec2(0.7f, 0.7f);
+    sizeGrowthVelocity = vec2(0.9f, 0.9f);
     
     initialColor = vec4(1.0f, 0.0f, 0.0f, 0.1f);
     midColor = vec4(238.0f / 255.0f, 130.0f / 255.0f, 238.0f / 255.0f, 1.0f);
@@ -85,7 +85,7 @@ void ParticleDescriptor::SetStarsDescriptor()
     fadeInTime = 0.2f;
     fadeOutTime = 0.7f;
     totalLifetime = 2.0f;
-    totalLifetimeDelta = 0.3f;
+    totalLifetimeDelta = 0.4f;
 }
 
 void ParticleDescriptor::SetFountainDescriptor()
