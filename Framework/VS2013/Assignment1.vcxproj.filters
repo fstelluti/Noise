@@ -126,6 +126,9 @@
     <ClInclude Include="Curves.h">
       <Filter>Cameras</Filter>
     </ClInclude>
+    <ClInclude Include="..\ThirdParty\dirent.h">
+      <Filter>Assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Assets\Textures\negx.jpg">

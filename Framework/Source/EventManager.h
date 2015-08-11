@@ -9,6 +9,8 @@
 
 #pragma once
 struct GLFWwindow;
+#include <vector>;
+#include <cstring>;
 
 class EventManager
 {
@@ -32,8 +34,12 @@ public:
 	static void DisableMouseCursor();
 
 	static float GetRandomFloat(float min, float max);
+	static void LoadMusicFileNames();
+
 
 private:
+	static std::vector<std::string> filenames;
+
 	// Time
 	static double sLastFrameTime;
 	static float sFrameTime;
@@ -47,3 +53,4 @@ private:
 	// Window
 	static GLFWwindow* spWindow;
 };
+
