@@ -79,16 +79,24 @@ void Renderer::Initialize()
 #endif
 
 	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "SolidColor.fragmentshader")
+                LoadShaders(shaderPathPrefix + "Flat.vertexshader",
+                            shaderPathPrefix + "Flat.fragmentshader")
                                );
 	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "PathLines.vertexshader",
                             shaderPathPrefix + "PathLines.fragmentshader")
                                );
 	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "Flat.vertexshader",
-                            shaderPathPrefix + "Flat.fragmentshader")
+                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
+                            shaderPathPrefix + "SolidColor.fragmentshader")
+                               );
+	sShaderProgramID.push_back(
+                LoadShaders(shaderPathPrefix + "Gouraud.vertexshader",
+                            shaderPathPrefix + "Gouraud.fragmentshader")
+                               );
+	sShaderProgramID.push_back(
+                LoadShaders(shaderPathPrefix + "MultiLight.vertexshader",
+                            shaderPathPrefix + "MultiLight.fragmentshader")
                                );
 	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",

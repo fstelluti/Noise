@@ -1,0 +1,60 @@
+#version 330 core
+
+
+// Light and Material Uniform Variables
+uniform float materialAmbient; // Ambient Term
+uniform float materialDiffuse; // Diffuse Term
+uniform float materialSpecular; // Specular Term
+uniform float materialExponent; // Specular Exponent
+
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation; // x: Constant  y: Linear  z: Quadratic
+
+
+// Inputs
+in vec4 v_color;		 // vertex color: also diffuse color
+
+in vec3 normal;          // Transformed normal in View Space
+in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+in vec4 lightVector;     // Vector from the vertex to the Light in View Space
+						 // Length of lightVector is the distance between light and vertex
+						 // if w = 1: Point light, if w = 0: directional light
+
+// Ouput data
+out vec4 color;
+
+
+void main()
+{
+	//Normalize the light vector
+	vec4 lightVectorNormal = normalize(lightVector);
+
+	// Normalize the normal
+	vec3 newNormal  = normalize(normal);
+
+	// Normalize the lightColor
+	vec3 lightNormal = normalize(lightColor); 
+
+	vec4 ambientColor = vec4(lightNormal, 0) * materialAmbient;
+
+	float lightDist = length(lightVectorNormal);
+	float attenuation;
+
+	vec3 eyeV = normalize(eyeVector);
+	vec3 refV = reflect(-lightNormal, newNormal);
+
+	float cosBeta = clamp(dot(eyeV, refV), 0, 1);
+	float cosTheta = clamp(dot(newNormal, lightNormal), 0, 1);
+
+	// If/Else to determine spotlight or directional light
+	if(lightVector.w == 1.0) 
+	{
+		attenuation = (lightAttenuation.x + lightAttenuation.y * lightDist + lightAttenuation.z * lightDist * lightDist);
+	}
+	else if (lightVector.w == 0.0) 
+	{
+		attenuation = 1.0;
+	}
+
+	color = ambientColor + (v_color * vec4(vec3(1.0, 1.0, 1.0) * ((materialDiffuse * cosTheta) + materialSpecular* pow(cosBeta, materialExponent))/attenuation, 1.0f));
+}
