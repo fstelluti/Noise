@@ -35,7 +35,7 @@ public:
 
 	static float GetRandomFloat(float min, float max);
 	static void LoadMusicFileNames();
-
+	static void PlayNextSong();
 
 private:
 	static std::vector<std::string> filenames;

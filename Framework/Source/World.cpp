@@ -16,6 +16,7 @@
 #include "FirstPersonCamera.h"
 #include "ThirdPersonCamera.h"
 #include "TrackCamera.h"
+#include "TrackCameraLookatCurve.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -48,6 +49,8 @@ World::World()
 	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new ThirdPersonCamera());
 	mCamera.push_back(new TrackCamera());
+	mCamera.push_back(new TrackCameraLookatCurve());
+
 
 	mCurrentCamera = 0;
 
@@ -165,10 +168,16 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 4;
 		}
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6 ) == GLFW_PRESS)
+	{
+		if (mCamera.size() > 5)
+		{
+			mCurrentCamera = 5;
+		}
+	}
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
 		Model * light = this->FindModel("\"Light1\"");
-
 	}
 
 	// Spacebar to change the shader

@@ -61,6 +61,9 @@
     <ClCompile Include="..\Source\TrackCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\TrackCameraLookatCurve.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
@@ -123,11 +126,14 @@
     <ClInclude Include="..\Source\TrackCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
-    <ClInclude Include="Curves.h">
-      <Filter>Cameras</Filter>
-    </ClInclude>
     <ClInclude Include="..\ThirdParty\dirent.h">
       <Filter>Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TrackCameraLookatCurve.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Curves.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

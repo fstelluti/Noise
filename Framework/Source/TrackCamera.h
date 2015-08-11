@@ -18,8 +18,10 @@ public:
 
 	virtual void Update(float dt);
 	virtual glm::mat4 GetViewMatrix() const;
-	glm::vec3 GetPosition(float t) const;
-	glm::vec3 GetTangent(float t) const;
+	virtual glm::vec3 GetPosition(float t) const;
+	virtual glm::vec3 GetTangent(float t) const;
+	virtual glm::vec3 GetFocusPoint(float t) const;
+	virtual void nextPoint();
 	void setCurveType(int t);
 
 private:
