@@ -211,6 +211,18 @@
     <None Include="..\Assets\Shaders\Texture.vertexshader">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\Assets\Shaders\Environment.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Environment.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Phong.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Phong.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

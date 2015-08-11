@@ -26,35 +26,29 @@ out vec4 color;
 
 void main()
 {
+	// Implement Phong Shading based on the parameters above
+	// Remember that directional light don't have attenuation
+
 	//Normalize the light vector
-	vec4 lightVectorNormal = normalize(lightVector);
+	vec3 lightVectorNormal = normalize(lightVector).xyz;
 
-	// Normalize the normal
-	vec3 newNormal  = normalize(normal);
-
-	// Normalize the lightColor
-	vec3 lightNormal = normalize(lightColor); 
-
-	vec4 ambientColor = vec4(lightNormal, 0) * materialAmbient;
+	vec4 ambientColor = vec4(lightColor, 0) * materialAmbient;
 
 	float lightDist = length(lightVectorNormal);
 	float attenuation;
 
 	vec3 eyeV = normalize(eyeVector);
-	vec3 refV = reflect(-lightNormal, newNormal);
+	vec3 refV = reflect(lightVectorNormal, normalize(normal));
 
 	float cosBeta = clamp(dot(eyeV, refV), 0, 1);
-	float cosTheta = clamp(dot(newNormal, lightNormal), 0, 1);
+	float cosTheta = clamp(dot(lightColor, normalize(normal)), 0, 1);
 
-	// If/Else to determine spotlight or directional light
-	if(lightVector.w == 1.0) 
-	{
+	if(lightVector.w == 0.0) {
+		attenuation = 1.0;	//No attenuation
+	}
+	else if (lightVector.w == 1.0) {
 		attenuation = (lightAttenuation.x + lightAttenuation.y * lightDist + lightAttenuation.z * lightDist * lightDist);
 	}
-	else if (lightVector.w == 0.0) 
-	{
-		attenuation = 1.0;
-	}
 
-	color = ambientColor + (v_color * vec4(vec3(1.0, 1.0, 1.0) * ((materialDiffuse * cosTheta) + materialSpecular* pow(cosBeta, materialExponent))/attenuation, 1.0f));
+	color = ambientColor + (v_color * (materialDiffuse * cosTheta) + (materialSpecular* pow(cosBeta, materialExponent)))/attenuation;
 }

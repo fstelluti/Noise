@@ -39,6 +39,20 @@ using namespace glm;
 
 World* World::instance;
 
+// Material Coefficients
+const float ka = 0.2f;
+const float kd = 0.8f;
+const float ks = 0.2f;
+const float n = 90.0f;
+
+// Light Coefficients
+const vec3 lightColor(1.0f, 1.0f, 1.0f);
+const float lightKc = 0.0f;
+const float lightKl = 0.0f;
+const float lightKq = 1.0f;
+const vec4 lightPosition(32.0f, 32.0f, 10.0f, 1.0f); // If w = 1.0f, we have a point light
+//const vec4 lightPosition(5.0f, -5.0f, 5.0f, 0.0f); // If w = 0.0f, we have a directional light
+
 World::World()
 {
     instance = this;
@@ -121,6 +135,7 @@ void World::TriggerBeat(){
 	{
 		(*it)->EmitParticles(1);
 	}
+	
 }
 void World::AddBillboard(Billboard* b)
 {
@@ -189,6 +204,10 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	{
 		Renderer::SetShader(SHADER_FLAT);
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_8 ) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_PHONG);
+	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
 	{
@@ -231,22 +250,48 @@ void World::Draw()
 {
 	Renderer::BeginFrame();
 
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHT2);
-	glEnable(GL_LIGHT3);
-	glEnable(GL_LIGHT4);
-
-	GLfloat al[] = {0.2, 1.0, 0.2, 1.0};
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, al);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
+	GLuint programID = Renderer::GetShaderProgramID();
+
+	// Get a handle for our Transformation Matrices uniform
+	GLuint WorldMatrixID = glGetUniformLocation(programID, "WorldTransform");
+	GLuint ViewMatrixID = glGetUniformLocation(programID, "ViewTransform");
+	GLuint ProjMatrixID = glGetUniformLocation(programID, "ProjectionTransform");
+
+	// Get a handle for Light Attributes uniform
+	GLuint LightPositionID = glGetUniformLocation(programID, "WorldLightPosition");
+	GLuint LightColorID = glGetUniformLocation(programID, "lightColor");
+	GLuint LightAttenuationID = glGetUniformLocation(programID, "lightAttenuation");
+
+	// Get a handle for Material Attributes uniform
+	GLuint MaterialAmbientID = glGetUniformLocation(programID, "materialAmbient");
+    GLuint MaterialDiffuseID = glGetUniformLocation(programID, "materialDiffuse");
+    GLuint MaterialSpecularID = glGetUniformLocation(programID, "materialSpecular");
+    GLuint MaterialExponentID = glGetUniformLocation(programID, "materialExponent");
+
+	// Send our transformation to the currently bound shader, 
+	// in the "World / View / Projection" uniform
+	glUniformMatrix4fv(ViewMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetViewMatrix()[0][0]);
+	glUniformMatrix4fv(ProjMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetProjectionMatrix()[0][0]);
+
+	// Draw the Vertex Buffer
+	// Note this draws a unit Sphere
+	// The Model View Projection transforms are computed in the Vertex Shader
+
+	// Set shader constants
+    glUniform1f(MaterialAmbientID, ka);
+    glUniform1f(MaterialDiffuseID, kd);
+    glUniform1f(MaterialSpecularID, ks);
+    glUniform1f(MaterialExponentID, n);
+        
+	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+	glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
+	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
+
 	// This looks for the MVP Uniform variable in the Vertex Program
-	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &mCamera[mCurrentCamera]->GetViewProjectionMatrix()[0][0]);
 
 	GLuint LightLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightLocation");

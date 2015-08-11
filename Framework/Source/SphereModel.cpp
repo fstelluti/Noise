@@ -9,9 +9,27 @@
 
 #include "SphereModel.h"
 #include "Renderer.h"
+#include "Camera.h"
+#include "World.h"
+#include "EventManager.h"
+#include "Model.h"
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 using namespace glm;
+
+// Material Coefficients
+const float ka = 0.2f;
+const float kd = 0.8f;
+const float ks = 0.2f;
+const float n = 90.0f;
+
+// Light Coefficients
+vec3 lightColor(0.0f, 0.0f, 1.0f);
+const float lightKc = 0.0f;
+const float lightKl = 0.0f;
+const float lightKq = 1.0f;
+const vec4 lightPosition(32.0f, 32.0f, 10.0f, 1.0f); // If w = 1.0f, we have a point light
 
 SphereModel::SphereModel(vec3 size) : Model()
 {
@@ -1298,6 +1316,41 @@ SphereModel::~SphereModel()
 void SphereModel::Update(float dt)
 {
     Model::Update(dt);
+	static bool r_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_R) == GLFW_PRESS && !r_pressed){
+		r_pressed = 1;
+		lightColor = vec3(234.0f / 255.0f, 130.0f / 255.0f, 234.0f / 255.0f);
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_R) == GLFW_RELEASE){
+		r_pressed = 0;
+	}
+
+	static bool g_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_G) == GLFW_PRESS && !g_pressed){
+		g_pressed = 1;
+		lightColor = vec3(0.0f, 1.0f, 1.0f);
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_G) == GLFW_RELEASE){
+		g_pressed = 0;
+	}
+
+	static bool b_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS && !b_pressed){
+		b_pressed = 1;
+		lightColor = vec3(0.0f, 0.0f, 1.0f);
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_RELEASE){
+		b_pressed = 0;
+	}
+
+	static bool h_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_H) == GLFW_PRESS && !h_pressed){
+		h_pressed = 1;
+		lightColor = vec3(1.0f, 1.0f, 1.0f);
+	}
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_H) == GLFW_RELEASE){
+		h_pressed = 0;
+	}
 }
 
 void SphereModel::Draw()
@@ -1307,8 +1360,58 @@ void SphereModel::Draw()
     // The Model View Projection transforms are computed in the Vertex Shader
     glBindVertexArray(mVertexArrayID);
 
-    GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform"); 
-    glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+	//Set current shader to be the environment Shader,  so that only cubes get reflect the environment, to reflect the skybox
+	//First get the old shader
+    ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
+	//Use the Environment shaders
+	Renderer::SetShader(ShaderType::SHADER_PHONG); 
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// Set shader to use
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	GLuint programID = Renderer::GetShaderProgramID();
+
+	// Get a handle for Light Attributes uniform
+	GLuint LightPositionID = glGetUniformLocation(programID, "WorldLightPosition");
+	GLuint LightColorID = glGetUniformLocation(programID, "lightColor");
+	GLuint LightAttenuationID = glGetUniformLocation(programID, "lightAttenuation");
+
+	// Get a handle for Material Attributes uniform
+	GLuint MaterialAmbientID = glGetUniformLocation(programID, "materialAmbient");
+    GLuint MaterialDiffuseID = glGetUniformLocation(programID, "materialDiffuse");
+    GLuint MaterialSpecularID = glGetUniformLocation(programID, "materialSpecular");
+    GLuint MaterialExponentID = glGetUniformLocation(programID, "materialExponent");
+
+
+	const Camera* currentCamera = World::GetInstance()->GetCurrentCamera();
+
+	mat4 projectionM = currentCamera->GetProjectionMatrix();
+	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform"); 
+	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+
+	GLuint ProjMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectionTransform");
+	glUniformMatrix4fv(ProjMatrixID,  1, GL_FALSE, &projectionM[0][0]);
+
+	mat4 viewMatrix = currentCamera->GetViewMatrix();
+	GLuint ViewMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	glUniformMatrix4fv(ViewMatrixID,  1, GL_FALSE, &viewMatrix[0][0]);
+	
+
+	// Draw the Vertex Buffer
+	// Note this draws a unit Sphere
+	// The Model View Projection transforms are computed in the Vertex Shader
+
+	// Set shader constants
+    glUniform1f(MaterialAmbientID, ka);
+    glUniform1f(MaterialDiffuseID, kd);
+    glUniform1f(MaterialSpecularID, ks);
+    glUniform1f(MaterialExponentID, n);
+        
+	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+	glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
+	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
+
 
     // 1st attribute buffer : vertex Positions
     glEnableVertexAttribArray(0);
@@ -1350,6 +1453,10 @@ void SphereModel::Draw()
     glDisableVertexAttribArray(2);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
+
+	//Set shader back to the previous one
+	Renderer::SetShader(oldShader);
+	glUseProgram(Renderer::GetShaderProgramID());
 }
 
 bool SphereModel::ParseLine(const std::vector<ci_string> &token)
