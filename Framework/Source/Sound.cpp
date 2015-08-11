@@ -113,6 +113,11 @@
 		}
 	}
 
+	void Sound::switchSong(const char *song){
+		channel->setPaused(1);
+		playSong(song);
+	}
+
 	void Sound::shutDown(){
 		result = sound->release();  /* Release the parent, not the sound that was retrieved with getSubSound. */
 		ERRCHECK(result);

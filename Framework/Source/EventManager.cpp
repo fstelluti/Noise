@@ -140,7 +140,7 @@ void EventManager::Update()
 		static int song = 0;
 		if(filenames.size() > 0){
 			song = (song + 1) % filenames.size();
-			sound.playSong(std::string("../Assets/" + filenames[song]).c_str());
+			sound.switchSong(std::string("../Assets/" + filenames[song]).c_str());
 		}
 		
 	}
