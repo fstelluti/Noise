@@ -37,7 +37,7 @@ name		= "PlaneWave"
 [Cube]
 name		= "Cube"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 10.0 0.0
+position	= -30.0 30.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 1.0 0.0
@@ -45,7 +45,7 @@ direction	= 0.0 1.0 0.0
 [Cube]
 name		= "Cube1"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 10.0 0.0
+position	= -28.0 30.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 1.0 0.0
@@ -53,7 +53,7 @@ direction	= 1.0 1.0 0.0
 [Cube]
 name		= "Cube2"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 10.0 2.0
+position	= -30.0 30.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 1.0 1.0
@@ -61,7 +61,7 @@ direction	= 0.0 1.0 1.0
 [Cube]
 name		= "Cube3"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 10.0 2.0
+position	= -28.0 30.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 1.0 1.0
@@ -69,7 +69,7 @@ direction	= 1.0 1.0 1.0
 [Cube]
 name		= "Cube4"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 10.0 0.0
+position	= -32.0 30.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 1.0 0.0
@@ -77,7 +77,7 @@ direction	= -1.0 1.0 0.0
 [Cube]
 name		= "Cube5"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 10.0 -2.0
+position	= -30.0 30.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 1.0 -1.0
@@ -85,7 +85,7 @@ direction	= 0.0 1.0 -1.0
 [Cube]
 name		= "Cube6"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 10.0 -2.0
+position	= -32.0 30.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 1.0 -1.0
@@ -93,7 +93,7 @@ direction	= -1.0 1.0 -1.0
 [Cube]
 name		= "Cube7"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 10.0 2.0
+position	= -32.0 30.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 1.0 1.0
@@ -101,7 +101,7 @@ direction	= -1.0 1.0 1.0
 [Cube]
 name		= "Cube8"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 10.0 -2.0
+position	= -28.0 30.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 1.0 -1.0
@@ -109,13 +109,13 @@ direction	= 1.0 1.0 -1.0
 [Cube]
 name		= "Cube9"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 8.0 0.0
+position	= -30.0 28.0 0.0
 rotation	= 0.0 0.0 1.0 0
 
 [Cube]
 name		= "Cube10"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 8.0 0.0
+position	= -28.0 28.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 0.0 0.0
@@ -123,7 +123,7 @@ direction	= 1.0 0.0 0.0
 [Cube]
 name		= "Cube11"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 8.0 2.0
+position	= -30.0 28.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 0.0 1.0
@@ -131,7 +131,7 @@ direction	= 0.0 0.0 1.0
 [Cube]
 name		= "Cube12"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 8.0 2.0
+position	= -28.0 28.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 0.0 1.0
@@ -139,7 +139,7 @@ direction	= 1.0 0.0 1.0
 [Cube]
 name		= "Cube13"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 8.0 0.0
+position	= -32.0 28.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 0.0 0.0
@@ -147,7 +147,7 @@ direction	= -1.0 0.0 0.0
 [Cube]
 name		= "Cube14"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 8.0 -2.0
+position	= -30.0 28.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 0.0 -1.0
@@ -155,7 +155,7 @@ direction	= 0.0 0.0 -1.0
 [Cube]
 name		= "Cube15"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 8.0 -2.0
+position	= -32.0 28.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 0.0 -1.0
@@ -163,7 +163,7 @@ direction	= -1.0 0.0 -1.0
 [Cube]
 name		= "Cube16"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 8.0 2.0
+position	= -32.0 28.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 0.0 1.0
@@ -171,7 +171,7 @@ direction	= -1.0 0.0 1.0
 [Cube]
 name		= "Cube17"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 8.0 -2.0
+position	= -28.0 28.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 0.0 -1.0
@@ -179,7 +179,7 @@ direction	= 1.0 0.0 -1.0
 [Cube]
 name		= "Cube18"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 6.0 0.0
+position	= -30.0 26.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 -1.0 0.0
@@ -187,7 +187,7 @@ direction	= 0.0 -1.0 0.0
 [Cube]
 name		= "Cube19"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 6.0 0.0
+position	= -28.0 26.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 -1.0 0.0
@@ -195,7 +195,7 @@ direction	= 1.0 -1.0 0.0
 [Cube]
 name		= "Cube20"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 6.0 2.0
+position	= -30.0 26.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 -1.0 1.0
@@ -203,7 +203,7 @@ direction	= 0.0 -1.0 1.0
 [Cube]
 name		= "Cube21"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 6.0 2.0
+position	= -28.0 26.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 -1.0 1.0
@@ -211,7 +211,7 @@ direction	= 1.0 -1.0 1.0
 [Cube]
 name		= "Cube22"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 6.0 0.0
+position	= -32.0 26.0 0.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 -1.0 0.0
@@ -219,7 +219,7 @@ direction	= -1.0 -1.0 0.0
 [Cube]
 name		= "Cube23"
 scaling		= 1.0 1.0 1.0
-position	= 0.0 6.0 -2.0
+position	= -30.0 26.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 0.0 -1.0 -1.0
@@ -227,7 +227,7 @@ direction	= 0.0 -1.0 -1.0
 [Cube]
 name		= "Cube24"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 6.0 -2.0
+position	= -32.0 26.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 -1.0 -1.0
@@ -235,7 +235,7 @@ direction	= -1.0 -1.0 -1.0
 [Cube]
 name		= "Cube25"
 scaling		= 1.0 1.0 1.0
-position	= -2.0 6.0 2.0
+position	= -32.0 26.0 2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= -1.0 -1.0 1.0
@@ -243,16 +243,224 @@ direction	= -1.0 -1.0 1.0
 [Cube]
 name		= "Cube26"
 scaling		= 1.0 1.0 1.0
-position	= 2.0 6.0 -2.0
+position	= -28.0 26.0 -2.0
 rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 -1.0 -1.0
 
-[Sphere]
-name		= "Sphere"
-position	= 10.0 6.0 0.0
-animation	= "TranslateY"
-particleSystem = "Stars"
+[Cube]
+name		= "Cube27"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 30.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 1.0 0.0
+
+[Cube]
+name		= "Cube28"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 30.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 1.0 0.0
+
+[Cube]
+name		= "Cube29"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 30.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 1.0 1.0
+
+[Cube]
+name		= "Cube30"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 30.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 1.0 1.0
+
+[Cube]
+name		= "Cube31"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 30.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 1.0 0.0
+
+[Cube]
+name		= "Cube32"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 30.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 1.0 -1.0
+
+[Cube]
+name		= "Cube33"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 30.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 1.0 -1.0
+
+[Cube]
+name		= "Cube34"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 30.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 1.0 1.0
+
+[Cube]
+name		= "Cube35"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 30.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 1.0 -1.0
+
+[Cube]
+name		= "Cube36"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 28.0 0.0
+rotation	= 0.0 0.0 1.0 0
+
+[Cube]
+name		= "Cube37"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 28.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 0.0 0.0
+
+[Cube]
+name		= "Cube38"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 28.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 0.0 1.0
+
+[Cube]
+name		= "Cube39"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 28.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 0.0 1.0
+
+[Cube]
+name		= "Cube40"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 28.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 0.0 0.0
+
+[Cube]
+name		= "Cube41"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 28.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 0.0 -1.0
+
+[Cube]
+name		= "Cube42"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 28.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 0.0 -1.0
+
+[Cube]
+name		= "Cube43"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 28.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 0.0 1.0
+
+[Cube]
+name		= "Cube44"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 28.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 0.0 -1.0
+
+[Cube]
+name		= "Cube45"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 26.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 -1.0 0.0
+
+[Cube]
+name		= "Cube46"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 26.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 -1.0 0.0
+
+[Cube]
+name		= "Cube47"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 26.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 -1.0 1.0
+
+[Cube]
+name		= "Cube48"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 26.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 -1.0 1.0
+
+[Cube]
+name		= "Cube49"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 26.0 0.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 -1.0 0.0
+
+[Cube]
+name		= "Cube50"
+scaling		= 1.0 1.0 1.0
+position	= 30.0 26.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 0.0 -1.0 -1.0
+
+[Cube]
+name		= "Cube51"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 26.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 -1.0 -1.0
+
+[Cube]
+name		= "Cube52"
+scaling		= 1.0 1.0 1.0
+position	= 28.0 26.0 2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= -1.0 -1.0 1.0
+
+[Cube]
+name		= "Cube53"
+scaling		= 1.0 1.0 1.0
+position	= 32.0 26.0 -2.0
+rotation	= 0.0 0.0 1.0 180
+animation	= "StretchVec"
+direction	= 1.0 -1.0 -1.0
 
 [Cube]
 name		= "Cube0"
@@ -445,6 +653,18 @@ name		= "Sphere15"
 position	= 10.0 2.0 6.0
 animation	= "SpectrumTranslate"
 range		= 16 / 16
+
+[Sphere]
+name		= "Sphere"
+position	= 10.0 6.0 0.0
+animation	= "TranslateY"
+particleSystem = "Stars"
+
+[Sphere]
+name		= "Sphere16"
+position	= -10.0 6.0 0.0
+animation	= "TranslateY"
+particleSystem = "Stars"
 
 [Plane]
 name		= "Plane"
