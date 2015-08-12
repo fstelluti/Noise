@@ -64,6 +64,9 @@
     <ClCompile Include="..\Source\TrackCameraLookatCurve.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Stereo.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Curves.h">
       <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Stereo.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

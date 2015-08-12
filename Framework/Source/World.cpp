@@ -21,6 +21,7 @@
 #include "CubeModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
+#include "Stereo.h"
 #include "Plane.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -389,7 +390,7 @@ void World::LoadScene(const char * scene_path)
 
             }
 			else if (result == "plane"){
-				Plane* plane = new Plane(64);
+				Plane* plane = new Plane(96);
 				plane->Load(iss);
 				mModel.push_back(plane);
 			}
@@ -411,7 +412,13 @@ void World::LoadScene(const char * scene_path)
 				light->Load(iss);
 				mModel.push_back(light);
 			}
-		    	else if( result == "skybox1" ) 
+			else if(result == "stereo")
+			{
+				Stereo* stereo = new Stereo();
+				stereo->Load(iss);
+				mModel.push_back(stereo);
+			}
+		    else if( result == "skybox1" ) 
 			{
 				//Skybox attributes
 				Skybox* skybox = new Skybox();

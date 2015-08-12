@@ -1364,9 +1364,6 @@ void SphereModel::Draw()
 	//First get the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
 
-	//if(model name = SphereSpeaker || SphereSpeaker2)
-		//Renderer::SetShader(ShaderType::SHADER_ENVIRONMENT);
-
 	Renderer::SetShader(ShaderType::SHADER_PHONG); 
 	glUseProgram(Renderer::GetShaderProgramID());
 

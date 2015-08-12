@@ -289,7 +289,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 		return worldMatrix;
 	} 
 	else if (mName == "\"SpectrumTranslate\""){
-		int range = 1024 / denominator;
+		int range = 512 / denominator;
 		int startIndex = (numerator * range) - range;
 		int endIndex = numerator * range;
 		float rangeVolume = 0;
@@ -297,9 +297,9 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 			rangeVolume += mCurrentSpec[i];
 		}
 		rangeVolume = rangeVolume / range;
-		rangeVolume *= 500;
+		rangeVolume *= 100;
 
-		vec3 translateVec(0.0f, 1.0f, 0.0f);
+		vec3 translateVec(0.0f, 0.5f, 0.0f);
 		translateVec = translateVec * rangeVolume;
 		mat4 t = translate(mat4(1.0f), position + translateVec);
 		mat4 s = scale(mat4(1.0f), scaling);
