@@ -466,97 +466,199 @@ direction	= 1.0 -1.0 -1.0
 name		= "Cube0"
 position	= -20.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 1 / 16
+range		= 1 / 1024
 
 [Cube]
 name		= "Cube1"
 position	= -18.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 2 / 16
+range		= 2 / 1024
 
 [Cube]
 name		= "Cube2"
 position	= -16.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 3 / 16
+range		= 3 / 1024
 
 [Cube]
 name		= "Cube3"
 position	= -14.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 4 / 16
+range		= 4 / 1024
 
 [Cube]
 name		= "Cube4"
 position	= -12.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 5 / 16
+range		= 3 / 512
 
 [Cube]
 name		= "Cube5"
 position	= -10.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 6 / 16
+range		= 4 / 512
 
 [Cube]
 name		= "Cube6"
 position	= -8.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 7 / 16
+range		= 5 / 512
 
 [Cube]
 name		= "Cube7"
 position	= -6.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 8 / 16
+range		= 6 / 512
 
 [Cube]
 name		= "Cube8"
 position	= -4.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 9 / 16
+range		= 4 / 256
 
 [Cube]
 name		= "Cube9"
 position	= -2.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 10 / 16
+range		= 5 / 256
 
 [Cube]
 name		= "Cube10"
 position	= 0.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 11 / 16
+range		= 6 / 256
 
 [Cube]
 name		= "Cube11"
 position	= 2.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 12 / 16
+range		= 7 / 256
 
 [Cube]
 name		= "Cube12"
 position	= 4.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 13 / 16
+range		= 8 / 256
 
 [Cube]
 name		= "Cube13"
 position	= 6.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 14 / 16
+range		= 5 / 128
 
 [Cube]
 name		= "Cube14"
 position	= 8.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 15 / 16
+range		= 6 / 128
 
 [Cube]
 name		= "Cube15"
 position	= 10.0 2.0 10.0
 animation	= "SpectrumStretch"
-range		= 16 / 16
+range		= 7 / 128
+
+[Cube]
+name		= "Cube16"
+position	= 12.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 128
+
+[Cube]
+name		= "Cube17"
+position	= 14.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 5 / 64
+
+[Cube]
+name		= "Cube18"
+position	= 16.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 6 / 64
+
+[Cube]
+name		= "Cube19"
+position	= 18.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 7 / 64
+
+[Cube]
+name		= "Cube20"
+position	= 20.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 64
+
+[Cube]
+name		= "Cube21"
+position	= 22.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 5 / 32
+
+[Cube]
+name		= "Cube22"
+position	= 24.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 6 / 32
+
+[Cube]
+name		= "Cube23"
+position	= 26.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 7 / 32
+
+[Cube]
+name		= "Cube24"
+position	= 28.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 32
+
+[Cube]
+name		= "Cube25"
+position	= 30.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 5 / 16
+
+[Cube]
+name		= "Cube26"
+position	= 32.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 6 / 16
+
+[Cube]
+name		= "Cube27"
+position	= 34.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 7 / 16
+
+[Cube]
+name		= "Cube28"
+position	= 36.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 16
+
+[Cube]
+name		= "Cube29"
+position	= 38.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 5 / 8
+
+[Cube]
+name		= "Cube30"
+position	= 40.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 6 / 8
+
+[Cube]
+name		= "Cube31"
+position	= 42.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 7 / 8
+
+[Cube]
+name		= "Cube32"
+position	= 44.0 2.0 10.0
+animation	= "SpectrumStretch"
+range		= 8 / 8
 
 [Sphere]
 name		= "Sphere0"

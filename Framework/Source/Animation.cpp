@@ -315,7 +315,7 @@ glm::mat4 Animation::GetAnimationWorldMatrix(vec3 position, vec3 scaling, vec3 s
 			rangeVolume += mCurrentSpec[i];
 		}
 		rangeVolume = rangeVolume / range;
-		rangeVolume *= 500;
+		rangeVolume *= 50;
 
 		vec3 scaleVec(0.0f, 1.0f, 0.0f);
 		scaleVec = scaleVec * rangeVolume;

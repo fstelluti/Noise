@@ -92,7 +92,6 @@ public:
 
 private:
 	//all points
-	std::vector<glm::vec3> points;
 	//current indexes
 	int currentPoints[4];
 };
@@ -139,7 +138,6 @@ public:
 
 private:
 	//all points
-	std::vector<glm::vec3> points;
 	//current indexes
 	int currentPoints[4];
 
