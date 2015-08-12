@@ -84,7 +84,7 @@ void TrackCamera::Update(float dt){
 
 	EventManager::EnableMouseCursor();
 
-	progress+= dt*0.1 * (EventManager::GetCurrentVolume()*10);
+	progress+= dt*0.1 * (EventManager::GetCurrentVolume()*8);
 
 	if(progress >= 1){
 		progress = 0;
