@@ -59,12 +59,8 @@ World::World()
     instance = this;
 
 	// Setup Camera
-<<<<<<< HEAD
 	mCamera.push_back(new TrackCameraLookatCurve());
 	mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
-=======
-	mCamera.push_back(new FirstPersonCamera(vec3(15.0f, 15.0f, 30.0f)));
->>>>>>> 1678334157d275981af7bb8860855cfda7b05fde
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	//mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new ThirdPersonCamera());
