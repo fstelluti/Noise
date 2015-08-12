@@ -1,5 +1,7 @@
 #version 330 core
 
+#Modified to use environment reflections by Francois Stelluti
+
 // Input vertex data, different for all executions of this shader.
 layout(location = 0) in vec3 vertexPosition_modelspace;
 layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
@@ -24,6 +26,7 @@ void main()
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position = MVP * vec4(vertexPosition_modelspace,1);
 
+	//Transform the normal
 	normal = (transpose(inverse(MV)) * vec4(vertexNormal_modelspace,0.0)).xyz;
 
 	// Set up for caluclating the eyeVector

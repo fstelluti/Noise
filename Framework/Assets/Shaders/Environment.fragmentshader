@@ -1,5 +1,7 @@
 #version 330 core
 
+#Modified to use environment reflections by Francois Stelluti
+
 // Ouput to fragment shader
 out vec4 color;
 
@@ -11,9 +13,10 @@ uniform samplerCube skybox;
 
 void main()
 {	
-	//vec3 eye = normalize(Position - cameraPos);
+	//calculate the reflection vector
     vec3 reflect = reflect(eyeVector, normalize(normal));
 
-	// set the fragment color to the interpolated vertex color
+	// Use the reflection vector to sample the skybox texture, and multiply it by the diffuse color
+	// so that it takes on the reflections and some of the diffuse
 	color = texture(skybox, reflect) * v_color;
 }
