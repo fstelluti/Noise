@@ -5,19 +5,19 @@ TrackCameraLookatCurve::TrackCameraLookatCurve(){
 
 	const int numLookat = 13;
 	glm::vec3 arrpoints[numLookat] = {
-			glm::vec3(32,	5,		0),
-			glm::vec3(0,	3,		1),
-			glm::vec3(0,	0,		3),
-			glm::vec3(12,	12,		4),
+			glm::vec3(32,	-5,		0),
+			glm::vec3(0,	-0,		100),
+			glm::vec3(0,	-0,		3),
+			glm::vec3(12,	-12,		4),
 			glm::vec3(0,	15,		12),
 			glm::vec3(0,	10,		0),
 			glm::vec3(51,	-10,	0),
-			glm::vec3(0,	0,		13),
-			glm::vec3(2,	5,		0),
-			glm::vec3(15,	3,		1),
-			glm::vec3(23,	0,		3),
+			glm::vec3(0,	-0,		13),
+			glm::vec3(2,	-5,		0),
+			glm::vec3(15,	-3,		1),
+			glm::vec3(23,	-0,		3),
 			glm::vec3(0,	12,		4),
-			glm::vec3(0,	15,		12),
+			glm::vec3(0,	-15,		12),
 
 
 	};
