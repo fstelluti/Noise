@@ -441,6 +441,11 @@ void World::LoadScene(const char * scene_path)
 	}*/
 }
 
+std::vector<Model*>* World::getAllModels(){
+	return &mModel;
+}
+
+
 Animation* World::FindAnimation(ci_string animName)
 {
     for(std::vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)

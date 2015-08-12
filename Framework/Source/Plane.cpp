@@ -87,8 +87,8 @@ void Plane::Draw()
 {
 	
 	// Create a vertex array
-	// glGenVertexArrays(1, &mVertexArrayID);
-	// glGenBuffers(1, &mVertexBufferID);
+	//glGenVertexArrays(1, &mVertexArrayID);
+	//glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(vec3), &vertexBuffer[0], GL_DYNAMIC_DRAW);
 

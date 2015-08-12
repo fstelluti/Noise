@@ -95,14 +95,15 @@ void ThirdPersonCamera::Update(float dt)
 Model* ThirdPersonCamera::getNextModel(){
 
 	static int index = 0;
-	index = (index + 1) % 2;
-	std::string names[4] = {
-		"\"Cube4\"",
-		"\"Sphere\""
-	};
-
+	int x = World::GetInstance()->getAllModels()->size();
+	if(x == 0){
+		return nullptr;
+	}
+	else{
+		index = (index + 1) % (x);
+	}
 	World* w = World::GetInstance();
-	return w->FindModel(ci_string(names[index].c_str()));
+	return w->FindModel((*World::GetInstance()->getAllModels())[index]->GetName());
 
 }
 glm::mat4 ThirdPersonCamera::GetViewMatrix() const{

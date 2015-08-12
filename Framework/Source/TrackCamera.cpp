@@ -69,6 +69,10 @@ void TrackCamera::setCurveType(int t){
 	}
 }
 
+void TrackCamera::setPoints(std::vector<glm::vec3> points){
+	curve->setPoints(points);
+}
+
 
 
 TrackCamera::~TrackCamera(void)

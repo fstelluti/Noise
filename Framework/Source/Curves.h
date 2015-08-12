@@ -10,6 +10,11 @@ public:
 	virtual glm::vec3 getTangent(float t) const{
 		return  getPosition(t+0.2) - getPosition(t);
 	}
+	virtual void setPoints(std::vector<glm::vec3> points){
+		this->points = points;
+	}
+
+	std::vector<glm::vec3> points;
 };
 
 
@@ -35,7 +40,6 @@ public:
 
 private:
 	//all points
-	std::vector<glm::vec3> points;
 	//current indexes
 	int currentPoints[2];
 };
