@@ -1,6 +1,6 @@
 #version 330 core
 
-#Modified to use environment reflections by Francois Stelluti
+//Modified to use environment reflections by Francois Stelluti
 
 // Ouput to fragment shader
 out vec4 color;
