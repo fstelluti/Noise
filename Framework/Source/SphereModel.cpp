@@ -29,7 +29,7 @@ vec3 lightColor(0.0f, 0.0f, 1.0f);
 const float lightKc = 0.0f;
 const float lightKl = 0.0f;
 const float lightKq = 1.0f;
-const vec4 lightPosition(32.0f, 32.0f, 10.0f, 1.0f); // If w = 1.0f, we have a point light
+const vec4 lightPosition(0.0f, 0.0f, 10.0f, 1.0f); // If w = 1.0f, we have a point light
 
 SphereModel::SphereModel(vec3 size) : Model()
 {
@@ -1360,10 +1360,13 @@ void SphereModel::Draw()
     // The Model View Projection transforms are computed in the Vertex Shader
     glBindVertexArray(mVertexArrayID);
 
-	//Set current shader to be the environment Shader,  so that only cubes get reflect the environment, to reflect the skybox
+	//Set current shader to be the Phong Shader
 	//First get the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
-	//Use the Environment shaders
+
+	//if(model name = SphereSpeaker || SphereSpeaker2)
+		//Renderer::SetShader(ShaderType::SHADER_ENVIRONMENT);
+
 	Renderer::SetShader(ShaderType::SHADER_PHONG); 
 	glUseProgram(Renderer::GetShaderProgramID());
 

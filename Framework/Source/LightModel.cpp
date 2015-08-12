@@ -39,41 +39,6 @@ LightModel::~LightModel()
 void LightModel::Update(float dt)
 {
     Model::Update(dt);
-	static bool r_pressed = 0;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_R) == GLFW_PRESS && !r_pressed){
-		r_pressed = 1;
-		setColor(glm::vec3(1.0f,0.0f,0.0f));
-	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_R) == GLFW_RELEASE){
-		r_pressed = 0;
-	}
-
-	static bool g_pressed = 0;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_G) == GLFW_PRESS && !g_pressed){
-		g_pressed = 1;
-		setColor(glm::vec3(0.0f,1.0f,0.0f));
-	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_G) == GLFW_RELEASE){
-		g_pressed = 0;
-	}
-
-	static bool b_pressed = 0;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS && !b_pressed){
-		b_pressed = 1;
-		setColor(glm::vec3(0.0f,0.0f,1.0f));
-	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_RELEASE){
-		b_pressed = 0;
-	}
-
-	static bool h_pressed = 0;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_H) == GLFW_PRESS && !h_pressed){
-		h_pressed = 1;
-		setColor(glm::vec3(1.0f,1.0f,1.0f));
-	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_H) == GLFW_RELEASE){
-		h_pressed = 0;
-	}
 }
 
 void LightModel::Draw()
