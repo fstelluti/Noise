@@ -50,5 +50,5 @@ void main()
 		attenuation = (lightAttenuation.x + lightAttenuation.y * lightDist + lightAttenuation.z * lightDist * lightDist);
 	}
 
-	color = ambientColor + (v_color * (materialDiffuse * cosTheta) + (materialSpecular* pow(cosBeta, materialExponent)))/attenuation;
+	color = ambientColor + (v_color * (materialDiffuse * cosTheta) + (materialSpecular * pow(cosBeta, materialExponent)))/attenuation;
 }

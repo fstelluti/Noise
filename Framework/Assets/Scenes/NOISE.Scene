@@ -528,7 +528,7 @@ rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 0.0 0.0
 
-[Stereo]
+[Cube]
 name		= "SphereSpeaker2"
 scaling		= 1.0 1.0 1.0
 position	= -20.0 8.0 -18.0
@@ -742,7 +742,7 @@ rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 0.0 0.0
 
-[Stereo]
+[Cube]
 name		= "SphereSpeaker"
 scaling		= 1.0 1.0 1.0
 position	= 20.0 8.0 -18.0
@@ -870,20 +870,21 @@ rotation	= 0.0 0.0 1.0 180
 animation	= "StretchVec"
 direction	= 1.0 -1.0 -1.0
 
-[Sphere]
+[Stereo]
 name		= "Sphere"
 position	= 7.0 6.0 0.0
 animation	= "TranslateY"
 particleSystem = "Stars"
 
-[Sphere]
+[Stereo]
 name		= "Sphere16"
 position	= -7.0 6.0 0.0
 animation	= "TranslateY"
 particleSystem = "Stars"
 
-[Sphere]
+[Stereo]
 name		= "Sphere17"
 position	= 0.0 6.0 0.0
-animation	= "TranslateY"
+animation	= "Scale"
+direction	= 1.0 1.0 1.0
 particleSystem = "Stars"

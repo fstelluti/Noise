@@ -73,11 +73,11 @@ World::World()
 #if defined(PLATFORM_OSX)
 	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
-	int billboardTextureID = TextureLoader::LoadTexture("Textures/star.png");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/starhollow.png");
 #else
 	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
-	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/star.png");
+	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/starhollow.png");
 #endif
 	assert(billboardTextureID != 0);
 
@@ -204,10 +204,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_FLAT);
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_8 ) == GLFW_PRESS)
-	{
-		Renderer::SetShader(SHADER_PHONG);
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
