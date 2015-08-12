@@ -215,8 +215,8 @@ void EventManager::Update()
 void EventManager::PlayNextSong(){
 	static int song = 0;
 	if(filenames.size() > 0){
-		song = (song + 1) % (filenames.size());
 		sound.switchSong(std::string("../Assets/" + filenames[song]).c_str());
+		song = (song + 1) % (filenames.size());
 	}
 }
 
