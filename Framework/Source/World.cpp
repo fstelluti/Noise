@@ -21,6 +21,7 @@
 #include "CubeModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
+#include "Stereo.h"
 #include "Plane.h"
 #include "Animation.h"
 #include "Billboard.h"
@@ -58,8 +59,12 @@ World::World()
     instance = this;
 
 	// Setup Camera
+<<<<<<< HEAD
 	mCamera.push_back(new TrackCameraLookatCurve());
 	mCamera.push_back(new FirstPersonCamera(vec3(3.0f, 1.0f, 5.0f)));
+=======
+	mCamera.push_back(new FirstPersonCamera(vec3(15.0f, 15.0f, 30.0f)));
+>>>>>>> 1678334157d275981af7bb8860855cfda7b05fde
 	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	//mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 	mCamera.push_back(new ThirdPersonCamera());
@@ -72,11 +77,11 @@ World::World()
 #if defined(PLATFORM_OSX)
 	//    int billboardTextureID = TextureLoader::LoadTexture("Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("Textures/Particle.png");
-	int billboardTextureID = TextureLoader::LoadTexture("Textures/star.png");
+	int billboardTextureID = TextureLoader::LoadTexture("Textures/starhollow.png");
 #else
 	//    int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/BillboardTest.bmp");
 	//int billboardTextureID = TextureLoader::LoadTexture("../Assets/Textures/Particle.png");
-	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/star.png");
+	int billboardTextureID= TextureLoader::LoadTexture("../Assets/Textures/starhollow.png");
 #endif
 	assert(billboardTextureID != 0);
 
@@ -203,10 +208,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_FLAT);
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_8 ) == GLFW_PRESS)
-	{
-		Renderer::SetShader(SHADER_PHONG);
 	}
 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
@@ -389,7 +390,7 @@ void World::LoadScene(const char * scene_path)
 
             }
 			else if (result == "plane"){
-				Plane* plane = new Plane(64);
+				Plane* plane = new Plane(96);
 				plane->Load(iss);
 				mModel.push_back(plane);
 			}
@@ -411,7 +412,13 @@ void World::LoadScene(const char * scene_path)
 				light->Load(iss);
 				mModel.push_back(light);
 			}
-		    	else if( result == "skybox1" ) 
+			else if(result == "stereo")
+			{
+				Stereo* stereo = new Stereo();
+				stereo->Load(iss);
+				mModel.push_back(stereo);
+			}
+		    else if( result == "skybox1" ) 
 			{
 				//Skybox attributes
 				Skybox* skybox = new Skybox();

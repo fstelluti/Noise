@@ -19,7 +19,7 @@
 
 using namespace glm;
 
-FirstPersonCamera::FirstPersonCamera(glm::vec3 position) :  Camera(), mPosition(position), mLookAt(0.0f, 0.0f, -1.0f), mHorizontalAngle(90.0f), mVerticalAngle(0.0f), mSpeed(5.0f), mAngularSpeed(2.5f)
+FirstPersonCamera::FirstPersonCamera(glm::vec3 position) :  Camera(), mPosition(position), mLookAt(0.0f, 0.0f, -1.0f), mHorizontalAngle(90.0f), mVerticalAngle(0.0f), mSpeed(7.0f), mAngularSpeed(2.5f)
 {
 }
 
@@ -63,6 +63,9 @@ void FirstPersonCamera::Update(float dt)
 	glm::normalize(sideVector);
 
 	// A S D W for motion along the camera basis vectors
+	// Also check if the camera has moved, using hasMoved, which is used to calculate the view Matrix
+	// for the Skybox
+
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W ) == GLFW_PRESS)
 	{
 		vec3 direction = normalize(glm::vec3(mLookAt.x, 0.0f, mLookAt.z));
