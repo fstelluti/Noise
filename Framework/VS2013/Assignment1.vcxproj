@@ -121,6 +121,7 @@
     <ClCompile Include="..\Source\TextureLoader.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\TrackCamera.cpp" />
+    <ClCompile Include="..\Source\TrackCameraLookatCurve.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,7 @@
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\common.h" />
     <ClInclude Include="..\Source\common_platform.h" />
+    <ClInclude Include="..\Source\Curves.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
@@ -147,9 +149,9 @@
     <ClInclude Include="..\Source\TextureLoader.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\TrackCamera.h" />
+    <ClInclude Include="..\Source\TrackCameraLookatCurve.h" />
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="..\ThirdParty\dirent.h" />
-    <ClInclude Include="Curves.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Scenes\AnimatedScene.scene" />

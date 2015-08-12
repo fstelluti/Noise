@@ -42,6 +42,7 @@ public:
 	void AddParticleSystem(ParticleSystem* particleSystem);
 	void RemoveParticleSystem(ParticleSystem* particleSystem);
 	void TriggerBeat();
+	std::vector<Model*>* getAllModels();
 
 private:
     static World* instance;

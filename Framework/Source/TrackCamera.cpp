@@ -17,12 +17,12 @@ void TrackCamera::setCurveType(int t){
 	if (t == 2){
 		const int numPoints = 6;
 		glm::vec3 arrpoints[numPoints] = {
-				glm::vec3(30,	5,	30),
+				glm::vec3(0,	5,	-32),
+				glm::vec3(-32, 20, 0),
+				glm::vec3(0,	5,	32),
+				glm::vec3(32,	12,  0),
 				glm::vec3(0, 20, 0),
-				glm::vec3(-30,	5,	30),
-				glm::vec3(30,	12,  -30),
-				glm::vec3(0, 20, 0),
-				glm::vec3(-30,	5,	-30)
+				glm::vec3(32,	0,	0)
 
 		};
 
@@ -69,6 +69,10 @@ void TrackCamera::setCurveType(int t){
 	}
 }
 
+void TrackCamera::setPoints(std::vector<glm::vec3> points){
+	curve->setPoints(points);
+}
+
 
 
 TrackCamera::~TrackCamera(void)
@@ -77,10 +81,14 @@ TrackCamera::~TrackCamera(void)
 }
 
 void TrackCamera::Update(float dt){
-	progress+= dt*0.1 * (EventManager::GetCurrentVolume()*3);
+
+	EventManager::EnableMouseCursor();
+
+	progress+= dt*0.1 * (EventManager::GetCurrentVolume()*10);
+
 	if(progress >= 1){
 		progress = 0;
-		curve->nextPoint();
+		nextPoint();
 	}
 	if(progress < 0){
 		progress = 0;
@@ -96,22 +104,25 @@ void TrackCamera::Update(float dt){
 		five_pressed = 0;
 	}
 }
+void TrackCamera::nextPoint(){
+	curve->nextPoint();
+}
 glm::mat4 TrackCamera::GetViewMatrix() const{
 
 	glm::vec3 position = GetPosition(progress);
 
 	glm::vec3 tangent = GetTangent(progress);
-	return glm::lookAt(position, position+tangent /*glm::vec3(0)*/, glm::vec3(0.0f, 1.0f, 0.0f));
+	return glm::lookAt(position, GetFocusPoint(progress) /*glm::vec3(0)*/, glm::vec3(0.0f, 1.0f, 0.0f));
 
 }
 
 glm::vec3 TrackCamera::GetPosition(float t) const{
-	
 	return curve->getPosition(t);
-	/*return glm::mix(
-		points[currentPoints[0]],
-		points[currentPoints[3]],
-		t);*/
+}
+
+glm::vec3 TrackCamera::GetFocusPoint(float t) const{
+		return GetPosition(t) + curve->getTangent(t);
+
 }
 
 glm::vec3 TrackCamera::GetTangent(float t) const{

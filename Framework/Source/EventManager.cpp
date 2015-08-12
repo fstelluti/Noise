@@ -85,6 +85,7 @@ void EventManager::Initialize()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_DEPTH_BITS, 32);
 	LoadMusicFileNames();
+
 #endif
     
     
@@ -116,7 +117,9 @@ void EventManager::Initialize()
 	//initialize sound
 	sound = Sound();
 	sound.initialize();
-	sound.playSong("../Assets/Harder Better Faster.mp3");
+	//sound.playSong("../Assets/Harder Better Faster.mp3");
+	PlayNextSong();
+
 	for (int i = 0; i < 43; i++){
 		energyBuffer[i] = 0;
 	}
@@ -137,11 +140,7 @@ void EventManager::Update()
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_M) == GLFW_PRESS && !m_pressed){
 		
 		m_pressed = 1;
-		static int song = 0;
-		if(filenames.size() > 0){
-			song = (song + 1) % filenames.size();
-			sound.switchSong(std::string("../Assets/" + filenames[song]).c_str());
-		}
+		PlayNextSong();
 		
 	}
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_M) == GLFW_RELEASE){
@@ -211,6 +210,14 @@ void EventManager::Update()
 	}
 
 
+}
+
+void EventManager::PlayNextSong(){
+	static int song = 0;
+	if(filenames.size() > 0){
+		song = (song + 1) % (filenames.size());
+		sound.switchSong(std::string("../Assets/" + filenames[song]).c_str());
+	}
 }
 
 std::vector<std::string> EventManager::filenames = std::vector<std::string>(0);
