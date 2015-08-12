@@ -101,14 +101,14 @@ void TrackCamera::Update(float dt){
 		progress = 0;
 	}
 
-	static bool five_pressed = 1;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS && !five_pressed){
-		five_pressed = 1;
+	static bool six_pressed = 1;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS && !six_pressed){
+		six_pressed = 1;
 		type = (type+1) % 3;
 		setCurveType(type);
 	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_RELEASE){
-		five_pressed = 0;
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_RELEASE){
+		six_pressed = 0;
 	}
 }
 void TrackCamera::nextPoint(){
