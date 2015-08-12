@@ -19,6 +19,7 @@ class Model;
 class Animation;
 class AnimationKey;
 class ParticleSystem;
+class ClippedCubeModel;
 
 class World
 {
@@ -52,6 +53,7 @@ private:
     std::vector<Animation*> mAnimation;
     std::vector<AnimationKey*> mAnimationKey;
 	std::vector<Camera*> mCamera;
+	std::vector<ClippedCubeModel*> mClippedCubeModel;
 	std::vector<ParticleSystem*> mParticleSystemList;
 	unsigned int mCurrentCamera;
 

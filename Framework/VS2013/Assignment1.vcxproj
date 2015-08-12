@@ -101,6 +101,7 @@
     <ClCompile Include="..\Source\Animation.cpp" />
     <ClCompile Include="..\Source\Billboard.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
+    <ClCompile Include="..\Source\ClippedCubeModel.cpp" />
     <ClCompile Include="..\Source\common.cpp" />
     <ClCompile Include="..\Source\common_platform.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="..\Source\Animation.h" />
     <ClInclude Include="..\Source\Billboard.h" />
     <ClInclude Include="..\Source\Camera.h" />
+    <ClInclude Include="..\Source\ClippedCubeModel.h" />
     <ClInclude Include="..\Source\common.h" />
     <ClInclude Include="..\Source\common_platform.h" />
     <ClInclude Include="..\Source\Curves.h" />

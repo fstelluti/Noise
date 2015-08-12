@@ -11,6 +11,7 @@
 #include "Renderer.h"
 #include "ParsingHelper.h"
 #include "Skybox.h"
+#include "ClippedCubeModel.h"
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
@@ -82,6 +83,10 @@ World::World()
 	assert(billboardTextureID != 0);
 
 	mpBillboardList = new BillboardList(2048, billboardTextureID);
+	 vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
+           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(10, 10, 10), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(10, 10, 10), true));
 
 }
 
@@ -191,6 +196,27 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mCurrentCamera = 5;
 		}
 	}
+
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS)
+   {
+       //mExplosionState = 1;
+       vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
+       if(mClippedCubeModel.size() >= 1){
+           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
+       } else {
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
+       }
+     
+
+   }
+
+	//Update clipped cubes
+   for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it){
+       (*it)->Update(dt);
+   }
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
 		Model * light = this->FindModel("\"Light1\"");
@@ -308,6 +334,12 @@ void World::Draw()
 
 	//Draw the skybox seperatly 
 	skyboxModel.Draw();
+	
+	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it)
+	 {
+       
+       (*it)->Draw();
+	 }
 
 	glDepthMask (GL_TRUE);
 
