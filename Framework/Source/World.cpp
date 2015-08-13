@@ -18,6 +18,7 @@
 #include "ThirdPersonCamera.h"
 #include "TrackCamera.h"
 #include "TrackCameraLookatCurve.h"
+#include "FirstPersonGravityCamera.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -60,6 +61,7 @@ World::World()
     instance = this;
 
 	// Setup Camera
+	mCamera.push_back(new FirstPersonGravityCamera());
 	mCamera.push_back(new TrackCameraLookatCurve());
 	mCamera.push_back(new ThirdPersonCamera());
 	mCamera.push_back(new TrackCamera());

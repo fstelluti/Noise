@@ -21,6 +21,10 @@ public:
 
 	virtual glm::mat4 GetViewMatrix() const;
 
+protected:
+	glm::vec3 getPosition() const;
+	void setPosition(glm::vec3);
+
 private:
 	glm::vec3 mPosition;	
 	float mHorizontalAngle; // horizontal angle

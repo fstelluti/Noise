@@ -105,6 +105,7 @@
     <ClCompile Include="..\Source\common.cpp" />
     <ClCompile Include="..\Source\common_platform.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
+    <ClCompile Include="..\Source\FirstPersonGravityCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\ParticleDescriptor.cpp" />
     <ClCompile Include="..\Source\ParticleEmitter.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="..\Source\common_platform.h" />
     <ClInclude Include="..\Source\Curves.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
+    <ClInclude Include="..\Source\FirstPersonGravityCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\ParticleDescriptor.h" />
