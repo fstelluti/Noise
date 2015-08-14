@@ -21,15 +21,15 @@ using namespace glm;
 // Material Coefficients
 const float ka = 0.2f;
 const float kd = 0.8f;
-const float ks = 0.2f;
-const float n = 90.0f;
+const float ks = 0.6f;
+const float n = 20.0f;
 
 // Light Coefficients
 vec3 lightColor(0.0f, 0.0f, 1.0f);
 const float lightKc = 0.0f;
 const float lightKl = 0.0f;
 const float lightKq = 1.0f;
-const vec4 lightPosition(100.0f, 100.0f, 75.0f, 1.0f); // If w = 1.0f, we have a point light
+const vec4 lightPosition(100.0f, 100.0f, 75.0f, 0.0f); // Since w=0.0f, we have a directional light
 
 SphereModel::SphereModel(vec3 size) : Model()
 {
@@ -1301,6 +1301,7 @@ SphereModel::SphereModel(vec3 size) : Model()
     numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
 
     glGenVertexArrays(1, &mVertexArrayID);
+
     glGenBuffers(1, &mVertexBufferID);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
@@ -1364,7 +1365,7 @@ void SphereModel::Draw()
 	//First get the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
 
-	Renderer::SetShader(ShaderType::SHADER_PHONG); 
+	Renderer::SetShader(ShaderType::SHADER_GOURAUD); 
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// Set shader to use
