@@ -29,7 +29,7 @@ vec3 lightColor(0.0f, 0.0f, 1.0f);
 const float lightKc = 0.0f;
 const float lightKl = 0.0f;
 const float lightKq = 1.0f;
-const vec4 lightPosition(0.0f, 30.0f, 0.0f, 1.0f); // If w = 1.0f, we have a point light
+const vec4 lightPosition(100.0f, 100.0f, 75.0f, 1.0f); // If w = 1.0f, we have a point light
 
 SphereModel::SphereModel(vec3 size) : Model()
 {
@@ -1364,7 +1364,7 @@ void SphereModel::Draw()
 	//First get the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
 
-	Renderer::SetShader(ShaderType::SHADER_GOURAUD); 
+	Renderer::SetShader(ShaderType::SHADER_PHONG); 
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// Set shader to use
