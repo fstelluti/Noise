@@ -235,6 +235,12 @@
     <None Include="..\Assets\Shaders\Phong.vertexshader">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\Assets\Shaders\Gouraud.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Gouraud.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

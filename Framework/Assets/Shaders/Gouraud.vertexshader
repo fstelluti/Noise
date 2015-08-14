@@ -1,5 +1,15 @@
 #version 330 core
 
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
+layout(location = 2) in vec3 vertexColor; 
+
+// Uniform
+// Values that stay constant for the whole mesh.
+uniform mat4 WorldTransform;
+uniform mat4 ViewTransform;
+uniform mat4 ProjectionTransform;
 
 // Light and Material Uniform Variables
 uniform float materialAmbient; // Ambient Term
@@ -7,12 +17,8 @@ uniform float materialDiffuse; // Diffuse Term
 uniform float materialSpecular; // Specular Term
 uniform float materialExponent; // Specular Exponent
 
-uniform vec3 lightColor;
-uniform vec3 lightAttenuation; // x: Constant  y: Linear  z: Quadratic
-
-
-// Inputs
-in vec4 v_color;		 // vertex color: also diffuse color
+// Ouput data
+out vec4 color;
 
 in vec3 normal;          // Transformed normal in View Space
 in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
@@ -20,17 +26,25 @@ in vec4 lightVector;     // Vector from the vertex to the Light in View Space
 						 // Length of lightVector is the distance between light and vertex
 						 // if w = 1: Point light, if w = 0: directional light
 
-// Ouput data
-out vec4 color;
-
 
 void main()
 {
-	// Implement Phong Shading based on the parameters above
-	// Remember that directional light don't have attenuation
+	mat4 MV = ViewTransform * WorldTransform;
+	mat4 MVP = ProjectionTransform * MV;
 
-	//Normalize the light vector
-	vec3 lightVectorNormal = normalize(lightVector).xyz;
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);
+	v_color = vec4(vertexColor, 1.0f);
+
+	// Set up for caluclating the eyeVector
+	vec3 vertexPosition_CameraSpace = (MV * vec4(vertexPosition_modelspace, 1)).xyz;
+	eyeVector = - vertexPosition_CameraSpace;
+	
+	// Set up for calculating the lightVector
+	vec4 lightPosition_CameraSpace = ViewTransform * WorldLightPosition;
+	lightVector = MV * (lightPosition_CameraSpace + vec4(eyeVector, 0));
+
+	normal = (MV * vec4(vertexNormal_modelspace, 0)).xyz;
 
 	vec4 ambientColor = vec4(lightColor, 0) * materialAmbient;
 
@@ -51,4 +65,6 @@ void main()
 	}
 
 	color = ambientColor + (v_color * (materialDiffuse * cosTheta) + (materialSpecular * pow(cosBeta, materialExponent)))/attenuation;
+
+	color.a = 1.0;
 }

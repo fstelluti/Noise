@@ -95,8 +95,8 @@ void Renderer::Initialize()
                             shaderPathPrefix + "Phong.fragmentshader")
                                );
 	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "MultiLight.vertexshader",
-                            shaderPathPrefix + "MultiLight.fragmentshader")
+                LoadShaders(shaderPathPrefix + "Gouraud.vertexshader",
+                            shaderPathPrefix + "Gouraud.fragmentshader")
                                );
 	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",

@@ -168,6 +168,8 @@
     <None Include="..\Assets\Shaders\Environment.vertexshader" />
     <None Include="..\Assets\Shaders\Flat.fragmentshader" />
     <None Include="..\Assets\Shaders\Flat.vertexshader" />
+    <None Include="..\Assets\Shaders\Gouraud.fragmentshader" />
+    <None Include="..\Assets\Shaders\Gouraud.vertexshader" />
     <None Include="..\Assets\Shaders\PathLines.fragmentshader" />
     <None Include="..\Assets\Shaders\PathLines.vertexshader" />
     <None Include="..\Assets\Shaders\Phong.fragmentshader" />
