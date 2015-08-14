@@ -1315,7 +1315,7 @@ SphereModel::~SphereModel()
 
 void SphereModel::Update(float dt)
 {
-    Model::Update(dt);
+    //Model::Update(dt);
 	static bool r_pressed = 0;
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_R) == GLFW_PRESS && !r_pressed){
 		r_pressed = 1;
@@ -1364,8 +1364,12 @@ void SphereModel::Draw()
 	//First get the old shader
     ShaderType oldShader = (ShaderType)Renderer::GetCurrentShader();
 
+<<<<<<< HEAD
 	Renderer::SetShader(ShaderType::SHADER_GOURAUD); 
 	glUseProgram(Renderer::GetShaderProgramID());
+=======
+	Renderer::SetShader(ShaderType::SHADER_PHONG); 
+>>>>>>> 3091421b559dc6227189133f6f45110b5d70a4ee
 
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
