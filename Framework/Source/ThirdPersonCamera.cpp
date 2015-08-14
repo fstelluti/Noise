@@ -79,11 +79,11 @@ void ThirdPersonCamera::Update(float dt)
 	}
 
 	static bool four_pressed = 1;
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS && !four_pressed){
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS && !four_pressed){
 		four_pressed = 1;
 		setTarget(getNextModel());
 	}
-	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_RELEASE){
+	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6 ) == GLFW_RELEASE){
 		four_pressed = 0;
 	}
 

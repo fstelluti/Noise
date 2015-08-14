@@ -277,41 +277,6 @@ void World::Draw()
 
 	GLuint programID = Renderer::GetShaderProgramID();
 
-	// Get a handle for our Transformation Matrices uniform
-	GLuint WorldMatrixID = glGetUniformLocation(programID, "WorldTransform");
-	GLuint ViewMatrixID = glGetUniformLocation(programID, "ViewTransform");
-	GLuint ProjMatrixID = glGetUniformLocation(programID, "ProjectionTransform");
-
-	// Get a handle for Light Attributes uniform
-	GLuint LightPositionID = glGetUniformLocation(programID, "WorldLightPosition");
-	GLuint LightColorID = glGetUniformLocation(programID, "lightColor");
-	GLuint LightAttenuationID = glGetUniformLocation(programID, "lightAttenuation");
-
-	// Get a handle for Material Attributes uniform
-	GLuint MaterialAmbientID = glGetUniformLocation(programID, "materialAmbient");
-    GLuint MaterialDiffuseID = glGetUniformLocation(programID, "materialDiffuse");
-    GLuint MaterialSpecularID = glGetUniformLocation(programID, "materialSpecular");
-    GLuint MaterialExponentID = glGetUniformLocation(programID, "materialExponent");
-
-	// Send our transformation to the currently bound shader, 
-	// in the "World / View / Projection" uniform
-	glUniformMatrix4fv(ViewMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetViewMatrix()[0][0]);
-	glUniformMatrix4fv(ProjMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetProjectionMatrix()[0][0]);
-
-	// Draw the Vertex Buffer
-	// Note this draws a unit Sphere
-	// The Model View Projection transforms are computed in the Vertex Shader
-
-	// Set shader constants
-    glUniform1f(MaterialAmbientID, ka);
-    glUniform1f(MaterialDiffuseID, kd);
-    glUniform1f(MaterialSpecularID, ks);
-    glUniform1f(MaterialExponentID, n);
-        
-	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
-	glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
-	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
-
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &mCamera[mCurrentCamera]->GetViewProjectionMatrix()[0][0]);
@@ -328,19 +293,19 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
-	//Disable DepthMask so that everything always gets draw in fron of the skybox
+	//Disable DepthMask so that everything always gets draw in front of the skybox
 	glDepthMask(GL_FALSE);
 
 	//Draw the skybox seperatly 
 	skyboxModel.Draw();
+
+	//Enable the depthMask
+	glDepthMask (GL_TRUE);
 	
 	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it)
-	 {
-       
+	 { 
        (*it)->Draw();
 	 }
-
-	glDepthMask (GL_TRUE);
 
 	/*
 	// Draw Path Lines

@@ -100,7 +100,7 @@ void Skybox::Draw() {
 	Renderer::CheckForErrors();
 
 	//Disable DepthMask so that everything always gets draw in fron of the skybox
-	glDepthMask(GL_FALSE);
+	//glDepthMask(GL_FALSE);
 
 	//Set current shader to be the Textured Shader
 	//First save the old shader
@@ -173,7 +173,7 @@ void Skybox::Draw() {
 
 	glDisableVertexAttribArray(0);
 
-	glDepthMask (GL_TRUE);
+	//glDepthMask (GL_TRUE);
 
 	Renderer::CheckForErrors();
     
