@@ -1,5 +1,7 @@
 #version 330 core
 
+//Author: Anne-Marie Dubé
+
 in vec4 color;
 
 void main()
