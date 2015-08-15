@@ -213,13 +213,18 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size()*sizeof(Vertex), &vertexBuffer[0], GL_STATIC_DRAW);
 
+	//Starting position
+	mPosition = vec3(0, 4, 25);
 
-    // IF you want it to go straight: mVelocity = vec3(planeL);
+    // IF you want it to go straight use: mVelocity = vec3(planeL);
+	//Velocityof cubes going outwards and up
     if (side){
         mVelocity = vec3(10.0f, 10.0f, 0.0f);
     } else{
         mVelocity = vec3(-10.0f, 10.0f, 0.0f);
     }
+
+
 }
 
 ClippedCubeModel::~ClippedCubeModel()

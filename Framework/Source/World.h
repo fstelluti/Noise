@@ -20,6 +20,8 @@ class Animation;
 class AnimationKey;
 class ParticleSystem;
 class ClippedCubeModel;
+class Saw;
+class CubeInitial;
 
 class World
 {
@@ -44,6 +46,7 @@ public:
 	void RemoveParticleSystem(ParticleSystem* particleSystem);
 	void TriggerBeat();
 	std::vector<Model*>* getAllModels();
+	
 
 private:
     static World* instance;
@@ -53,9 +56,15 @@ private:
     std::vector<Animation*> mAnimation;
     std::vector<AnimationKey*> mAnimationKey;
 	std::vector<Camera*> mCamera;
-	std::vector<ClippedCubeModel*> mClippedCubeModel;
 	std::vector<ParticleSystem*> mParticleSystemList;
 	unsigned int mCurrentCamera;
+
+	Saw* saw;
+    CubeInitial* initialCube;
+	std::vector<Saw*> mSaw;
+    std::vector<CubeInitial*> mCubeInitial;
+	std::vector<ClippedCubeModel*> mClippedCubeModel;
+	int clipped;
 
 	BillboardList* mpBillboardList;
 };
