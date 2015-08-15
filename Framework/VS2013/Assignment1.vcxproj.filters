@@ -70,6 +70,12 @@
     <ClCompile Include="..\Source\ClippedCubeModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Saw.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CubeInitial.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Animation.h" />
@@ -145,6 +151,12 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ClippedCubeModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Saw.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeInitial.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
