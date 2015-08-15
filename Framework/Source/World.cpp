@@ -196,26 +196,22 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		}
 	}
 
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS)
-   {
-       //mExplosionState = 1;
-       vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
-       if(mClippedCubeModel.size() >= 1){
+	// X to clip the cube 
+	// If there's already two clipped cubes, it will delete them and make new ones
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS) {
+		// Plane rotation around origin
+		// You can adjust the x,y,z of plane
+		vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+		if(mClippedCubeModel.size() >= 1){
            mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
            mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
            mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
-       } else {
+		} else {
            mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
            mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
-       }
-     
+		}
+	}
 
-   }
-
-	//Update clipped cubes
-   for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it){
-       (*it)->Update(dt);
-   }
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
 		Model * light = this->FindModel("\"Light1\"");
@@ -236,6 +232,11 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		TriggerBeat();
 	}
 	
+	//Update clipped cubes
+	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it){
+		(*it)->Update(dt);
+	}
+
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
@@ -246,7 +247,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
     {
         (*it)->Update(dt);
     }
-
 
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
@@ -259,7 +259,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 
 
     // Update billboards
-    
     for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
     {
         (*it)->Update(dt);
