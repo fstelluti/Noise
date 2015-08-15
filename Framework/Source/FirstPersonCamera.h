@@ -24,6 +24,12 @@ public:
 protected:
 	glm::vec3 getPosition() const;
 	void setPosition(glm::vec3);
+	void setSpeed(float speed){
+		mSpeed = speed;
+	}
+	void setAngularSpeed(float angularSpeed){
+		mAngularSpeed = angularSpeed;
+	}
 
 private:
 	glm::vec3 mPosition;	
