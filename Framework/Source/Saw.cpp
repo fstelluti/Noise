@@ -103,7 +103,7 @@ void Saw::Update(float dt)
     // Add damping to velocity
     //mVelocity -= 2.5f * dt * mVelocity;
     mRotationAxis = vec3(0,0,1);
-    mRotationAngleInDegrees += -90 * dt; // spins by 90 degrees per second
+    mRotationAngleInDegrees += -540 * dt; // spins by 540 degrees per second
     
     mPosition += mVelocity*dt;
     

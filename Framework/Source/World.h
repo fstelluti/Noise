@@ -65,6 +65,9 @@ private:
     std::vector<CubeInitial*> mCubeInitial;
 	std::vector<ClippedCubeModel*> mClippedCubeModel;
 	int clipped;
+	float distOfCubes;
+	float distOfSaw;
+
 
 	BillboardList* mpBillboardList;
 };

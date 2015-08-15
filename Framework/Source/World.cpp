@@ -209,33 +209,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		}
 	}
 
-	// REMOVE:
-	// X to clip the cube 
-	// If there's already two clipped cubes, it will delete them and make new ones
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS) {
-		// Plane rotation around origin
-		// You can adjust the x,y,z of plane
-		vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
-		if(mClippedCubeModel.size() >= 1){
-           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
-           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
-           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
-		} else {
-           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
-           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
-		}
-	}
-
-	
-	//float distOfCubes = glm::distance(saw->GetPosition(), initialCube->GetPosition());
-    /*if (distOfCubes <= 5.0f && !clipped){
-        mSaw.erase(mSaw.begin(), mSaw.end());
-        mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
-        vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
-        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
-        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
-        clipped =1;
-    }*/
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
 		Model * light = this->FindModel("\"Light1\"");
@@ -256,6 +229,40 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		TriggerBeat();
 	}
 	
+	
+
+	// X to clip the cube 
+	// If there's already two clipped cubes, it will delete them and make new ones
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS) {
+		// Plane rotation around origin
+		// You can adjust the x,y,z of plane
+		vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+		if(mClippedCubeModel.size() >= 1){
+           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+		} else {
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+		}
+	}
+
+	//Saw clips cubes
+	distOfCubes = glm::distance(saw->GetPosition(), initialCube->GetPosition());
+    if (distOfCubes <= 5.0f && !clipped){
+        mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
+        vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+        clipped =1;
+    }
+
+	//Remove saw and clipped cubes when they are far away
+	distOfSaw = glm::distance(saw->GetPosition(), vec3(0,0,0));
+	if (distOfSaw >= 60.0f){
+		mSaw.erase(mSaw.begin(), mSaw.end());
+		mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+	}
 
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
