@@ -114,8 +114,6 @@ World::~World()
 		delete *it;
 	}
 
-	//TODO LIUAI: clear saw and initial cube model
-
 	mAnimation.clear();
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
@@ -133,6 +131,31 @@ World::~World()
 	mCamera.clear();
 
 	delete mpBillboardList;
+
+	// Saw
+	for (vector<Saw*>::iterator it = mSaw.begin(); it < mSaw.end(); ++it)
+	{
+		delete *it;
+	}
+
+	mSaw.clear();
+
+	// Cube initial
+	for (vector<CubeInitial*>::iterator it = mCubeInitial.begin(); it < mCubeInitial.end(); ++it)
+	{
+		delete *it;
+	}
+
+	mCubeInitial.clear();
+
+	// Clipped cube
+	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it)
+	{
+		delete *it;
+	}
+
+	mClippedCubeModel.clear();
+
 }
 
 World* World::GetInstance()
