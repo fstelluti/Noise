@@ -54,7 +54,7 @@ void FirstPersonGravityCamera::Update(float dt){
 	nextPosition.y = height;
 	setPosition (nextPosition);
 
-	hasMoved = false;
+	//hasMoved = false;
 }
 
 FirstPersonGravityCamera::FirstPersonGravityCamera() : FirstPersonCamera(glm::vec3(10,20,10), glm::vec3(0,0,0)){
