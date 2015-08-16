@@ -74,6 +74,10 @@ CubeInitial::CubeInitial(vec3 size) : Model()
 
    //Starting position
 	mPosition = vec3(0, 4, 25);
+	
+	// Angled cube
+    mRotationAxis = vec3(0,0,1);
+    mRotationAngleInDegrees = -45; 
 
 	// Create a vertex array
 	glGenVertexArrays(1, &mVertexArrayID);
