@@ -72,10 +72,10 @@ Saw::Saw(vec3 size): Model()
 								{ vec3(-halfSize.x, halfSize.y, halfSize.z), vec3( 0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f) }
 						};
 
-   //Starting position & velocity
-	mPosition = vec3(-50, 4, 25);
-    mVelocity  = vec3(7, 0, 0);
-    
+    // Starting position & velocity
+	mPosition = vec3(0, 4, 5);
+    mVelocity  = vec3(0, 0, 7);
+
 	// Create a vertex array
 	glGenVertexArrays(1, &mVertexArrayID);
 
@@ -96,15 +96,14 @@ Saw::~Saw()
 
 void Saw::Update(float dt)
 {
-	// If you are curious, un-comment this line to have spinning cubes!
-	// That will only work if your world transform is correct...
-	//mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
-
     // Add damping to velocity
     //mVelocity -= 2.5f * dt * mVelocity;
-    mRotationAxis = vec3(0,0,1);
-    mRotationAngleInDegrees += -540 * dt; // spins by 540 degrees per second
-    
+
+	// Angled saw
+    mRotationAxis = vec3(1,0,0);
+    mRotationAngleInDegrees += 720 * dt; // spins by 720 degrees per second
+
+
     mPosition += mVelocity*dt;
     
 	Model::Update(dt);

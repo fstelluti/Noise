@@ -216,12 +216,16 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	//Starting position
 	mPosition = vec3(0, 4, 25);
 
+	// Angled cube
+    mRotationAxis = vec3(0,0,1);
+    mRotationAngleInDegrees = -45; 
+
     // IF you want it to go straight use: mVelocity = vec3(planeL);
 	//Velocityof cubes going outwards and up
     if (side){
-        mVelocity = vec3(10.0f, 10.0f, 0.0f);
+        mVelocity = vec3(5.0f, 30.0f, 0.0f);
     } else{
-        mVelocity = vec3(-10.0f, 10.0f, 0.0f);
+        mVelocity = vec3(-5.0f, 30.0f, 0.0f);
     }
 
 
@@ -649,41 +653,40 @@ vec3 ClippedCubeModel::GetIntersection(vec3 point0, vec3 point1, vec4 p){
     vec3 p1 = point1;
     vec4 plane = p;
     vec3 pNormal = vec3(plane.x, plane.y, plane.z);
-    //float degree = 1e-6;
-    
+	
+	//Find intersection of line between two points and the plane
     vec3 u = vec3(p1 - p0);
     float dotProd = dot(pNormal, u);
-    //if( dotProd > degree){
-        float dist = -plane[3] / (dot(pNormal, pNormal));
-        vec3 pCoord = vec3(dist*plane.x, dist*plane.y, dist*plane.z);
-        vec3 w = vec3(p0 - pCoord);
-        float factor = - dot(pNormal, w)/dotProd;
-        u = u * factor;
-        vec3 intersectionPoint = p0 + u;
-        return intersectionPoint;
-    /*
-    } else {
-        return vec3(0,0,0);
-    }*/
+    float dist = -plane[3] / (dot(pNormal, pNormal));
+    vec3 pCoord = vec3(dist*plane.x, dist*plane.y, dist*plane.z);
+    vec3 w = vec3(p0 - pCoord);
+    float factor = - dot(pNormal, w)/dotProd;
+    u = u * factor;
+    vec3 intersectionPoint = p0 + u;
+    return intersectionPoint;
+
     
 }
 
 
 void ClippedCubeModel::Update(float dt)
 {
-	// If you are curious, un-comment this line to have spinning cubes!
-	// That will only work if your world transform is correct...
-	//mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
 
-    // Add damping to velocity
-    //mVelocity -= 0.3f * dt * mVelocity;
+
+	//If you want to have a slow cube, uncomment the velocity here
+    //mVelocity -= 0.3f * dt * mVelocity; // Add damping to velocity
     //vec3 velocity = vec3(10.0f, 10.0f, 0.0f);
     
-    vec3 acceleration = vec3(0.0f, -5.0f, 0.0f);
-    
+    vec3 acceleration = vec3(0.0f, -15.0f, 0.0f);
     mVelocity += acceleration * dt;
     mPosition += mVelocity*dt;
-    
+
+	mRotationAngleInDegrees += 540 * dt; // spins by 540 degrees per second
+	
+	// Make the cube go smaller
+    mScaling = mScaling*0.99f;
+
+
 	Model::Update(dt);
 }
 
