@@ -14,5 +14,6 @@ uniform samplerCube mySkyboxTextureSampler;
 
 void main()
 {
+	//Assign the color fragment 
 	color_Fragment = texture(mySkyboxTextureSampler, textureCoordinates);
 }

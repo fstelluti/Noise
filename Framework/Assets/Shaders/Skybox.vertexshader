@@ -17,5 +17,6 @@ void main()
 	//use the vertex points of the cube as the texture co-ordinates, since each side is just a square
 	//In this case use the negative, to rotate the textures 180 degrees
 	textureCoordinates = -vertexPoints; 
+
 	gl_Position = ProjectionTransform * ViewTransform * vec4(vertexPoints, 1.0);
 }

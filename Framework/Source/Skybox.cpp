@@ -76,7 +76,7 @@ Skybox::Skybox() : Model() {
 	//Each triangle (3) * (6 sides of a cube * (2 triangles each * 3 verts)) * the size of a float
 	glBufferData (GL_ARRAY_BUFFER, 3 * 36 * sizeof(float), cubeVerticies, GL_STATIC_DRAW);
 
-	//Load textures
+	//Load textures, and manually set the skyBoxID
 	skyTextureID = 1;
 	cubeMap("../Assets/Textures/negz.png","../Assets/Textures/posz.png","../Assets/Textures/negy.png", "../Assets/Textures/posy.png",
 			"../Assets/Textures/negx.png", "../Assets/Textures/posx.png", &skyTextureID);
@@ -98,9 +98,6 @@ void Skybox::Update(float dt)
 void Skybox::Draw() {
 
 	Renderer::CheckForErrors();
-
-	//Disable DepthMask so that everything always gets draw in fron of the skybox
-	//glDepthMask(GL_FALSE);
 
 	//Set current shader to be the Textured Shader
 	//First save the old shader
@@ -172,8 +169,6 @@ void Skybox::Draw() {
 	glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices: 3 * 2 * 6 (3 per triangle, 2 triangles per face, 6 faces)
 
 	glDisableVertexAttribArray(0);
-
-	//glDepthMask (GL_TRUE);
 
 	Renderer::CheckForErrors();
     

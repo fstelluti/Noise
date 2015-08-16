@@ -25,7 +25,7 @@ class Skybox : public Model {
 		virtual void Draw();
 
 	    void cubeMap(const char* front, const char* back, const char* top, const char* bottom,
-			const char* left, const char* right, GLuint* cubeTexture);	//Creates the cube texture
+		const char* left, const char* right, GLuint* cubeTexture);	//Creates the cube texture
 		bool cubeMapSideLoader(GLuint texture, GLenum side, const char* fileName); //Loads the texture for each side of the cube
 
 	protected:
