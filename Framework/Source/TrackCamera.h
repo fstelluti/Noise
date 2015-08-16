@@ -1,7 +1,7 @@
 /*
 // Noise Project
 //
-// Created by Geoffrey Boom. When your sanity drips away, and all you're left with is madness, gaze up and see doge in all his wow.
+// Created by Geoffrey Boom. When your sanity drips away, and all you're left with is madness, gaze up and see doge in all their wow.
 */
 
 #pragma once
