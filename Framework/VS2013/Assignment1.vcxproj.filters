@@ -72,6 +72,11 @@
     </ClCompile>
     <ClCompile Include="..\Source\FirstPersonGravityCamera.cpp">
       <Filter>Cameras</Filter>
+    <ClCompile Include="..\Source\Saw.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CubeInitial.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +157,11 @@
     </ClInclude>
     <ClInclude Include="..\Source\FirstPersonGravityCamera.h">
       <Filter>Cameras</Filter>
+    <ClInclude Include="..\Source\Saw.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeInitial.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +249,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\Assets\Shaders\Phong.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Gouraud.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\Gouraud.fragmentshader">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

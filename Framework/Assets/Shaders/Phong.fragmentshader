@@ -41,7 +41,7 @@ void main()
 	vec3 refV = reflect(lightVectorNormal, normalize(normal));
 
 	float cosBeta = clamp(dot(eyeV, refV), 0, 1);
-	float cosTheta = clamp(dot(lightColor, normalize(normal)), 0, 1);
+	float cosTheta = clamp(dot(lightVectorNormal, normalize(normal)), 0, 1);
 
 	if(lightVector.w == 0.0) {
 		attenuation = 1.0;	//No attenuation

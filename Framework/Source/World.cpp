@@ -11,7 +11,6 @@
 #include "Renderer.h"
 #include "ParsingHelper.h"
 #include "Skybox.h"
-#include "ClippedCubeModel.h"
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
@@ -20,13 +19,15 @@
 #include "TrackCameraLookatCurve.h"
 #include "FirstPersonGravityCamera.h"
 
+#include "Animation.h"
 #include "CubeModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "Stereo.h"
 #include "Plane.h"
-#include "Animation.h"
-#include "Billboard.h"
+#include "ClippedCubeModel.h"
+#include "Saw.h"
+#include "CubeInitial.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -36,6 +37,7 @@
 #include "ParticleDescriptor.h"
 #include "ParticleEmitter.h"
 #include "ParticleSystem.h"
+#include "Billboard.h"
 
 using namespace std;
 using namespace glm;
@@ -61,12 +63,11 @@ World::World()
     instance = this;
 
 	// Setup Camera
-	mCamera.push_back(new FirstPersonGravityCamera());
 	mCamera.push_back(new TrackCameraLookatCurve());
 	mCamera.push_back(new ThirdPersonCamera());
 	mCamera.push_back(new TrackCamera());
+	mCamera.push_back(new FirstPersonGravityCamera());
 	mCamera.push_back(new FirstPersonCamera(vec3(0, 15.0f, 40), vec3(0,-15,-40)));
-	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
 
 
 	mCurrentCamera = 0;
@@ -84,10 +85,19 @@ World::World()
 	assert(billboardTextureID != 0);
 
 	mpBillboardList = new BillboardList(2048, billboardTextureID);
-	 vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
-           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
-           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(10, 10, 10), false));
-           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(10, 10, 10), true));
+	 
+	/* REMOVE:
+	vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
+    mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+    mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(5, 5, 5), false));
+    mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(5, 5, 5), true));
+	*/
+	
+	saw = new Saw(vec3(4, 4, .25));
+    initialCube = new CubeInitial(vec3(4, 4, 4));
+    mSaw.push_back(saw);
+    mCubeInitial.push_back(initialCube);
+	clipped = 0;
 
 }
 
@@ -108,6 +118,8 @@ World::~World()
 	{
 		delete *it;
 	}
+
+	//TODO LIUAI: clear saw and initial cube model
 
 	mAnimation.clear();
 
@@ -198,26 +210,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		}
 	}
 
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS)
-   {
-       //mExplosionState = 1;
-       vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
-       if(mClippedCubeModel.size() >= 1){
-           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
-           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
-           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
-       } else {
-           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(4, 4, 4), false));
-           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(4, 4, 4), true));
-       }
-     
-
-   }
-
-	//Update clipped cubes
-   for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it){
-       (*it)->Update(dt);
-   }
 
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS){
 		Model * light = this->FindModel("\"Light1\"");
@@ -238,6 +230,41 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		TriggerBeat();
 	}
 	
+	
+
+	// X to clip the cube 
+	// If there's already two clipped cubes, it will delete them and make new ones
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS) {
+		// Plane rotation around origin
+		// You can adjust the x,y,z of plane
+		vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+		if(mClippedCubeModel.size() >= 1){
+           mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+		} else {
+           mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+           mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+		}
+	}
+
+	//Saw clips cubes
+	distOfCubes = glm::distance(saw->GetPosition(), initialCube->GetPosition());
+    if (distOfCubes <= 5.0f && !clipped){
+        mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
+        vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
+        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+        clipped =1;
+    }
+
+	//Remove saw and clipped cubes when they are far away
+	distOfSaw = glm::distance(saw->GetPosition(), vec3(0,0,0));
+	if (distOfSaw >= 60.0f){
+		mSaw.erase(mSaw.begin(), mSaw.end());
+		mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
+	}
+
     // Update animation and keys
     for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
     {
@@ -249,7 +276,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
         (*it)->Update(dt);
     }
 
-
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
 
@@ -259,9 +285,29 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		(*it)->Update(dt);
 	}
 
+	//Update clipped cubes
+	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it){
+		(*it)->Update(dt);
+	}
+
+	 // Update saw
+    //if( clipped == 0){
+        for (vector<Saw*>::iterator it = mSaw.begin(); it < mSaw.end(); ++it)
+        {
+            (*it)->Update(dt);
+        }
+    //}
+    
+    // Update initial cube
+   // if (clipped == 0){
+        for (vector<CubeInitial*>::iterator it = mCubeInitial.begin(); it < mCubeInitial.end(); ++it)
+        {
+            (*it)->Update(dt);
+        }
+   // }
+
 
     // Update billboards
-    
     for (vector<ParticleSystem*>::iterator it = mParticleSystemList.begin(); it != mParticleSystemList.end(); ++it)
     {
         (*it)->Update(dt);
@@ -279,41 +325,6 @@ void World::Draw()
 
 	GLuint programID = Renderer::GetShaderProgramID();
 
-	// Get a handle for our Transformation Matrices uniform
-	GLuint WorldMatrixID = glGetUniformLocation(programID, "WorldTransform");
-	GLuint ViewMatrixID = glGetUniformLocation(programID, "ViewTransform");
-	GLuint ProjMatrixID = glGetUniformLocation(programID, "ProjectionTransform");
-
-	// Get a handle for Light Attributes uniform
-	GLuint LightPositionID = glGetUniformLocation(programID, "WorldLightPosition");
-	GLuint LightColorID = glGetUniformLocation(programID, "lightColor");
-	GLuint LightAttenuationID = glGetUniformLocation(programID, "lightAttenuation");
-
-	// Get a handle for Material Attributes uniform
-	GLuint MaterialAmbientID = glGetUniformLocation(programID, "materialAmbient");
-    GLuint MaterialDiffuseID = glGetUniformLocation(programID, "materialDiffuse");
-    GLuint MaterialSpecularID = glGetUniformLocation(programID, "materialSpecular");
-    GLuint MaterialExponentID = glGetUniformLocation(programID, "materialExponent");
-
-	// Send our transformation to the currently bound shader, 
-	// in the "World / View / Projection" uniform
-	glUniformMatrix4fv(ViewMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetViewMatrix()[0][0]);
-	glUniformMatrix4fv(ProjMatrixID,  1, GL_FALSE, &GetCurrentCamera()->GetProjectionMatrix()[0][0]);
-
-	// Draw the Vertex Buffer
-	// Note this draws a unit Sphere
-	// The Model View Projection transforms are computed in the Vertex Shader
-
-	// Set shader constants
-    glUniform1f(MaterialAmbientID, ka);
-    glUniform1f(MaterialDiffuseID, kd);
-    glUniform1f(MaterialSpecularID, ks);
-    glUniform1f(MaterialExponentID, n);
-        
-	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
-	glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
-	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
-
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &mCamera[mCurrentCamera]->GetViewProjectionMatrix()[0][0]);
@@ -330,39 +341,43 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
-	//Disable DepthMask so that everything always gets draw in fron of the skybox
+	 // Draw clipped models
+    for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it)
+    {
+        (*it)->Draw();
+    }
+    
+    
+    // Draw clipping model
+    //if (clipped == 0){
+        for (vector<Saw*>::iterator it = mSaw.begin(); it < mSaw.end(); ++it)
+        {   
+            (*it)->Draw();
+        }
+    //}
+    
+    // Draw initial
+   // if (clipped == 0){
+        for (vector<CubeInitial*>::iterator it = mCubeInitial.begin(); it < mCubeInitial.end(); ++it)
+        {  
+            (*it)->Draw();
+        }
+   // }
+
+	//Disable DepthMask so that everything always gets draw in front of the skybox
 	glDepthMask(GL_FALSE);
 
 	//Draw the skybox seperatly 
 	skyboxModel.Draw();
+
+	//Enable the depthMask
+	glDepthMask (GL_TRUE);
 	
 	for (vector<ClippedCubeModel*>::iterator it = mClippedCubeModel.begin(); it < mClippedCubeModel.end(); ++it)
-	 {
-       
+	 { 
        (*it)->Draw();
 	 }
 
-	glDepthMask (GL_TRUE);
-
-	/*
-	// Draw Path Lines
-	
-	// Set Shader for path lines
-	unsigned int prevShader = Renderer::GetCurrentShader();
-	Renderer::SetShader(SHADER_PATH_LINES);
-	glUseProgram(Renderer::GetShaderProgramID());
-
-	// Send the view projection constants to the shader
-	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
-	for (vector<Animation*>::iterator it = mAnimation.begin(); it < mAnimation.end(); ++it)
-	{
-		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
-		(*it)->Draw();
-	}*/
 
 	for (vector<AnimationKey*>::iterator it = mAnimationKey.begin(); it < mAnimationKey.end(); ++it)
 	{

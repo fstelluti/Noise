@@ -4,8 +4,12 @@
 // Created by Nicolas Bergeron on 8/7/14.
 // Updated by Gary Chang on 14/1/15
 //
+// Modified by: Liuai Hatter
+//
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
+
+
 
 #include "ClippedCubeModel.h"
 #include "Renderer.h"
@@ -57,11 +61,11 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 		Vertex v7, v8, v9;
 	v7.position = vec3( halfSize.x, halfSize.y,-halfSize.z);
 	v7.normal = vec3( 0.0f, 0.0f,-1.0f);
-	v7.color = vec3( 1.0f, 0.0f,0.0f);
+	v7.color = vec3( 0.0f, 1.0f,1.0f);
 
 	v8.position = vec3(-halfSize.x,-halfSize.y,-halfSize.z);
 	v8.normal = vec3( 0.0f, 0.0f,-1.0f);
-	v8.color = vec3( 1.0f, 0.0f,0.0f);
+	v8.color = vec3( 0.0f, 1.0f,1.0f);
 
 	v9.position = vec3(-halfSize.x, halfSize.y,-halfSize.z);
 	v9.normal = vec3( 0.0f, 0.0f,-1.0f);
@@ -70,11 +74,11 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	Vertex v10, v11, v12;
 	v10.position = vec3( halfSize.x, halfSize.y,-halfSize.z);
 	v10.normal = vec3( 0.0f, 0.0f,-1.0f);
-	v10.color = vec3( 1.0f, 0.0f,0.0f);
+	v10.color = vec3( 0.0f, 1.0f,1.0f);
 
 	v11.position = vec3( halfSize.x,-halfSize.y,-halfSize.z);
 	v11.normal = vec3( 0.0f, 0.0f,-1.0f);
-	v11.color = vec3( 1.0f, 0.0f,0.0f);
+	v11.color = vec3( 0.0f, 1.0f,1.0f);
 
 	v12.position = vec3(-halfSize.x,-halfSize.y,-halfSize.z);
 	v12.normal = vec3( 0.0f, 0.0f,-1.0f);
@@ -188,7 +192,7 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	v36.normal = vec3( 0.0f, 1.0f, 0.0f);
 	v36.color = vec3(0.0f, 1.0f, 1.0f);
 
-    ClipTriangle(v1, v2, v3, planeL, vertexBuffer, openFace);
+    ClipTriangle( v1, v2, v3, planeL, vertexBuffer, openFace);
     ClipTriangle( v4, v5, v6, planeL, vertexBuffer, openFace);
 	ClipTriangle( v7, v8, v9, planeL, vertexBuffer, openFace);
 	ClipTriangle( v10, v11, v12, planeL, vertexBuffer, openFace);
@@ -209,13 +213,18 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size()*sizeof(Vertex), &vertexBuffer[0], GL_STATIC_DRAW);
 
+	//Starting position
+	mPosition = vec3(0, 4, 25);
 
-    // IF you want it to go straight: mVelocity = vec3(planeL);
+    // IF you want it to go straight use: mVelocity = vec3(planeL);
+	//Velocityof cubes going outwards and up
     if (side){
         mVelocity = vec3(10.0f, 10.0f, 0.0f);
     } else{
         mVelocity = vec3(-10.0f, 10.0f, 0.0f);
     }
+
+
 }
 
 ClippedCubeModel::~ClippedCubeModel()
@@ -237,11 +246,12 @@ void ClippedCubeModel::ClipTriangle(const Vertex& v1, const Vertex& v2, const Ve
     //Counter to keep track of how many are kept
     int inCounter = 0;
     vector<Vertex> outside;
+
+	//Keep vector of intersection vertices
     //vector<Vertex>openFace = of;
 
-    
+    //Intersecting plane and plane normal
     vec4 plane = L;
-    //Plane normal
     vec3 pNormal = vec3(L.x, L.y, L.z);
     
     //Triangles that are inside will be stored in this:
@@ -250,10 +260,7 @@ void ClippedCubeModel::ClipTriangle(const Vertex& v1, const Vertex& v2, const Ve
     bool v2In = 0;
     bool v3In = 0;
     
-    
-    
-    //CHECKING TO SEE IF ALL ARE IN, OR ATLEAST ONE IN & ONE OUT.
-   
+    //CHECKING TO SEE IF ALL VERTICES ARE IN, OR ATLEAST ONE VERTEX IN & ONE OUT:
 
     //Assuming that point on plane is <0,0,0>
     //TODO GET A POINT ON THE PLANE
@@ -346,74 +353,181 @@ void ClippedCubeModel::ClipTriangle(const Vertex& v1, const Vertex& v2, const Ve
         }
 
        
-        //Send 1 or 2 triangles to vertex buffer
+		// If it's a quad, send 2 triangles that split up the quad
         if (in.size() == 2){
-            //Triangle 1
-            //Vertex 1
-            vertexBuffer.push_back(in[0]);
-            //Vertex 2
-            Vertex vertex2;
-            vertex2.position = intersection[0];
-            vertex2.normal = v1.normal;
-            vertex2.color = v1.color;
-            vertexBuffer.push_back(vertex2);
-            //Vertex3
-            Vertex vertex3;
-            vertex3.position = intersection[1];
-            vertex3.normal = v1.normal;
-            vertex3.color = v1.color;
-            vertexBuffer.push_back(vertex3);
-            
-            
-            //Triangle 2
-            //Vertex1
-            vertexBuffer.push_back(in[0]);
-            //Vertex2
-            vertexBuffer.push_back(in[1]);
-            //Vertex3
-			vec3 in1 = in[1].position;
-			float in1x = in1.x;
-            float xy = glm::distance(in[1].position, intersection[0]);
-			//float xy = glm::sqrt((in[1].position.x - intersection[0].x)*(in[1].position - intersection[0].x));
-			//double xy = glm::sqrt(static_cast<double>(in1x));
+			//If V2 is inside, then do this to get CCW
+			if (v2In){
+				//TRIANGLE 1
+				//Vertex 1
+				vertexBuffer.push_back(in[0]);
 
-			float yz = glm::distance(outside[0].position, intersection[0]);
-            float xz = glm::distance(in[1].position, outside[0].position);
-            
-            //If intersection is not on the line
-            if(xy + yz == xz){
-                Vertex vertex6;
-                vertex6.position = intersection[0];
-                vertex6.normal = v1.normal;
-                vertex6.color = v1.color;
-                vertexBuffer.push_back(vertex6);
-            } else {
-                Vertex vertex6;
-                vertex6.position = intersection[1];
-                vertex6.normal = v1.normal;
-                vertex6.color = v1.color;
-                vertexBuffer.push_back(vertex6);
-            }
+				//Vertex 2 & Vertex 3
+				//Get vertex opposite vertex 1 (vertex 2 does not fall on line between vertex 1 & outside vertex)
+				float ab = glm::distance(in[0].position, intersection[0]);
+				float cd = glm::distance(outside[0].position, intersection[0]);
+				float ad = glm::distance(in[0].position, outside[0].position);
+				//If the segments don't equal the total, then Vertex 2 is opposite/not on the line.
+				if (ab + cd != ad){
+					Vertex vertex2;
+					vertex2.position = intersection[0];
+					vertex2.normal = v1.normal;
+					vertex2.color = v1.color;
+					vertexBuffer.push_back(vertex2);
+
+					//Take the remaining vertex as Vertex3
+					Vertex vertex3;
+					vertex3.position = intersection[1];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+				else {
+					Vertex vertex2;
+					vertex2.position = intersection[1];
+					vertex2.normal = v1.normal;
+					vertex2.color = v1.color;
+					vertexBuffer.push_back(vertex2);
+
+					//Take the remaining vertex as Vertex3
+					Vertex vertex3;
+					vertex3.position = intersection[0];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+
+				//TRIANGLE 2
+				//Vertex1
+				vertexBuffer.push_back(in[0]);
+				//Vertex2
+				vertexBuffer.push_back(in[1]);
+				//Vertex3
+				//Get vertex opposite vertex 1 (vertex 3 does not fall on line between vertex 1 & outside vertex)
+				float xy = glm::distance(in[0].position, intersection[0]);
+				float yz = glm::distance(outside[0].position, intersection[0]);
+				float xz = glm::distance(in[0].position, outside[0].position);
+				//If the segments don't equal the total, then Vertex 3 is opposite/not on the line.
+				if (xy + yz != xz){
+					Vertex vertex3;
+					vertex3.position = intersection[0];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+				else {
+					Vertex vertex3;
+					vertex3.position = intersection[1];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+			} else {
+				//If V2 is out, then do this to get CCW
+                //Vertex1 == last vertex
+				vertexBuffer.push_back(in[1]);
+
+				//Vertex 2 & Vertex 3
+				//Get vertex opposite vertex 1 (vertex 2 does not fall on line between vertex 1 & outside vertex)
+				float ab = glm::distance(in[1].position, intersection[0]);
+				float cd = glm::distance(outside[0].position, intersection[0]);
+				float ad = glm::distance(in[1].position, outside[0].position);
+				//If the segments don't equal the total, then Vertex 2 is opposite/not on the line.
+				if (ab + cd != ad){
+					Vertex vertex2;
+					vertex2.position = intersection[0];
+					vertex2.normal = v1.normal;
+					vertex2.color = v1.color;
+					vertexBuffer.push_back(vertex2);
+
+					//Take the remaining vertex as Vertex3
+					Vertex vertex3;
+					vertex3.position = intersection[1];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+				else {
+					Vertex vertex2;
+					vertex2.position = intersection[1];
+					vertex2.normal = v1.normal;
+					vertex2.color = v1.color;
+					vertexBuffer.push_back(vertex2);
+
+					//Take the remaining vertex as Vertex3
+					Vertex vertex3;
+					vertex3.position = intersection[0];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+
+				//TRIANGLE 2
+				//Vertex1
+				vertexBuffer.push_back(in[1]);
+				//Vertex2
+				vertexBuffer.push_back(in[0]);
+				//Vertex3
+				//Get vertex opposite vertex 1 (vertex 3 does not fall on line between vertex 1 & outside vertex)
+				float xy = glm::distance(in[1].position, intersection[0]);
+				float yz = glm::distance(outside[0].position, intersection[0]);
+				float xz = glm::distance(in[1].position, outside[0].position);
+				//If the segments don't equal the total, then Vertex 3 is opposite/not on the line.
+				if (xy + yz != xz){
+					Vertex vertex3;
+					vertex3.position = intersection[0];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+				else {
+					Vertex vertex3;
+					vertex3.position = intersection[1];
+					vertex3.normal = v1.normal;
+					vertex3.color = v1.color;
+					vertexBuffer.push_back(vertex3);
+				}
+			}
         }
         else if (in.size() == 1){
-            //Only 1 triangle
-            //Vertex1
-            vertexBuffer.push_back(in[0]);
-            //Vertex2
-            Vertex vertex2;
-            vertex2.position = intersection[0];
-            vertex2.normal = v1.normal;
-            vertex2.color = v1.color;
-            vertexBuffer.push_back(vertex2);
-            //Vertex3
-            Vertex vertex3;
-            vertex3.position = intersection[1];
-            vertex3.normal = v1.normal;
-            vertex3.color = v1.color;
-            vertexBuffer.push_back(vertex3);
+			//Send 1 triangle
+			//If v1 is in, then do this to get CCW
+			if (v1In){
+				//Vertex1
+				vertexBuffer.push_back(in[0]);
+				//Vertex2
+				Vertex vertex2;
+				vertex2.position = intersection[0];
+				vertex2.normal = v1.normal;
+				vertex2.color = v1.color;
+				vertexBuffer.push_back(vertex2);
+				//Vertex3
+				Vertex vertex3;
+				vertex3.position = intersection[1];
+				vertex3.normal = v1.normal;
+				vertex3.color = v1.color;
+				vertexBuffer.push_back(vertex3);
+			}
+			else {
+				//If V2 is out, then do this to get CCW
+				//Vertex1
+				vertexBuffer.push_back(in[0]);
+				//Vertex2
+				Vertex vertex2;
+				vertex2.position = intersection[1];
+				vertex2.normal = v1.normal;
+				vertex2.color = v1.color;
+				vertexBuffer.push_back(vertex2);
+				//Vertex3
+				Vertex vertex3;
+				vertex3.position = intersection[0];
+				vertex3.normal = v1.normal;
+				vertex3.color = v1.color;
+				vertexBuffer.push_back(vertex3);
+
+			}
         }
         
-        
+		//For the open face
         if (oF.size() >= 12){
             //Make 2 triangles
             //Tri 1
@@ -423,26 +537,111 @@ void ClippedCubeModel::ClipTriangle(const Vertex& v1, const Vertex& v2, const Ve
             //Tri2
             vertexBuffer.push_back(oF[0]);
             vertexBuffer.push_back(oF[7]);
-            vertexBuffer.push_back(oF[11]);
-
-            
-            
+            vertexBuffer.push_back(oF[11]);         
         }
-        
-        //For the open face
-        
-        
+
+		/*
+		For some reason the triangles only get rendered from >= 12. 
+		However the number of intersections is 16 / oF[0]-oF[15]
+		Hardcoding a tiangle fan for the top of the openface does not work.
+		Two triangles render a bit better than more.
+		Any triangles rendered for the open face, creates bugs in the rest of the cube.
+		//if (oF.size() >= 15){
+        if (numberOfIntersections >= 12){
+        //Make 2 triangles
+            //For the open face
+            //Tri1
+            
+            //Find the normal! It is the same as the plane!
+            Vertex vertex1;
+            vertex1.position = oF[1].position;
+            vertex1.normal = pNormal;
+            vertex1.color = vec3(1,1,1);
+            vertexBuffer.push_back(vertex1);
+            Vertex vertex2;
+            vertex2.position = oF[6].position;
+            vertex2.normal = pNormal;
+            vertex2.color = vec3(1,1,1);
+            vertexBuffer.push_back(vertex2);
+            Vertex vertex3;
+            vertex3.position = oF[2].position;
+            vertex3.normal = pNormal;
+            vertex3.color = vec3(1,1,1);
+            vertexBuffer.push_back(vertex3);
+            
+            
+		//Top half
+		Vertex vertex1;
+		vertex1.position = oF[14].position;
+		vertex1.normal = pNormal;
+		vertex1.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex1);
+		Vertex vertex2;
+		vertex2.position = oF[15].position;
+		vertex2.normal = pNormal;
+		vertex2.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex2);
+		Vertex vertex3;
+		vertex3.position = oF[11].position;
+		vertex3.normal = pNormal;
+		vertex3.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex3);
+
+		//v14
+		vertexBuffer.push_back(vertex1);
+		//v11
+		vertexBuffer.push_back(vertex3);
+		Vertex vertex6;
+		vertex6.position = vec3(0, 0, 0);
+		vertex6.normal = pNormal;
+		vertex6.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex6);
+
+		//v14
+		vertexBuffer.push_back(vertex1);
+		//Origin
+		vertexBuffer.push_back(vertex6);
+		Vertex vertex9;
+		vertex9.position = oF[0].position;
+		vertex9.normal = pNormal;
+		vertex9.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex9);
+
+		//v14
+		vertexBuffer.push_back(vertex1);
+		//v0
+		vertexBuffer.push_back(vertex9);
+		Vertex vertex12;
+		vertex12.position = oF[12].position;
+		vertex12.normal = pNormal;
+		vertex12.color = vec3(1, 1, 1);
+		vertexBuffer.push_back(vertex12);
+
+
+
+		//Tri2
+		
+		Vertex vertex4;
+		vertex4.position = oF[12].position;
+		vertex4.normal = pNormal;
+		vertex4.color = vec3(1,1,1);
+		vertexBuffer.push_back(vertex4);
+		Vertex vertex5;
+		vertex5.position = oF[15].position;
+		vertex5.normal = pNormal;
+		vertex5.color = vec3(1,1,1);
+		vertexBuffer.push_back(vertex5);
+		Vertex vertex6;
+		vertex6.position = oF[8].position;
+		vertex6.normal = pNormal;
+		vertex6.color = vec3(1,1,1);
+		vertexBuffer.push_back(vertex6);
+		
+
+		*/
+
     }
     
-    
-    //YOU DO THESE AFTER YOU CHANGE/OR NOT THE VERTICES
-    //UNCOMMENT THIS OUT AFTER
-    /*
-    vertexBuffer.push_back(v1);
-    vertexBuffer.push_back(v2);
-    vertexBuffer.push_back(v3);
-     */
-
 }
 
 vec3 ClippedCubeModel::GetIntersection(vec3 point0, vec3 point1, vec4 p){

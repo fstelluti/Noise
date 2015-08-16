@@ -1,5 +1,5 @@
 /*
-COMP 371 - Fianl Project
+COMP 371 - Final Project
 Author: Francois Stelluti
 
 This header defines the skybox class, which will help create a skybox for the scene
