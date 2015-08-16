@@ -285,7 +285,8 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 
 	//Saw clips cubes
 	distOfCubes = glm::distance(saw->GetPosition(), initialCube->GetPosition());
-    if (distOfCubes <= 5.0f && !clipped){
+	clippingRadius = initialCube->GetSize().x;
+    if (distOfCubes <= clippingRadius && !clipped){
 		
 		//Get size of initial cube
 		vec3 initialCubeSize = initialCube->GetSize();

@@ -66,6 +66,7 @@ private:
 	std::vector<ClippedCubeModel*> mClippedCubeModel;
 	int clipped;
 	float distOfCubes;
+	float clippingRadius;
 	float distOfSaw;
 
 
