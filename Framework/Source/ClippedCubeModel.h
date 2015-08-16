@@ -27,7 +27,7 @@ private:
     };
 
 public:
-    ClippedCubeModel(glm::vec4 planeL, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f), bool s = 0);
+    ClippedCubeModel(glm::vec4 planeL, glm::vec3 size, const glm::vec3 pos, const glm::vec3 rotAxis, const float rotAngle, bool s = 0);
 	virtual ~ClippedCubeModel();
 
 	virtual void Update(float dt);

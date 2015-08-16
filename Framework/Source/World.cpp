@@ -289,11 +289,16 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		
 		//Get size of initial cube
 		vec3 initialCubeSize = initialCube->GetSize();
+		//Get position of initial cube
+		vec3 initialPosition = initialCube->GetPosition();
+		//Get rotation and angle of initial cube
+		vec3 initialRotationAxis = initialCube->GetRotationAxis();
+		float initialRotationAngle = initialCube->GetRotationAngle();
 
         mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
         vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
-        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, initialCubeSize, false));
-        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, initialCubeSize, true));
+        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, initialCubeSize, initialPosition, initialRotationAxis, initialRotationAngle, false));
+        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, initialCubeSize, initialPosition, initialRotationAxis, initialRotationAngle, true));
         clipped =1;
     }
 
