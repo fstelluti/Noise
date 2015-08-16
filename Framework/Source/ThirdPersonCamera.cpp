@@ -127,7 +127,8 @@ glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
 	displacement *= radius;
 	
 	if(targetModel){
-		glm::vec3 pos = (targetModel)->GetPosition();
+		glm::mat4 worldmatrix = (targetModel)->GetWorldMatrix();
+		glm::vec3 pos = glm::vec3(worldmatrix[3][0], worldmatrix[3][1], worldmatrix[3][2]);
 		return glm::lookAt(pos-displacement,pos,glm::vec3(0.0f,1.0f,0.0f));
 	}
 	else

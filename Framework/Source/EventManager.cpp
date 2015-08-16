@@ -22,7 +22,7 @@
 #include <fstream>
 #include <algorithm>
 
-#include "../Assets/dirent.h"
+#include "../ThirdParty/dirent.h"
 
 using namespace std;
 
