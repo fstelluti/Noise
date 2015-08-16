@@ -26,7 +26,7 @@ using namespace std;
 ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 {
 	// Create Vertex Buffer for all the vertices of the Cube
-	vec3 halfSize = size * 1.0f;
+	vec3 halfSize = size * 0.5f;
 	
     bool side = s;
     std::vector<Vertex> vertexBuffer;

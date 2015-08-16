@@ -86,17 +86,12 @@ World::World()
 
 	mpBillboardList = new BillboardList(2048, billboardTextureID);
 	 
-	/* REMOVE:
-	vec4 clippingPlane(1.0f, 0.0f, 0.0f, 0.0f);
-    mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
-    mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(5, 5, 5), false));
-    mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(5, 5, 5), true));
-	*/
-	
+	//Make a saw and initial cube
 	saw = new Saw(vec3(0.1f, 4.0f, 4.0f));
     initialCube = new CubeInitial(vec3(4.0f, 4.0f, 4.0f));
     mSaw.push_back(saw);
     mCubeInitial.push_back(initialCube);
+	//Nothing is clipped yet
 	clipped = 0;
 
 }
@@ -238,7 +233,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		// Plane rotation around origin
 		// You can adjust the x,y,z of plane
 
-		//vec4 clippingPlane(1.0f, 0.5f, 7.0f, 0.0f);
 		if(mClippedCubeModel.size() >= 1 ){
 			//Erase current saw and clipped cubes and initial cubes.
 			mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
@@ -251,11 +245,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mSaw.push_back(saw);
 			mCubeInitial.push_back(initialCube);
 			clipped = 0;
-
-			/*
-			mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
-			mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
-			*/
 		} else {
 			//Erase current saw and clipped cubes and initial cubes.
 			mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
@@ -268,19 +257,20 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mSaw.push_back(saw);
 			mCubeInitial.push_back(initialCube);
 			clipped = 0;
-			/*
-			mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
-			mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));*/
 		}
 	}
 
 	//Saw clips cubes
 	distOfCubes = glm::distance(saw->GetPosition(), initialCube->GetPosition());
     if (distOfCubes <= 5.0f && !clipped){
+		
+		//Get size of initial cube
+		vec3 initialCubeSize = initialCube->GetSize();
+
         mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
         vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
-        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, vec3(2, 2, 2), false));
-        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, vec3(2, 2, 2), true));
+        mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, initialCubeSize, false));
+        mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, initialCubeSize, true));
         clipped =1;
     }
 

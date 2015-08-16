@@ -47,5 +47,6 @@ private:
 	unsigned int mVertexBufferID;
     
     glm::vec3 mVelocity;
+
     
 };
