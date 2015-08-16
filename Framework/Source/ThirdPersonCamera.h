@@ -9,6 +9,7 @@ public:
 	virtual ~ThirdPersonCamera(void);
 	virtual void Update(float dt);
 	virtual glm::mat4 GetViewMatrix() const;
+	glm::vec3 getDisplacement() const;
 
 	//sets the target which the camera rotates around
 	virtual void setTarget(Model* model);

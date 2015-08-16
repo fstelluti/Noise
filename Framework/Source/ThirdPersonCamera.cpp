@@ -26,7 +26,7 @@ glm::vec3 rotateAroundAxis(glm::vec3 displacement, glm::vec3 newAxis, float RY){
 
 ThirdPersonCamera::ThirdPersonCamera(void)
 {
-
+	
 	setTarget(getNextModel());
 
 	radius = 10.0f;
@@ -35,7 +35,6 @@ ThirdPersonCamera::ThirdPersonCamera(void)
 	angleSpeed = 10;
 	moveSpeed = 1;
 	
-	targetModel = NULL;
 
 }
 
@@ -71,12 +70,56 @@ void ThirdPersonCamera::Update(float dt)
 		rotateY = -50;
 	}
 
+	glm::vec3 direction = glm::vec3(getDisplacement().x, 0, getDisplacement().z);
+	glm::vec3 sideVector = glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::vec3 upVector = glm::vec3(0,1.0f,0);
+
+	if(targetModel){
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W ) == GLFW_PRESS)
+		{
+			targetModel->SetPosition(targetModel->GetPosition() + (glm::normalize(direction) * dt * 7.0f));
+			hasMoved = true;
+		}
+
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S ) == GLFW_PRESS)
+		{
+			targetModel->SetPosition(targetModel->GetPosition() - (glm::normalize(direction) * dt * 7.0f));
+			hasMoved = true;
+		}
+
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D ) == GLFW_PRESS)
+		{
+			targetModel->SetPosition(targetModel->GetPosition() + (glm::normalize(sideVector) * dt * 7.0f));
+			hasMoved = true;
+		}
+
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A ) == GLFW_PRESS)
+		{
+			targetModel->SetPosition(targetModel->GetPosition() -(glm::normalize(sideVector) * dt * 7.0f));
+			hasMoved = true;
+		}
+
+
+		//space and shift for up and down
+
+		if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS){
+			targetModel->SetPosition(targetModel->GetPosition() + (upVector * dt * 4.0f));
+			hasMoved = true;
+		}
+		if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS){
+			targetModel->SetPosition(targetModel->GetPosition() - (upVector * dt * 4.0f));
+			hasMoved = true;
+		}
+	}
+
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_UP) == GLFW_PRESS){
 		radius -= 0.01  * angleSpeed;
 	}
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS){
 		radius += 0.01  * angleSpeed;
 	}
+
+
 
 	static bool four_pressed = 1;
 	if(glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS && !four_pressed){
@@ -106,8 +149,8 @@ Model* ThirdPersonCamera::getNextModel(){
 	return w->FindModel((*World::GetInstance()->getAllModels())[index]->GetName());
 
 }
-glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
-	
+
+glm::vec3 ThirdPersonCamera::getDisplacement() const{
 	glm::vec3 displacement = glm::vec3(0.0f,0.0f,1.0f);
 
 	float RX = glm::radians(rotateX);
@@ -125,10 +168,17 @@ glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
 	displacement = rotateAroundAxis(displacement, newAxis,rotateY);
 
 	displacement *= radius;
+
+	return displacement;
+}
+
+glm::mat4 ThirdPersonCamera::GetViewMatrix() const{
+	
+	glm::vec3 displacement = getDisplacement();
 	
 	if(targetModel){
 		glm::mat4 worldmatrix = (targetModel)->GetWorldMatrix();
-		glm::vec3 pos = glm::vec3(worldmatrix[3][0], worldmatrix[3][1], worldmatrix[3][2]);
+		glm::vec3 pos = targetModel->GetPosition();//glm::vec3(worldmatrix[3][0], worldmatrix[3][1], worldmatrix[3][2]);
 		return glm::lookAt(pos-displacement,pos,glm::vec3(0.0f,1.0f,0.0f));
 	}
 	else
