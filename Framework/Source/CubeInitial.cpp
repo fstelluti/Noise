@@ -72,6 +72,9 @@ CubeInitial::CubeInitial(vec3 size) : Model()
 								{ vec3(-halfSize.x, halfSize.y, halfSize.z), vec3( 0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) }
 						};
 
+	//Set size
+	mSize = size;
+
    //Starting position
 	mPosition = vec3(0, 4, 25);
 	

@@ -23,10 +23,10 @@
 using namespace glm;
 using namespace std;
 
-ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
+ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, vec3 pos, vec3 rotAxis, float rotAngle, bool s) : Model()
 {
 	// Create Vertex Buffer for all the vertices of the Cube
-	vec3 halfSize = size * 1.0f;
+	vec3 halfSize = size * 0.5f;
 	
     bool side = s;
     std::vector<Vertex> vertexBuffer;
@@ -214,11 +214,11 @@ ClippedCubeModel::ClippedCubeModel(vec4 planeL, vec3 size, bool s) : Model()
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size()*sizeof(Vertex), &vertexBuffer[0], GL_STATIC_DRAW);
 
 	//Starting position
-	mPosition = vec3(0, 4, 25);
+	mPosition = pos;
 
 	// Angled cube
-    mRotationAxis = vec3(0,0,1);
-    mRotationAngleInDegrees = -45; 
+	mRotationAxis = rotAxis;
+	mRotationAngleInDegrees = rotAngle;
 
     // IF you want it to go straight use: mVelocity = vec3(planeL);
 	//Velocityof cubes going outwards and up

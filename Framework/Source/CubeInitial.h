@@ -26,6 +26,7 @@ private:
 public:
 	CubeInitial(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 	virtual ~CubeInitial();
+	glm::vec3 GetSize() const		{ return mSize; }
 
 	virtual void Update(float dt);
 	virtual void Draw();
@@ -40,6 +41,6 @@ private:
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
     
-    
+    glm::vec3 mSize;
     glm::vec3 mVelocity;
 };
