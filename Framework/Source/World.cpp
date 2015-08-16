@@ -253,10 +253,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 	// X to clip the cube 
 	// If there's already two clipped cubes, it will delete them and make new ones
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X ) == GLFW_PRESS) {
-		// Plane rotation around origin
-		// You can adjust the x,y,z of plane
-
-		if(mClippedCubeModel.size() >= 1 ){
 			//Erase current saw and clipped cubes and initial cubes.
 			mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
 			mSaw.erase(mSaw.begin(),mSaw.end());
@@ -268,19 +264,6 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 			mSaw.push_back(saw);
 			mCubeInitial.push_back(initialCube);
 			clipped = 0;
-		} else {
-			//Erase current saw and clipped cubes and initial cubes.
-			mClippedCubeModel.erase(mClippedCubeModel.begin(),mClippedCubeModel.end());
-			mSaw.erase(mSaw.begin(),mSaw.end());
-			mCubeInitial.erase(mCubeInitial.begin(),mCubeInitial.end());
-			
-			//Make new saw and initial cube
-			saw = new Saw(vec3(0.1f, 4.0f, 4.0f));
-			initialCube = new CubeInitial(vec3(4.0f, 4.0f, 4.0f));
-			mSaw.push_back(saw);
-			mCubeInitial.push_back(initialCube);
-			clipped = 0;
-		}
 	}
 
 	//Saw clips cubes
@@ -296,8 +279,14 @@ void World::Update(float dt, float currentVolume, float* currentSpec)
 		vec3 initialRotationAxis = initialCube->GetRotationAxis();
 		float initialRotationAngle = initialCube->GetRotationAngle();
 
+		//Remove initial cube cube
         mCubeInitial.erase(mCubeInitial.begin(), mCubeInitial.end());
+
+		// Plane rotation around origin
+		// You can adjust the x,y,z of plane
         vec4 clippingPlane(1.0f, 1.0f, 0.0f, 0.0f);
+
+		//Create two parts of the clipped cube.
         mClippedCubeModel.push_back(new ClippedCubeModel(clippingPlane, initialCubeSize, initialPosition, initialRotationAxis, initialRotationAngle, false));
         mClippedCubeModel.push_back(new ClippedCubeModel(-clippingPlane, initialCubeSize, initialPosition, initialRotationAxis, initialRotationAngle, true));
         clipped =1;
