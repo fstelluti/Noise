@@ -1,3 +1,9 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom. Where the trees grow and the winds cross, that's where I'll be. Waiting. Observing.
+*/
+
 #include "TrackCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "EventManager.h"

@@ -1,3 +1,9 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom for reasons unknown to human kind.
+*/
+
 #pragma once
 #include "FirstPersonCamera.h"
 class FirstPersonGravityCamera: public FirstPersonCamera

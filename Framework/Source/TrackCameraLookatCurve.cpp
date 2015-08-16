@@ -1,3 +1,9 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom. When you stare into the curve, the curve stares back.
+*/
+
 #include "TrackCameraLookatCurve.h"
 #include <vector>
 

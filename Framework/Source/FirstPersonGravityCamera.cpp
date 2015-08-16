@@ -1,3 +1,9 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom on some day in the year 2020. The rations are running low. I must code to survive...
+*/
+
 #include "FirstPersonGravityCamera.h"
 #include "EventManager.h"
 #include "World.h"

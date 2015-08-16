@@ -1,3 +1,8 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom. If you stare at it long enough, a solid object can in fact become liquid. It probably won't, though.
+*/
 #include "ThirdPersonCamera.h"
 #include "EventManager.h"
 #include <GLM/glm.hpp>

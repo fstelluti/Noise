@@ -1,3 +1,8 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom. Pizza is the first food group, all others are extraneous.
+*/
 #pragma once
 #include "camera.h"
 #include "model.h"
