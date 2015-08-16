@@ -1,3 +1,10 @@
+/*
+// Noise Project
+//
+// Created by Geoffrey Boom. The Cultists are watching. With Ice Cream. Do you wish to engage? (y/n)
+// > y
+// The Cultists hand you an Ice Cream and go on their way, but you know they will one day return...
+*/
 #pragma once
 #include <vector>
 #include <glm/gtx/spline.hpp>
