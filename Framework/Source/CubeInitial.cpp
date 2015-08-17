@@ -76,7 +76,7 @@ CubeInitial::CubeInitial(vec3 size) : Model()
 	mSize = size;
 
    //Starting position
-	mPosition = vec3(0, 4, 25);
+	mPosition = vec3(0, 4, 30);
 	
 	// Angled cube
     mRotationAxis = vec3(0,0,1);

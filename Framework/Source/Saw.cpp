@@ -73,7 +73,7 @@ Saw::Saw(vec3 size): Model()
 						};
 
     // Starting position & velocity
-	mPosition = vec3(0, 4, 5);
+	mPosition = vec3(0, 4, 15);
     mVelocity  = vec3(0, 0, 7);
 
 	// Create a vertex array
