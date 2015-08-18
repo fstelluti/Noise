@@ -8,6 +8,8 @@ Currently, the project contains various cameras used to traverse the scene and v
 
 With the exception of a few textures, the entire scene was creating using OpenGL.
 
+I was was primarily responsible for implementing the skybox (including making sure that the camera never reaches any side of the skybox) and environment reflections. Also, I corrected various bugs such as fixing the Gouraud shading and fixing rendering errors with some models. 
+
 This project is best described with screenshots.
 
 Model transformations moving to the beat of the song:
