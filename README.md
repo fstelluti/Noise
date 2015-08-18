@@ -6,6 +6,8 @@ Noise is an audio visualization tool where a scene of 3D objects are transformed
 
 Currently, the project contains various cameras used to traverse the scene and view models, several different lighting schemes (including Gouraud and Phong), a cube splitter (a cube that is dynamically cut in half), a full skybox, and environment reflections on certain models.
 
+With the exception of a few textures, the entire scene was creating using OpenGL.
+
 This project is best described with screenshots.
 
 Model transformations moving to the beat of the song:
