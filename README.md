@@ -1,5 +1,5 @@
 # Noise - An audio visualization tool
-#### Final computer graphics project for Comp 317 at Concordia University 
+#### Final computer graphics project for Comp 371 at Concordia University 
 ##### Completed with a team of 5 people
 
 Noise is an audio visualization tool where a scene of 3D objects are transformed (moved and scaled) at various intensities that are synchronized to the beat of the current song playing. Also, particles are emmited to the beat with certain spherical objects.
