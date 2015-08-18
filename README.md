@@ -6,9 +6,9 @@ Noise is an audio visualization tool where a scene of 3D objects are transformed
 
 Currently, the project contains various cameras used to traverse the scene and view models, several different lighting schemes (including Gouraud and Phong), a cube splitter (a cube that is dynamically cut in half), a full skybox, and environment reflections on certain models.
 
-But this project is best descibed with screenshots.
+This project is best descibed with screenshots.
 
-Model transformations moving the the beat of the song:
+Model transformations moving to the beat of the song:
 
 ![ScreenShot](https://cloud.githubusercontent.com/assets/10926088/9321121/4592574c-4530-11e5-8ab9-e8814a30d068.jpg)
 
@@ -29,3 +29,5 @@ Phong Shading on some spheres:
 Cube Splitting:
 
 ![ScreenShot](https://cloud.githubusercontent.com/assets/10926088/9321118/458e2410-4530-11e5-9ad6-1cff5ad6c694.jpg)
+
+Source for skybox textures from: https://www.assetstore.unity3d.com/en/#!/content/3392
